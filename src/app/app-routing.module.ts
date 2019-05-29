@@ -6,6 +6,9 @@ import { SignupComponent } from './signup/signup.component';
 import { SubmitComponent } from './submit/submit.component';
 import { CbsComponent } from './cbs/cbs.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CbssuccessComponent } from './cbssuccess/cbssuccess.component';
+import { CbsregisterComponent } from './cbsregister/cbsregister.component';
+
 
 const routes: Routes = [
   { path : '' , redirectTo : 'signup', pathMatch: 'full'},
@@ -13,7 +16,14 @@ const routes: Routes = [
   { path: 'support', component: SupportComponent },
   { path: 'submit', component: SubmitComponent },
   { path: 'signup', component: SignupComponent},
-  { path: 'corebankservices', component: CbsComponent},
+  { path: 'corebankservices',
+    component: CbsComponent,
+    children: [
+      { path : '' , redirectTo : 'register', pathMatch: 'full'},
+      { path: 'success', component: CbssuccessComponent},
+      { path: 'register', component: CbsregisterComponent}
+    ]
+  },
   { path: 'dashboard', component:DashboardComponent}
 ];
 

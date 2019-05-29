@@ -1,0 +1,17 @@
+h2,p{
+  text-align: center;
+}
+.connect{
+  margin-left:47%;
+}
+
+button[type="submit"]{
+  background-color: rgb(106, 39, 182);
+  color: white;
+  font-weight: bold;
+  padding: 12px 45x;
+  border-radius: 4px;
+}
+button:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}

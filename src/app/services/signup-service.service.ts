@@ -32,15 +32,15 @@ export class SignupServiceService {
   }
 
   sendCbsDetails(cbsdet:any):Observable<any>{
-    return this.http.post<any>('route/corebankservices',cbsdet,{
-      headers: 
+    return this.http.post<any>('route/corebankservices/register',cbsdet,{
+      headers:
       new HttpHeaders({ 'Content-Type': 'application/json' })
     });
   }
 
   getVersions():Observable<any>{
-    return this.http.get<any>('route/corebankservices',{
-      headers : 
+    return this.http.get<any>('route/corebankservices/register',{
+      headers :
       new HttpHeaders({ 'Content-Type': 'application/json'})
     });
   }
@@ -54,7 +54,7 @@ export class SignupServiceService {
 
   postApis(apis:any):Observable<any>{
     return this.http.post<any>('route/api',apis,{
-      headers: 
+      headers:
       new HttpHeaders({ 'Content-Type': 'application/json' })
     });
   }

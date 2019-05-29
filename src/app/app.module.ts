@@ -19,6 +19,8 @@ import { SignupComponent } from './signup/signup.component';
 import { SubmitComponent } from './submit/submit.component';
 import { CbsComponent } from './cbs/cbs.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CbsregisterComponent } from './cbsregister/cbsregister.component';
+import { CbssuccessComponent } from './cbssuccess/cbssuccess.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     SignupComponent,
     SubmitComponent,
     CbsComponent,
-    DashboardComponent
+    DashboardComponent,
+    CbsregisterComponent,
+    CbssuccessComponent
   ],
   imports: [
     BrowserModule,
