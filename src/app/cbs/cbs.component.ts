@@ -27,7 +27,7 @@ export interface intopt {
 })
 export class CbsComponent implements OnInit, OnChanges{
 
-  ngOnChanges(changes: SimpleChanges): void {  }
+  // ngOnChanges(changes: SimpleChanges): void {  }
 
   formpart : Number = 1;
   loadingpart: Number = 0;
@@ -54,6 +54,7 @@ export class CbsComponent implements OnInit, OnChanges{
     {value: 'TCP', viewValue: 'TCP-IP ISO 8385'}
   ];
 
+// tslint:disable-next-line: max-line-length
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private signservice : SignupServiceService, private router: Router) { }
 
   ngOnInit() {
@@ -66,10 +67,10 @@ export class CbsComponent implements OnInit, OnChanges{
     });
 
     //get the versions from the database
-    //make a get request 
+    //make a get request
     this.signservice.getVersions()
       .subscribe((data:any)=>{
-        //data ismyObj.convert 
+        //data ismyObj.convert
         var d = JSON.stringify(data);
         console.log("1: "+d);
         console.log("2: "+data[0].fin);
@@ -91,7 +92,7 @@ export class CbsComponent implements OnInit, OnChanges{
       if(1){
         console.log("valid data: "+ myObj);
         this.signservice.sendCbsDetails(myObj)
-        .subscribe((data:any)=>{ 
+        .subscribe((data:any)=>{
           console.log(data);
         } , (err:any)=> console.log(err));
       } else {

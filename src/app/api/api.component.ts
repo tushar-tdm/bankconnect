@@ -55,7 +55,7 @@ export class ApiComponent implements OnInit {
       //   }
       //   console.log("this is the api list "+this.apilist);
       // },(err)=> console.log(err));
-      
+
       this.apiservicesform = this.formBuilder.group({
         apis : this.addApisControls()
       });
@@ -97,7 +97,7 @@ export class ApiComponent implements OnInit {
      .subscribe((data)=>{
        alert(data);
 
-      this.router.navigateByUrl('/api');
+      this.router.navigateByUrl('/dashboard');
     },(err)=>{ console.log(err); })
   }
 
