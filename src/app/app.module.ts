@@ -19,6 +19,7 @@ import { SignupComponent } from './signup/signup.component';
 import { SubmitComponent } from './submit/submit.component';
 import { CbsComponent } from './cbs/cbs.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ApiListResolverService } from './api/apilist-resolver.service';
 
 
 @NgModule({
@@ -41,7 +42,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [SignupServiceService],
+  providers: [SignupServiceService,ApiListResolverService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

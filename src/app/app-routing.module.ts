@@ -5,10 +5,12 @@ import { ApiComponent } from './api/api.component';
 import { SignupComponent } from './signup/signup.component';
 import { SubmitComponent } from './submit/submit.component';
 import { CbsComponent } from './cbs/cbs.component';
+import { SignupServiceService } from './services/signup-service.service';
+import { ApiListResolverService } from './api/apilist-resolver.service';
 
 const routes: Routes = [
   { path : '' , redirectTo : 'signup', pathMatch: 'full'},
-  { path: 'api', component: ApiComponent},
+  { path: 'api', component: ApiComponent, resolve : { apiList : ApiListResolverService}},
   { path: 'support', component: SupportComponent },
   { path: 'submit', component: SubmitComponent },
   { path: 'signup', component: SignupComponent},

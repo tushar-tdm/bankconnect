@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
 import { SignupServiceService} from '../services/signup-service.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { async } from '@angular/core/testing/testing';
 
 export interface API {
   id: number;
@@ -17,51 +18,23 @@ export interface API {
 export class ApiComponent implements OnInit {
 
   apiservicesform: FormGroup;
-  apilist: Array<String> = ['Account','Payment','Transaction'];
+  apilist: Array<String> = [];
   apiselected = [];
   noapierror: boolean = true;
 
-  orders = [
-    { id: 100, name: 'Payments'},
-    { id: 200, name: 'Accounts'},
-    { id: 100, name: 'Transaction'},
-    { id: 200, name: 'Remittance'},
-  ];
-  nestedForm: any;
-
-
-  constructor(private formBuilder: FormBuilder, private signservice : SignupServiceService, private router: Router) {
-    // this.apiservicesform = this.formBuilder.group({
-    //   orders: new FormArray([])
-    // });
-    // this.addCheckboxes();
+  constructor(private formBuilder: FormBuilder, private signservice : SignupServiceService, private router: Router,private route: ActivatedRoute) {
+    this.apilist = this.route.snapshot.data['apiList'];
   }
-
-  // private addCheckboxes() {
-  //   this.orders.map((o, i) => {
-  //     const control = new FormControl(i === 0); // if first item set to true, else false
-  //     (this.apiservicesform.controls.orders as FormArray).push(control);
-  //   });
-  // }
 
   ngOnInit()
   {
-      // this.signservice.getApis()
-      // .subscribe((data)=>{
-      //   console.log("api reply: "+data);
-      //   for(var i=0;i<data.length;++i){
-      //     console.log(data[i]);
-      //     this.apilist.push(data[i]);
-      //   }
-      //   console.log("this is the api list "+this.apilist);
-      // },(err)=> console.log(err));
-      
       this.apiservicesform = this.formBuilder.group({
         apis : this.addApisControls()
       });
   }
 
   addApisControls(){
+    console.log("addapiControls called. 1:->"+this.apilist);
     var arr = this.apilist.map(element =>{
       return this.formBuilder.control(false);
     });
@@ -70,6 +43,7 @@ export class ApiComponent implements OnInit {
   }
 
   get apilistArray(){
+    console.log("apilistArray called. 2:->"+this.apilist);
     return <FormArray>this.apiservicesform.get('apis')
   }
 
