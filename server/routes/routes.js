@@ -44,7 +44,7 @@ routes.route('/sendmail')
     //generate a code.
     var date = new Date();
     var timestamp = date.getTime();
-    
+
     //make an entry in the database in a collection called users.
     //use the schema of the collection.
     var newuser = new usermodel({
@@ -66,7 +66,7 @@ routes.route('/sendmail')
         console.log("error while inserting user " + err);
     });
 
-    
+
     sess = req.session;
     sess.email = useremail;
     sess.ts = timestamp;
@@ -78,31 +78,31 @@ routes.route('/sendmail')
 
 routes.route('/confirm/:ts/:id')
 .get((req,res)=>{
-    
+
     usermodel.find({ts : req.params.ts},(err,doc)=>{
         if(req.params.ts == doc[0].ts){
             usermodel.findOneAndUpdate({ts : req.params.ts},{$set : {confirmation : true}},{new : true},(err,doc)=>{
             });
             console.log("updated");
-            res.redirect('/corebankservices'); 
+            res.redirect('/corebankservices/register');
          }
         else{
             usermodel.findByIdAndRemove({ts : req.params.ts});
             res.redirect('/');
         }
-     }).limit(1).sort({ ts : -1});  
+     }).limit(1).sort({ ts : -1});
 });
 
-routes.route('/corebankservices')
+routes.route('/corebankservices/register')
 .get((req,res)=>{
     var sess = req.session;
-//retrieve the versions, integration option based on the cbs. 
+//retrieve the versions, integration option based on the cbs.
 
     cbsmodel.find({},(err,doc)=>{
         var obj = {
             fin : [],
             tcs : [],
-            flex : [] 
+            flex : []
         }
         for(i=0; i< doc.length;++i){
             if(doc[i].name == "Finnacle"){
@@ -120,7 +120,7 @@ routes.route('/corebankservices')
 
 //to show the connecting with finnacle message and browse api's option.
 .post(urlencodedParser,(req,res)=>{
-    
+
     var cbs = req.body.cbs;
     var version = req.body.version;
     var intopt = req.body.intopt;
@@ -134,7 +134,7 @@ routes.route('/corebankservices')
     // use $set to update a single field
     usermodel.findOneAndUpdate({ email : sess.email }, {cbs : cbs, version : version, intopt : intopt, sip: sip, cred:cred},{new : true},(err,doc)=>{
             if(err) console.log(err);
-        });   
+        });
 
     res.json("updated details");
 });
@@ -154,9 +154,9 @@ routes.route('/api')
 
         apimodel.find({cbs : cbs},(err,doc)=>{
             if(err) console.log(err);
-    
+
             var len = doc.length; var i=0;
-    
+
             for(i=0;i<len;++i){
                 global.apis.push(doc[i].name);
             }
@@ -199,7 +199,7 @@ function sendmail(email,ts){
             pass : 'fcb@rc@M$N321'
         }
         });
-    
+
         var mailOptions = {
             from: 'tushartdm117@gmail.com',
             to: `${email}`,
@@ -207,7 +207,7 @@ function sendmail(email,ts){
             text: 'That was easy!',
             html : `${link}`
         };
-    
+
         transporter.sendMail(mailOptions, function(error, info){
         if (error) {
             console.log(error);

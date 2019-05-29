@@ -1,0 +1,72 @@
+<div class="formcbs" >
+
+  <form [formGroup]="CBSForm" (ngSubmit)="onSubmit()">
+  <div class="container">
+    <div class="row">
+    <div class="col-lg-6">
+          <h4>Core banking</h4>
+          <mat-label><b>Select core banking</b> </mat-label>
+          <mat-form-field>
+            <mat-select formControlName="CBS" onchange="myFunc()">
+              <mat-option *ngFor="let list of cbslist" [value]="list.value">
+                {{list.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button  mat-raised-button (ngClick)="getVer()"> </button>
+          <br><br>
+          <mat-label><b>Select version</b></mat-label>
+          <mat-form-field>
+            <mat-select formControlName="version">
+              <mat-option *ngFor="let list of versions" [value]="list.value">
+                {{list.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+<!--
+          <p> Selected Core banking service:<strong> {{selectedCBS}} </strong></p>
+          <p> Selected Version: <strong>{{selectedversion}} </strong></p> -->
+    </div>
+
+    <div class="col-lg-6">
+        <mat-label> <b>Choose your integration method </b></mat-label><br><br>
+        <mat-form-field>
+          <mat-select formControlName="IntOpt">
+            <mat-option *ngFor="let list of intoptions" [value]="list.value">
+              {{list.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+          <br><br>
+          <mat-label> Enter your Core credentials </mat-label> <br>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Enter Server IP" formControlName="SIP" >
+          </mat-form-field>
+          <br>
+          <mat-form-field class="example-full-width">
+            <input  type="password" matInput placeholder="Enter Credentials" formControlName="cred">
+          </mat-form-field>
+          <br>
+          <br>
+    </div>
+    <div class="connect">
+        <button mat-raised-button color="primary"  type="submit"> Connect!</button>
+    </div>
+
+  </div>
+  </div>
+  </form>
+
+</div>
+
+<!-- <div class="loading" [ngIf]="loadingpart">
+<div>
+  LOADING ..
+</div>
+<div>
+  INTEGRATION WITH IDBP SUCCESSFUL
+</div>
+<button> BROWSE API'S</button>
+</div>  -->
