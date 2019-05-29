@@ -1,0 +1,22 @@
+<h1>Browse  Services</h1>
+
+<form [formGroup]="apiservicesform" (ngSubmit)="OnSubmit()" >
+  <div class="form-group">
+      <div class="form-check" *ngFor="let control of apilistArray.controls; let i = index">
+        <input class="form-check-input" type="checkbox" id="{{i}}" [formControl]="control"
+        (change)="getapiselected()"
+        >
+        <label class="form-check-label" for="{{i}}">
+          {{apilist[i]}}
+        </label>
+      </div>
+      <!-- <div>
+        <small id="fnHelp" *ngIf="noapierror" class="form-text custom-invalid-feedback">At least choose one </small>
+      </div> -->
+  </div>
+
+    <!-- <div *ngIf="!apiservicesform.valid">At least one order must be selected</div> -->
+    <div class="connect">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>

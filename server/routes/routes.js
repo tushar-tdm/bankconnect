@@ -1,0 +1,220 @@
+var express = require('express');
+var nodemailer = require('nodemailer');
+var path = require('path');
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var axios = require('axios');
+
+
+var usermodel = require('../models/usermodel');
+var cbsmodel = require('../models/cbsmodel');
+var apimodel = require('../models/apimodel');
+
+var routes = express.Router();
+
+var urlencodedParser = bodyParser.urlencoded({extended: true});
+routes.use(bodyParser.json());
+
+var sess; //global sesison variable
+//var postAPI = 'https://jsonplaceholder.typicode.com';
+
+routes.get('/',(req,res)=>{
+    // console.log("entered route");
+    // axios.get(`${postAPI}`).then(posts =>{
+    //     console.log(posts.data);
+    //     res.status(200).json(posts.data);
+    // })
+    // .catch(err =>{
+    //     res.status(500).send(err);
+    // })
+})
+
+//YOU SHOULD USE 'urlencodedParser' TO GET THE POST DATA
+routes.route('/sendmail')
+.post(urlencodedParser,(req,res)=>{
+
+    //get the email and phone.
+    console.log("entered /sendmail");
+    console.log(req.body);
+
+    var username = req.body.username;
+    var useremail = req.body.email;
+    var bank = req.body.bank;
+    var pass = req.body.pass;
+    //generate a code.
+    var date = new Date();
+    var timestamp = date.getTime();
+    
+    //make an entry in the database in a collection called users.
+    //use the schema of the collection.
+    var newuser = new usermodel({
+        username: username,
+        ts : timestamp,
+        email : useremail,
+        bank : bank,
+        confirmation : false,
+        version : "default",
+        secret_key : "default",
+        api_list: null,
+        intopt : "default",
+        cbs : "default",
+        sip : "default",
+        cred : "default"
+    });
+    newuser.save((err)=>{
+        if(err)
+        console.log("error while inserting user " + err);
+    });
+
+    
+    sess = req.session;
+    sess.email = useremail;
+    sess.ts = timestamp;
+
+    sendmail(useremail,timestamp);
+    var msg = "Email sent.. Please check your email to continue the process'+ `<br>` + 'you can close this window";
+    res.json(msg);
+});
+
+routes.route('/confirm/:ts/:id')
+.get((req,res)=>{
+    
+    usermodel.find({ts : req.params.ts},(err,doc)=>{
+        if(req.params.ts == doc[0].ts){
+            usermodel.findOneAndUpdate({ts : req.params.ts},{$set : {confirmation : true}},{new : true},(err,doc)=>{
+            });
+            console.log("updated");
+            res.redirect('/corebankservices'); 
+         }
+        else{
+            usermodel.findByIdAndRemove({ts : req.params.ts});
+            res.redirect('/');
+        }
+     }).limit(1).sort({ ts : -1});  
+});
+
+routes.route('/corebankservices')
+.get((req,res)=>{
+    var sess = req.session;
+//retrieve the versions, integration option based on the cbs. 
+
+    cbsmodel.find({},(err,doc)=>{
+        var obj = {
+            fin : [],
+            tcs : [],
+            flex : [] 
+        }
+        for(i=0; i< doc.length;++i){
+            if(doc[i].name == "Finnacle"){
+                obj.fin = doc[i].versions;
+            }else if(doc[i].name == "TCS Bancs"){
+                obj.tcs = doc[i].versions;
+            }else{
+                obj.flex = doc[i].versions;
+            }
+        }
+
+        res.json(obj);
+    })
+})
+
+//to show the connecting with finnacle message and browse api's option.
+.post(urlencodedParser,(req,res)=>{
+    
+    var cbs = req.body.cbs;
+    var version = req.body.version;
+    var intopt = req.body.intopt;
+    var sip = req.body.sip;
+    var cred = req.body.cred;
+
+    var sess = req.session;
+
+    console.log(sess.email);
+    console.log("cbs details: "+cbs+" "+version+" "+intopt+" "+sip+" "+cred);
+    // use $set to update a single field
+    usermodel.findOneAndUpdate({ email : sess.email }, {cbs : cbs, version : version, intopt : intopt, sip: sip, cred:cred},{new : true},(err,doc)=>{
+            if(err) console.log(err);
+        });   
+
+    res.json("updated details");
+});
+
+routes.route('/api')
+.get((req,res)=>{
+
+    var cbs, ver;
+    var sess = req.session;
+    global.apis=[];
+
+    //get the apis based on the users cbs and version.
+    usermodel.find({email : sess.email },(err,doc)=>{
+        //only 1 document will be returned.
+        cbs = doc[0].cbs;
+        ver = doc[0].version;
+
+        apimodel.find({cbs : cbs},(err,doc)=>{
+            if(err) console.log(err);
+    
+            var len = doc.length; var i=0;
+    
+            for(i=0;i<len;++i){
+                global.apis.push(doc[i].name);
+            }
+
+            console.log(global.apis);
+            res.json(global.apis);
+        });
+    });
+
+})
+
+.post(urlencodedParser,(req,res)=>{
+    //add the chosen apis in the user models.
+    var apis = req.body.apis;
+    var api_arr = [];
+    var sess = req.session;
+
+    //console.log(apis);
+
+    usermodel.findOneAndUpdate({email : sess.email},{api_list : apis},(err,doc)=>{
+        if(err) console.log(err);
+    });
+
+    res.json("Services published successfully");
+});
+
+
+
+
+//==============================END OF ROUTING =======================================
+
+function sendmail(email,ts){
+    var link = `http://localhost:3000/route/confirm/${ts}/${email}`;
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            // user: process.env.GMAIL_USER,
+            // pass: process.env.GMAIL_PASS
+            user : 'tushartdm117@gmail.com',
+            pass : 'fcb@rc@M$N321'
+        }
+        });
+    
+        var mailOptions = {
+            from: 'tushartdm117@gmail.com',
+            to: `${email}`,
+            subject: 'Email confirmation for Bank Connect',
+            text: 'That was easy!',
+            html : `${link}`
+        };
+    
+        transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+        });
+}
+
+module.exports = routes;
