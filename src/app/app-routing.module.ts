@@ -10,6 +10,7 @@ import { ApiListResolverService } from './api/apilist-resolver.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CbssuccessComponent } from './cbssuccess/cbssuccess.component';
 import { CbsregisterComponent } from './cbsregister/cbsregister.component';
+import { ProfileComponent } from './profile/profile.component';
 import { SelectedApiListResolverService } from './dashboard/select-apilist-resolver.service';
 
 const routes: Routes = [
@@ -26,7 +27,8 @@ const routes: Routes = [
       { path: 'register', component: CbsregisterComponent}
     ]
   },
-  { path: 'dashboard', component:DashboardComponent, resolve:{selected_api: SelectedApiListResolverService}}
+  { path: 'dashboard', component:DashboardComponent, resolve:{selected_api: SelectedApiListResolverService}},
+  { path: 'profile', component: ProfileComponent}
 ];
 
 @NgModule({

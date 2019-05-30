@@ -24,6 +24,7 @@ import { ApiListResolverService } from './api/apilist-resolver.service';
 import { CbsregisterComponent } from './cbsregister/cbsregister.component';
 import { CbssuccessComponent } from './cbssuccess/cbssuccess.component';
 import { SelectedApiListResolverService } from './dashboard/select-apilist-resolver.service';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { SelectedApiListResolverService } from './dashboard/select-apilist-resol
     CbsComponent,
     DashboardComponent,
     CbsregisterComponent,
-    CbssuccessComponent
+    CbssuccessComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
