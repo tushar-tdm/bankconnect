@@ -19,12 +19,7 @@ export class CbssuccessComponent implements OnInit {
         this.loaded =1;
       this.i=1;
       console.log(this.i);
-    }, 15000);
+    }, 7000);
     
   }
-
-  // change(){
-  //   this.loaded = 1;
-  //   console.log(this.i+" "+this.loaded);
-  // }
 }
