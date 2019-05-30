@@ -15,7 +15,7 @@ var routes = express.Router();
 var urlencodedParser = bodyParser.urlencoded({extended: true});
 routes.use(bodyParser.json());
 
-var sess; 
+var sess;
 
 routes.get('/',(req,res)=>{
 })
@@ -200,13 +200,27 @@ routes.route('/integrated')
     var sess = req.session;
 
     usermodel.find({email: sess.email},(err,doc)=>{
-        if(doc[0].integrated) //true 
+        if(doc[0].integrated) //true
             res.json(1);
         else    res.json(0);
     });
 })
 
+routes.route('/profile')
+.get((req,res)=>{
+    var sess = req.session;
 
+    usermodel.find({email: sess.email},(err,doc)=>{
+      var myObj = {
+        username: doc[0].username,
+        fname: doc[0].fname,
+        lname: doc[0].lname,
+        admin: doc[0].admin,
+        useremail: doc[0].email
+      }
+      res.json(myObj)
+    })
+});
 //==============================END OF ROUTING =======================================
 
 function sendmail(email,ts){

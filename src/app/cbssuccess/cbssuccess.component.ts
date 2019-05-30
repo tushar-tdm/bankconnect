@@ -12,12 +12,10 @@ export class CbssuccessComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    setTimeout(() => {
-      if(this.i)
-        this.loaded = 1;
-        
-      this.i=1;
-    }, 15000);
+  }
+
+  change(){
+    this.loaded = 1;
   }
 
 }

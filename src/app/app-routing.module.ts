@@ -12,6 +12,7 @@ import { CbssuccessComponent } from './cbssuccess/cbssuccess.component';
 import { CbsregisterComponent } from './cbsregister/cbsregister.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SelectedApiListResolverService } from './dashboard/select-apilist-resolver.service';
+import { GetUserProfileResolverService } from './profile/get-userprofile-resolver.service';
 
 const routes: Routes = [
   { path : '' , redirectTo : 'signup', pathMatch: 'full'},
@@ -28,7 +29,7 @@ const routes: Routes = [
     ]
   },
   { path: 'dashboard', component:DashboardComponent, resolve:{selected_api: SelectedApiListResolverService}},
-  { path: 'profile', component: ProfileComponent}
+  { path: 'profile', component: ProfileComponent, resolve : { user_profile : GetUserProfileResolverService}}
 ];
 
 @NgModule({
