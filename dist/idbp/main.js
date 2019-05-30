@@ -620,8 +620,8 @@ var CbssuccessComponent = /** @class */ (function () {
         setInterval(function () {
             console.log("function called");
             if (_this.i)
-                //this.change();
-                _this.i = 1;
+                _this.loaded = 1;
+            _this.i = 1;
             console.log(_this.i);
         }, 15000);
     };

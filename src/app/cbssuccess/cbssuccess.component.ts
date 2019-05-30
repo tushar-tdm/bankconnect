@@ -16,10 +16,11 @@ export class CbssuccessComponent implements OnInit {
     setInterval(() => {
       console.log("function called");
       if(this.i)
-      //this.change();
+        this.loaded =1;
       this.i=1;
       console.log(this.i);
     }, 15000);
+    
   }
 
   // change(){
