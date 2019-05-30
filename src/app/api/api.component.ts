@@ -28,19 +28,6 @@ export class ApiComponent implements OnInit {
 
   ngOnInit()
   {
-<<<<<<< HEAD
-=======
-      // this.signservice.getApis()
-      // .subscribe((data)=>{
-      //   console.log("api reply: "+data);
-      //   for(var i=0;i<data.length;++i){
-      //     console.log(data[i]);
-      //     this.apilist.push(data[i]);
-      //   }
-      //   console.log("this is the api list "+this.apilist);
-      // },(err)=> console.log(err));
-
->>>>>>> db32343bce189799d836886846def320243d0fee
       this.apiservicesform = this.formBuilder.group({
         apis : this.addApisControls()
       });

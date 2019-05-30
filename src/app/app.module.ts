@@ -19,12 +19,11 @@ import { SignupComponent } from './signup/signup.component';
 import { SubmitComponent } from './submit/submit.component';
 import { CbsComponent } from './cbs/cbs.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-<<<<<<< HEAD
+
 import { ApiListResolverService } from './api/apilist-resolver.service';
-=======
 import { CbsregisterComponent } from './cbsregister/cbsregister.component';
 import { CbssuccessComponent } from './cbssuccess/cbssuccess.component';
->>>>>>> db32343bce189799d836886846def320243d0fee
+import { SelectedApiListResolverService } from './dashboard/select-apilist-resolver.service';
 
 
 @NgModule({
@@ -49,7 +48,7 @@ import { CbssuccessComponent } from './cbssuccess/cbssuccess.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [SignupServiceService,ApiListResolverService],
+  providers: [SignupServiceService,ApiListResolverService,SelectedApiListResolverService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

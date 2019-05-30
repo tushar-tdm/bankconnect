@@ -58,4 +58,11 @@ export class SignupServiceService {
       new HttpHeaders({ 'Content-Type': 'application/json' })
     });
   }
+
+  getSelectedApis(){
+    return this.http.get<any>('route/api/selected',{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    });
+  }
 }

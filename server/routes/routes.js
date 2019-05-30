@@ -15,18 +15,9 @@ var routes = express.Router();
 var urlencodedParser = bodyParser.urlencoded({extended: true});
 routes.use(bodyParser.json());
 
-var sess; //global sesison variable
-//var postAPI = 'https://jsonplaceholder.typicode.com';
+var sess; 
 
 routes.get('/',(req,res)=>{
-    // console.log("entered route");
-    // axios.get(`${postAPI}`).then(posts =>{
-    //     console.log(posts.data);
-    //     res.status(200).json(posts.data);
-    // })
-    // .catch(err =>{
-    //     res.status(500).send(err);
-    // })
 })
 
 //YOU SHOULD USE 'urlencodedParser' TO GET THE POST DATA
@@ -142,15 +133,14 @@ routes.route('/corebankservices/register')
 routes.route('/api')
 .get((req,res)=>{
 
-    var cbs, ver;
     var sess = req.session;
     global.apis=[];
 
     //get the apis based on the users cbs and version.
     usermodel.find({email : sess.email },(err,doc)=>{
         //only 1 document will be returned.
-        cbs = doc[0].cbs;
-        ver = doc[0].version;
+        var cbs = doc[0].cbs;
+        var ver = doc[0].version;
 
         apimodel.find({cbs : cbs},(err,doc)=>{
             if(err) console.log(err);
@@ -183,7 +173,23 @@ routes.route('/api')
     res.json("Services published successfully");
 });
 
+routes.route('/api/selected')
+.get((req,res)=>{
 
+    console.log("entered here");
+    var sess = req.session;
+    global.apis=[];
+
+    //get the apis based on the users cbs and version.
+    usermodel.find({email : sess.email },(err,doc)=>{
+        //only 1 document will be returned.
+        //directly get the api_list
+        console.log("selected apis: "+ doc[0].api_list);
+        var selected_api = doc[0].api_list;
+
+        res.json(selected_api);
+    });
+})
 
 
 //==============================END OF ROUTING =======================================
