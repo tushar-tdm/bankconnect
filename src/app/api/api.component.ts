@@ -67,7 +67,6 @@ export class ApiComponent implements OnInit {
 
      this.signservice.postApis(obj)
      .subscribe((data)=>{
-       alert(data);
 
       this.router.navigateByUrl('/dashboard');
     },(err)=>{ console.log(err); })
