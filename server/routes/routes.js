@@ -199,11 +199,19 @@ routes.route('/integrated')
 .get((req,res)=>{
     var sess = req.session;
 
-    usermodel.find({email: sess.email},(err,doc)=>{
-        if(doc[0].integrated) //true 
-            res.json(1);
-        else    res.json(0);
-    });
+    if(sess.email){
+        usermodel.find({email: sess.email},(err,doc)=>{
+            console.log(doc[0].integrated);
+            console.log(doc[0].confirmation);
+            if((!doc[0].integrated && !doc[0].confirmation)||(doc[0].integrated)){
+                console.log("sending 1");
+                res.json(1);
+            }
+            else res.json(0);
+        });
+    }else
+        res.json(1);
+    
 })
 
 

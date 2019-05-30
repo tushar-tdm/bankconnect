@@ -191,7 +191,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/dashboard/dashboard.component.ts");
 /* harmony import */ var _cbssuccess_cbssuccess_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./cbssuccess/cbssuccess.component */ "./src/app/cbssuccess/cbssuccess.component.ts");
 /* harmony import */ var _cbsregister_cbsregister_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./cbsregister/cbsregister.component */ "./src/app/cbsregister/cbsregister.component.ts");
-/* harmony import */ var _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./dashboard/select-apilist-resolver.service */ "./src/app/dashboard/select-apilist-resolver.service.ts");
+/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
+/* harmony import */ var _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./dashboard/select-apilist-resolver.service */ "./src/app/dashboard/select-apilist-resolver.service.ts");
+
 
 
 
@@ -219,7 +221,8 @@ var routes = [
             { path: 'register', component: _cbsregister_cbsregister_component__WEBPACK_IMPORTED_MODULE_11__["CbsregisterComponent"] }
         ]
     },
-    { path: 'dashboard', component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_9__["DashboardComponent"], resolve: { selected_api: _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_12__["SelectedApiListResolverService"] } }
+    { path: 'dashboard', component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_9__["DashboardComponent"], resolve: { selected_api: _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_13__["SelectedApiListResolverService"] } },
+    { path: 'profile', component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_12__["ProfileComponent"] }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -322,6 +325,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cbsregister_cbsregister_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./cbsregister/cbsregister.component */ "./src/app/cbsregister/cbsregister.component.ts");
 /* harmony import */ var _cbssuccess_cbssuccess_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./cbssuccess/cbssuccess.component */ "./src/app/cbssuccess/cbssuccess.component.ts");
 /* harmony import */ var _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./dashboard/select-apilist-resolver.service */ "./src/app/dashboard/select-apilist-resolver.service.ts");
+/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
+
 
 
 
@@ -359,7 +364,8 @@ var AppModule = /** @class */ (function () {
                 _cbs_cbs_component__WEBPACK_IMPORTED_MODULE_15__["CbsComponent"],
                 _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_16__["DashboardComponent"],
                 _cbsregister_cbsregister_component__WEBPACK_IMPORTED_MODULE_18__["CbsregisterComponent"],
-                _cbssuccess_cbssuccess_component__WEBPACK_IMPORTED_MODULE_19__["CbssuccessComponent"]
+                _cbssuccess_cbssuccess_component__WEBPACK_IMPORTED_MODULE_19__["CbssuccessComponent"],
+                _profile_profile_component__WEBPACK_IMPORTED_MODULE_21__["ProfileComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -575,7 +581,7 @@ var CbsregisterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div *ngIf=\"loaded; else elseBlock\">\r\n    <h2>\r\n        Finnacle Integration Successful!!\r\n      </h2>\r\n      <br><br>\r\n      <p>Click next to Browse API</p>\r\n      <div class=\"connect\">\r\n          <button class=\"btn btn-primary\"  [routerLink]=\"['/api']\" type=\"submit\"> Next </button>\r\n      </div>\r\n</div>\r\n<ng-template #elseBlock>\r\n  Integrating with your Core Banking Solution..<br>\r\n              Please Wait \r\n</ng-template>\r\n\r\n\r\n"
+module.exports = "\r\n<div *ngIf=\"loaded; else elseBlock\">\r\n    <h2>\r\n        Finnacle Integration Successful!!\r\n      </h2>\r\n      <br><br>\r\n      <p>Click next to Browse API</p>\r\n      <div class=\"connect\">\r\n          <button class=\"btn btn-primary\"  [routerLink]=\"['/api']\" type=\"submit\"> Next </button>\r\n      </div>\r\n</div>\r\n<ng-template #elseBlock>\r\n  Integrating with your Core Banking Solution..<br>\r\n              Please Wait \r\n  <!-- {{\r\n    \r\n    setTimeout(() => {\r\n      change();\r\n    }, 15000);\r\n  }} -->\r\n\r\n</ng-template>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -611,10 +617,12 @@ var CbssuccessComponent = /** @class */ (function () {
     }
     CbssuccessComponent.prototype.ngOnInit = function () {
         var _this = this;
-        setTimeout(function () {
+        setInterval(function () {
+            console.log("function called");
             if (_this.i)
-                _this.loaded = 1;
-            _this.i = 1;
+                //this.change();
+                _this.i = 1;
+            console.log(_this.i);
         }, 15000);
     };
     CbssuccessComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -855,7 +863,7 @@ var MaterialModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<header>\r\n  <div class=\"navcontainer\">\r\n    <a routerLink=\"/\">{{ appTitle }}</a>\r\n    <nav>\r\n      <ul>\r\n        <li><a routerLink=\"/api\">API</a></li>\r\n        <li><a routerLink=\"/support\">Support</a></li>\r\n      </ul>\r\n    </nav>\r\n  </div>\r\n</header>\r\n"
+module.exports = "<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>\r\n\r\n<header>\r\n  <div class=\"navcontainer\">\r\n    <a routerLink=\"/\">{{ appTitle }}</a>\r\n    <nav>\r\n      <ul>\r\n        \r\n        <li *ngIf=\"!integrated\"><a routerLink=\"/corebankservices/register\">Intergrate with CBS</a></li>\r\n        <li><a routerLink=\"/api\">API</a></li>\r\n        <li><a routerLink=\"/support\">Support</a></li>\r\n        <li><a routerLink=\"/profile\"><i class='fas fa-user-alt' style='font-size:24px'></i></a></li>\r\n      </ul>\r\n    </nav>\r\n  </div>\r\n</header>\r\n"
 
 /***/ }),
 
@@ -882,13 +890,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NavComponent", function() { return NavComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_signup_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/signup-service.service */ "./src/app/services/signup-service.service.ts");
+
 
 
 var NavComponent = /** @class */ (function () {
-    function NavComponent() {
+    function NavComponent(signservice) {
+        this.signservice = signservice;
         this.appTitle = 'IDBP';
+        this.integrated = 0;
     }
     NavComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.signservice.integrated()
+            .subscribe(function (data) {
+            console.log("nav.ts. the data is: " + data);
+            _this.integrated = data;
+        });
     };
     NavComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -896,9 +914,65 @@ var NavComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./nav.component.html */ "./src/app/nav/nav.component.html"),
             styles: [__webpack_require__(/*! ./nav.component.scss */ "./src/app/nav/nav.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_signup_service_service__WEBPACK_IMPORTED_MODULE_2__["SignupServiceService"]])
     ], NavComponent);
     return NavComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/profile/profile.component.html":
+/*!************************************************!*\
+  !*** ./src/app/profile/profile.component.html ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>\r\n  profile works!\r\n</p>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/profile/profile.component.scss":
+/*!************************************************!*\
+  !*** ./src/app/profile/profile.component.scss ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuLi9zcmMvYXBwL3Byb2ZpbGUvcHJvZmlsZS5jb21wb25lbnQuc2NzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/profile/profile.component.ts":
+/*!**********************************************!*\
+  !*** ./src/app/profile/profile.component.ts ***!
+  \**********************************************/
+/*! exports provided: ProfileComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileComponent", function() { return ProfileComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var ProfileComponent = /** @class */ (function () {
+    function ProfileComponent() {
+    }
+    ProfileComponent.prototype.ngOnInit = function () {
+    };
+    ProfileComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-profile',
+            template: __webpack_require__(/*! ./profile.component.html */ "./src/app/profile/profile.component.html"),
+            styles: [__webpack_require__(/*! ./profile.component.scss */ "./src/app/profile/profile.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], ProfileComponent);
+    return ProfileComponent;
 }());
 
 
@@ -971,7 +1045,7 @@ var SignupServiceService = /** @class */ (function () {
         });
     };
     SignupServiceService.prototype.integrated = function () {
-        return this.http.get('/integrated', {
+        return this.http.get('/route/integrated', {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' })
         });
     };
@@ -995,7 +1069,7 @@ var SignupServiceService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"confirmation\" *ngIf=\"sent; else elseBlock\">\r\n    <p> An Email has been sent to your admin email. Please click on the link in your email to continue.</p>\r\n    <p><b> You can CLOSE this window now</b></p>\r\n</div>\r\n\r\n<ng-template #elseBlock>\r\n    <h1>Welcome to IBM Digital Banking Platform</h1>\r\n    <br>\r\n    <div class=\"row\">\r\n      <div class=\"col-sm-4\">\r\n\r\n      </div>\r\n      <div class=\"col-sm-4\">\r\n        <form [formGroup]=\"signupForm\" (ngSubmit) = \"onSubmit()\">\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputFName\">First Name</label>\r\n            <input type=\"text\" class=\"form-control\" formControlName=\"fname\" placeholder=\"Enter First Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputLName\">Last Name</label>\r\n            <input type=\"text\" class=\"form-control\" formControlName=\"lname\" placeholder=\"Enter Last Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n                <label for=\"exampleInputAdminName\">Admin Name</label>\r\n                <input type=\"text\" class=\"form-control\" formControlName=\"admin\" placeholder=\"Enter Admin Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputEmail1\">Email address</label>\r\n            <input type=\"email\" class=\"form-control\" formControlName=\"email\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\r\n            <small id=\"emailHelp\" class=\"form-text text-muted\">We'll never share your email with anyone else.</small>\r\n          </div>\r\n        \r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputPass1\">Password</label>\r\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass\" id=\"exampleInputPass1\" placeholder=\"Enter Password\">\r\n          </div>\r\n        \r\n        <!-- \r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputPass2\">Re-Type Password</label>\r\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass2\" id=\"exampleInputPass2\" placeholder=\"Re-Type Password\">\r\n          </div> -->\r\n        \r\n          <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\r\n        </form>\r\n      </div>\r\n      <div class=\"col-sm-4\">\r\n\r\n      </div>\r\n    </div>\r\n\r\n</ng-template>\r\n"
+module.exports = "\r\n<div class=\"confirmation\" *ngIf=\"sent; else elseBlock\">\r\n    <p> An Email has been sent to your admin email. Please click on the link in your email to continue.</p>\r\n    <p><b> You can CLOSE this window now</b></p>\r\n</div>\r\n\r\n<ng-template #elseBlock>\r\n    <h1>Welcome to IBM Digital Banking Platform</h1>\r\n    <br>\r\n    <div class=\"row\">\r\n      <div class=\"col-sm-4\">\r\n\r\n      </div>\r\n      <div class=\"col-sm-4\">\r\n        <form [formGroup]=\"signupForm\" (ngSubmit) = \"onSubmit()\">\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputFName\">First Name</label>\r\n            <input type=\"text\" class=\"form-control\" formControlName=\"fname\" placeholder=\"Enter First Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputLName\">Last Name</label>\r\n            <input type=\"text\" class=\"form-control\" formControlName=\"lname\" placeholder=\"Enter Last Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n                <label for=\"exampleInputAdminName\">Admin Name</label>\r\n                <input type=\"text\" class=\"form-control\" formControlName=\"admin\" placeholder=\"Enter Admin Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n              <label for=\"exampleInputUserName\">User Name</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"username\" placeholder=\"Enter User Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputEmail1\">Email address</label>\r\n            <input type=\"email\" class=\"form-control\" formControlName=\"email\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\r\n            <small id=\"emailHelp\" class=\"form-text text-muted\">We'll never share your email with anyone else.</small>\r\n          </div>\r\n        \r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputPass1\">Password</label>\r\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass\" id=\"exampleInputPass1\" placeholder=\"Enter Password\">\r\n          </div>\r\n        \r\n        <!-- \r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputPass2\">Re-Type Password</label>\r\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass2\" id=\"exampleInputPass2\" placeholder=\"Re-Type Password\">\r\n          </div> -->\r\n        \r\n          <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\r\n        </form>\r\n      </div>\r\n      <div class=\"col-sm-4\">\r\n\r\n      </div>\r\n    </div>\r\n\r\n</ng-template>\r\n"
 
 /***/ }),
 
@@ -1038,7 +1112,10 @@ var SignupComponent = /** @class */ (function () {
         this.signupForm = this.fb.group({
             email: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
             username: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
-            pass: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]]
+            pass: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
+            fname: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
+            lname: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
+            admin: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
         });
     };
     SignupComponent.prototype.onSubmit = function () {
@@ -1046,7 +1123,10 @@ var SignupComponent = /** @class */ (function () {
         var myObj = {
             email: this.signupForm.controls.email.value,
             username: this.signupForm.controls.username.value,
-            pass: this.signupForm.controls.pass.value
+            pass: this.signupForm.controls.pass.value,
+            fname: this.signupForm.controls.fname.value,
+            lname: this.signupForm.controls.lname.value,
+            admin: this.signupForm.controls.admin.value
         };
         this.signservice.sendSignUpDetails(myObj)
             .subscribe(function (data) {

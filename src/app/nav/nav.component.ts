@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SignupServiceService } from '../services/signup-service.service';
 
 
 @Component({
@@ -9,10 +10,16 @@ import { Component, OnInit } from '@angular/core';
 export class NavComponent implements OnInit {
 
   appTitle = 'IDBP';
+  integrated = 0;
 
-  constructor() { }
+  constructor( private signservice: SignupServiceService ) { }
 
   ngOnInit() {
+    this.signservice.integrated()
+    .subscribe((data)=>{
+      console.log("nav.ts. the data is: "+data);
+      this.integrated = data;
+    });
   }
 
 }
