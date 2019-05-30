@@ -193,11 +193,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cbsregister_cbsregister_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./cbsregister/cbsregister.component */ "./src/app/cbsregister/cbsregister.component.ts");
 /* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
 /* harmony import */ var _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./dashboard/select-apilist-resolver.service */ "./src/app/dashboard/select-apilist-resolver.service.ts");
-<<<<<<< HEAD
 /* harmony import */ var _profile_get_userprofile_resolver_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./profile/get-userprofile-resolver.service */ "./src/app/profile/get-userprofile-resolver.service.ts");
 
-=======
->>>>>>> bff8440d9a0251ea6b4eea4eabcb3302c0da21ac
 
 
 
@@ -227,11 +224,7 @@ var routes = [
         ]
     },
     { path: 'dashboard', component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_9__["DashboardComponent"], resolve: { selected_api: _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_13__["SelectedApiListResolverService"] } },
-<<<<<<< HEAD
     { path: 'profile', component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_12__["ProfileComponent"], resolve: { user_profile: _profile_get_userprofile_resolver_service__WEBPACK_IMPORTED_MODULE_14__["GetUserProfileResolverService"] } }
-=======
-    { path: 'profile', component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_12__["ProfileComponent"] }
->>>>>>> bff8440d9a0251ea6b4eea4eabcb3302c0da21ac
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -590,7 +583,7 @@ var CbsregisterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div *ngIf=\"loaded; else elseBlock\">\r\n    <h2>\r\n        Finnacle Integration Successful!!\r\n      </h2>\r\n      <br><br>\r\n      <p>Click next to Browse API</p>\r\n      <div class=\"connect\">\r\n          <button class=\"btn btn-primary\"  [routerLink]=\"['/api']\" type=\"submit\"> Next </button>\r\n      </div>\r\n</div>\r\n<ng-template #elseBlock>\r\n  Integrating with your Core Banking Solution..<br>\r\n              Please Wait \r\n  <!-- {{\r\n    \r\n    setTimeout(() => {\r\n      change();\r\n    }, 15000);\r\n  }} -->\r\n\r\n</ng-template>\r\n\r\n\r\n"
+module.exports = "\r\n<div *ngIf=\"loaded; else elseBlock\">\r\n    <h2>\r\n        Finnacle Integration Successful!!\r\n      </h2>\r\n      <br><br>\r\n      <p>Click next to Browse API</p>\r\n      <div class=\"connect\">\r\n          <button class=\"btn btn-primary\"  [routerLink]=\"['/api']\" type=\"submit\"> Next </button>\r\n      </div>\r\n</div>\r\n<ng-template #elseBlock>\r\n  <p>Integrating with your Core Banking Solution..\r\n              Please Wait </p>\r\n</ng-template>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -872,11 +865,7 @@ var MaterialModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-<<<<<<< HEAD
-module.exports = "<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>\r\n\r\n<header>\r\n  <div class=\"navcontainer\">\r\n    <a routerLink=\"/\">{{ appTitle }}</a>\r\n    <nav>\r\n      <ul>\r\n        <li><a routerLink=\"/corebankservices/register\">Intergrate with CBS</a></li>\r\n        <li><a routerLink=\"/api\">API</a></li>\r\n        <li><a routerLink=\"/support\">Support</a></li>\r\n        <li><a routerLink=\"/profile\"><i class='fas fa-user-alt' style='font-size:24px'></i></a></li>\r\n      </ul>\r\n    </nav>\r\n  </div>\r\n</header>\r\n"
-=======
 module.exports = "<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>\r\n\r\n<header>\r\n  <div class=\"navcontainer\">\r\n    <a routerLink=\"/\">{{ appTitle }}</a>\r\n    <nav>\r\n      <ul>\r\n        \r\n        <li *ngIf=\"!integrated\"><a routerLink=\"/corebankservices/register\">Intergrate with CBS</a></li>\r\n        <li><a routerLink=\"/api\">API</a></li>\r\n        <li><a routerLink=\"/support\">Support</a></li>\r\n        <li><a routerLink=\"/profile\"><i class='fas fa-user-alt' style='font-size:24px'></i></a></li>\r\n      </ul>\r\n    </nav>\r\n  </div>\r\n</header>\r\n"
->>>>>>> bff8440d9a0251ea6b4eea4eabcb3302c0da21ac
 
 /***/ }),
 
@@ -936,7 +925,6 @@ var NavComponent = /** @class */ (function () {
 
 /***/ }),
 
-<<<<<<< HEAD
 /***/ "./src/app/profile/get-userprofile-resolver.service.ts":
 /*!*************************************************************!*\
   !*** ./src/app/profile/get-userprofile-resolver.service.ts ***!
@@ -971,8 +959,6 @@ var GetUserProfileResolverService = /** @class */ (function () {
 
 /***/ }),
 
-=======
->>>>>>> bff8440d9a0251ea6b4eea4eabcb3302c0da21ac
 /***/ "./src/app/profile/profile.component.html":
 /*!************************************************!*\
   !*** ./src/app/profile/profile.component.html ***!
@@ -980,11 +966,7 @@ var GetUserProfileResolverService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-<<<<<<< HEAD
-module.exports = "<p>\n  {{show_user_profile}}\n</p>\n"
-=======
-module.exports = "<p>\r\n  profile works!\r\n</p>\r\n"
->>>>>>> bff8440d9a0251ea6b4eea4eabcb3302c0da21ac
+module.exports = "<p>\n  {{show_user_profile}}\n</p>\n<p>\n  profile\n</p>\n"
 
 /***/ }),
 
@@ -1011,7 +993,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileComponent", function() { return ProfileComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-<<<<<<< HEAD
 /* harmony import */ var _services_signup_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/signup-service.service */ "./src/app/services/signup-service.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 
@@ -1026,12 +1007,6 @@ var ProfileComponent = /** @class */ (function () {
         this.show_user_profile = [];
         this.show_user_profile = this.route.snapshot.data['user_profile'];
         console.log(this.show_user_profile);
-=======
-
-
-var ProfileComponent = /** @class */ (function () {
-    function ProfileComponent() {
->>>>>>> bff8440d9a0251ea6b4eea4eabcb3302c0da21ac
     }
     ProfileComponent.prototype.ngOnInit = function () {
     };
@@ -1041,11 +1016,7 @@ var ProfileComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./profile.component.html */ "./src/app/profile/profile.component.html"),
             styles: [__webpack_require__(/*! ./profile.component.scss */ "./src/app/profile/profile.component.scss")]
         }),
-<<<<<<< HEAD
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_signup_service_service__WEBPACK_IMPORTED_MODULE_2__["SignupServiceService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
-=======
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
->>>>>>> bff8440d9a0251ea6b4eea4eabcb3302c0da21ac
     ], ProfileComponent);
     return ProfileComponent;
 }());

@@ -25,6 +25,7 @@ import { CbsregisterComponent } from './cbsregister/cbsregister.component';
 import { CbssuccessComponent } from './cbssuccess/cbssuccess.component';
 import { SelectedApiListResolverService } from './dashboard/select-apilist-resolver.service';
 import { ProfileComponent } from './profile/profile.component';
+import { GetUserProfileResolverService } from './profile/get-userprofile-resolver.service';
 
 
 @NgModule({
@@ -50,7 +51,7 @@ import { ProfileComponent } from './profile/profile.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [SignupServiceService,ApiListResolverService,SelectedApiListResolverService],
+  providers: [SignupServiceService,ApiListResolverService,SelectedApiListResolverService, GetUserProfileResolverService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

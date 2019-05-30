@@ -39,7 +39,7 @@ export class CbsregisterComponent implements OnInit{
 
   cbslist: CBS[] = [
     {value: 'Finnacle', viewValue: 'Finnacle'},
-    {value: 'TCS BaNCS', viewValue: 'TCS BaNCS'},
+    {value: 'TCS Bancs', viewValue: 'TCS BaNCS'}, //TCS Bancs is the spelling in database
     {value: 'Flexcube', viewValue: 'Flexcube'}
   ];
 
