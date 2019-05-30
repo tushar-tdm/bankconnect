@@ -65,4 +65,11 @@ export class SignupServiceService {
       new HttpHeaders({ 'Content-Type':'application/json'})
     });
   }
+
+  integrated(){
+    return this.http.get<any>('/integrated',{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    });
+  }
 }

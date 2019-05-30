@@ -29,8 +29,10 @@ routes.route('/sendmail')
     console.log(req.body);
 
     var username = req.body.username;
+    var fname = req.body.fname;
+    var lname = req.body.lname;
+    var admin = req.body.admin;
     var useremail = req.body.email;
-    var bank = req.body.bank;
     var pass = req.body.pass;
     //generate a code.
     var date = new Date();
@@ -40,17 +42,19 @@ routes.route('/sendmail')
     //use the schema of the collection.
     var newuser = new usermodel({
         username: username,
+        fname : fname,
+        lname : lname,
+        admin : admin,
         ts : timestamp,
         email : useremail,
-        bank : bank,
         confirmation : false,
         version : "default",
-        secret_key : "default",
         api_list: null,
         intopt : "default",
         cbs : "default",
         sip : "default",
-        cred : "default"
+        cred : "default",
+        integrated : false
     });
     newuser.save((err)=>{
         if(err)
@@ -75,11 +79,11 @@ routes.route('/confirm/:ts/:id')
             usermodel.findOneAndUpdate({ts : req.params.ts},{$set : {confirmation : true}},{new : true},(err,doc)=>{
             });
             console.log("updated");
-            res.redirect('/corebankservices/register');
+            res.redirect('/dashboard'); //dashboard
          }
         else{
             usermodel.findByIdAndRemove({ts : req.params.ts});
-            res.redirect('/');
+            res.json('confirmation failed');
         }
      }).limit(1).sort({ ts : -1});
 });
@@ -188,6 +192,17 @@ routes.route('/api/selected')
         var selected_api = doc[0].api_list;
 
         res.json(selected_api);
+    });
+});
+
+routes.route('/integrated')
+.get((req,res)=>{
+    var sess = req.session;
+
+    usermodel.find({email: sess.email},(err,doc)=>{
+        if(doc[0].integrated) //true 
+            res.json(1);
+        else    res.json(0);
     });
 })
 

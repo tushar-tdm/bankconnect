@@ -10,36 +10,32 @@ import { SignupServiceService} from '../services/signup-service.service';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-
-  allBanks: Banks[];
+  
+  sent:Number = 0;
   signupForm: FormGroup;
+
   constructor(private fb: FormBuilder, private signservice: SignupServiceService ) { }
 
   ngOnInit() {
     this.signupForm = this.fb.group({
       email:['',[Validators.required]],
       username:['',[Validators.required]],
-      bank:['null',[Validators.required]],
       pass:['',[Validators.required]]
     });
-    this.allBanks = this.signservice.getallBanks();
   }
 
   onSubmit(){
     var myObj = {
       email: this.signupForm.controls.email.value,
       username: this.signupForm.controls.username.value,
-      bank: this.signupForm.controls.bank.value.bankName,
       pass: this.signupForm.controls.pass.value
     }
-    // var bankval = JSON.stringify(this.signupForm.controls.bank.value);
-    // console.log('display' + bankval);
     
     this.signservice.sendSignUpDetails(myObj)
   .subscribe(
     (data : any) => {
       console.log(data);
-      alert("Email has been sent. Please verify your email to continue");
+      this.sent = 1;
     },
     (error: any) => console.log('error')
   );

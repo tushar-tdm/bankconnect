@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
 import { SignupServiceService} from '../services/signup-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { async } from '@angular/core/testing/testing';
 
 export interface API {
   id: number;
@@ -54,7 +53,6 @@ export class ApiComponent implements OnInit {
         this.apiselected.push(this.apilist[i]);
       }
     });
-    //this.noapierror = this.apiselected.length > 0 ? false : true;
   }
 
   OnSubmit() {

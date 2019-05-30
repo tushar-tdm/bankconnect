@@ -79,7 +79,6 @@ export class CbsregisterComponent implements OnInit{
   }
 
   onSubmit(){
-      alert('Integration Successful');
       var myObj = {
         cbs : this.CBSForm.controls.CBS.value,
         version : this.CBSForm.controls.version.value,

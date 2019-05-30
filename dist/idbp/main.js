@@ -105,7 +105,6 @@ var ApiComponent = /** @class */ (function () {
                 _this.apiselected.push(_this.apilist[i]);
             }
         });
-        //this.noapierror = this.apiselected.length > 0 ? false : true;
     };
     ApiComponent.prototype.OnSubmit = function () {
         var _this = this;
@@ -445,7 +444,7 @@ var CbsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"formcbs\" >\r\n\r\n  <form [formGroup]=\"CBSForm\" (ngSubmit)=\"onSubmit()\">\r\n  <div class=\"container\">\r\n    <div class=\"row\">\r\n    <div class=\"col-lg-6\">\r\n          <h4>Core banking</h4>\r\n          <mat-label><b>Select core banking</b> </mat-label>\r\n          <mat-form-field>\r\n            <mat-select formControlName=\"CBS\" onchange=\"myFunc()\">\r\n              <mat-option *ngFor=\"let list of cbslist\" [value]=\"list.value\">\r\n                {{list.viewValue}}\r\n              </mat-option>\r\n            </mat-select>\r\n          </mat-form-field>\r\n\r\n          <button  mat-raised-button (ngClick)=\"getVer()\"> </button>\r\n          <br><br>\r\n          <mat-label><b>Select version</b></mat-label>\r\n          <mat-form-field>\r\n            <mat-select formControlName=\"version\">\r\n              <mat-option *ngFor=\"let list of versions\" [value]=\"list.value\">\r\n                {{list.viewValue}}\r\n              </mat-option>\r\n            </mat-select>\r\n          </mat-form-field>\r\n<!--\r\n          <p> Selected Core banking service:<strong> {{selectedCBS}} </strong></p>\r\n          <p> Selected Version: <strong>{{selectedversion}} </strong></p> -->\r\n    </div>\r\n\r\n    <div class=\"col-lg-6\">\r\n        <mat-label> <b>Choose your integration method </b></mat-label><br><br>\r\n        <mat-form-field>\r\n          <mat-select formControlName=\"IntOpt\">\r\n            <mat-option *ngFor=\"let list of intoptions\" [value]=\"list.value\">\r\n              {{list.viewValue}}\r\n            </mat-option>\r\n          </mat-select>\r\n        </mat-form-field>\r\n\r\n          <br><br>\r\n          <mat-label> Enter your Core credentials </mat-label> <br>\r\n          <mat-form-field class=\"example-full-width\">\r\n            <input matInput placeholder=\"Enter Server IP\" formControlName=\"SIP\" >\r\n          </mat-form-field>\r\n          <br>\r\n          <mat-form-field class=\"example-full-width\">\r\n            <input  type=\"password\" matInput placeholder=\"Enter Credentials\" formControlName=\"cred\">\r\n          </mat-form-field>\r\n          <br>\r\n          <br>\r\n    </div>\r\n    <div class=\"connect\">\r\n        <button mat-raised-button color=\"primary\"  type=\"submit\"> Connect!</button>\r\n    </div>\r\n\r\n  </div>\r\n  </div>\r\n  </form>\r\n\r\n</div>\r\n\r\n<!-- <div class=\"loading\" [ngIf]=\"loadingpart\">\r\n<div>\r\n  LOADING ..\r\n</div>\r\n<div>\r\n  INTEGRATION WITH IDBP SUCCESSFUL\r\n</div>\r\n<button> BROWSE API'S</button>\r\n</div>  -->\r\n"
+module.exports = "<div class=\"formcbs\" >\r\n  <form [formGroup]=\"CBSForm\" (ngSubmit)=\"onSubmit()\">\r\n  <div class=\"container\">\r\n    <div class=\"row\">\r\n    <div class=\"col-lg-6\">\r\n          <h4>Core banking</h4>\r\n          <mat-label><b>Select core banking</b> </mat-label>\r\n          <mat-form-field>\r\n            <mat-select formControlName=\"CBS\" onchange=\"myFunc()\">\r\n              <mat-option *ngFor=\"let list of cbslist\" [value]=\"list.value\">\r\n                {{list.viewValue}}\r\n              </mat-option>\r\n            </mat-select>\r\n          </mat-form-field>\r\n\r\n          <button  mat-raised-button (ngClick)=\"getVer()\"> </button>\r\n          <br><br>\r\n          <mat-label><b>Select version</b></mat-label>\r\n          <mat-form-field>\r\n            <mat-select formControlName=\"version\">\r\n              <mat-option *ngFor=\"let list of versions\" [value]=\"list.value\">\r\n                {{list.viewValue}}\r\n              </mat-option>\r\n            </mat-select>\r\n          </mat-form-field>\r\n\r\n    </div>\r\n\r\n    <div class=\"col-lg-6\">\r\n        <mat-label> <b>Choose your integration method </b></mat-label><br><br>\r\n        <mat-form-field>\r\n          <mat-select formControlName=\"IntOpt\">\r\n            <mat-option *ngFor=\"let list of intoptions\" [value]=\"list.value\">\r\n              {{list.viewValue}}\r\n            </mat-option>\r\n          </mat-select>\r\n        </mat-form-field>\r\n\r\n          <br><br>\r\n          <mat-label> Enter your Core credentials </mat-label> <br>\r\n          <mat-form-field class=\"example-full-width\">\r\n            <input matInput placeholder=\"Enter Server IP\" formControlName=\"SIP\" >\r\n          </mat-form-field>\r\n          <br>\r\n          <mat-form-field class=\"example-full-width\">\r\n            <input  type=\"password\" matInput placeholder=\"Enter Credentials\" formControlName=\"cred\">\r\n          </mat-form-field>\r\n          <br>\r\n          <br>\r\n    </div>\r\n    <div class=\"connect\">\r\n        <button mat-raised-button color=\"primary\"  type=\"submit\"> Connect!</button>\r\n    </div>\r\n\r\n  </div>\r\n  </div>\r\n  </form>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -523,7 +522,6 @@ var CbsregisterComponent = /** @class */ (function () {
         }, function (err) { return console.log("error while getting versions " + err); });
     };
     CbsregisterComponent.prototype.onSubmit = function () {
-        alert('Integration Successful');
         var myObj = {
             cbs: this.CBSForm.controls.CBS.value,
             version: this.CBSForm.controls.version.value,
@@ -577,7 +575,7 @@ var CbsregisterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2>\r\n  Finnacle Integration Successful!!\r\n</h2>\r\n<br><br>\r\n<p>Click next to Browse API</p>\r\n<div class=\"connect\">\r\n    <button class=\"btn btn-primary\"  [routerLink]=\"['/api']\" type=\"submit\"> Next </button>\r\n</div>\r\n"
+module.exports = "\r\n<div *ngIf=\"loaded; else elseBlock\">\r\n    <h2>\r\n        Finnacle Integration Successful!!\r\n      </h2>\r\n      <br><br>\r\n      <p>Click next to Browse API</p>\r\n      <div class=\"connect\">\r\n          <button class=\"btn btn-primary\"  [routerLink]=\"['/api']\" type=\"submit\"> Next </button>\r\n      </div>\r\n</div>\r\n<ng-template #elseBlock>\r\n  Integrating with your Core Banking Solution..<br>\r\n              Please Wait \r\n</ng-template>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -608,8 +606,16 @@ __webpack_require__.r(__webpack_exports__);
 
 var CbssuccessComponent = /** @class */ (function () {
     function CbssuccessComponent() {
+        this.loaded = 0;
+        this.i = 0;
     }
     CbssuccessComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        setTimeout(function () {
+            if (_this.i)
+                _this.loaded = 1;
+            _this.i = 1;
+        }, 15000);
     };
     CbssuccessComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -671,10 +677,18 @@ var DashboardComponent = /** @class */ (function () {
         this.signservice = signservice;
         this.route = route;
         this.select_api = [];
+        this.integrated = 0;
         this.select_api = this.route.snapshot.data['selected_api'];
         console.log(this.select_api);
     }
     DashboardComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        //make a call to service to know whether the confirmation is done or not.
+        this.signservice.integrated()
+            .subscribe(function (data) {
+            console.log(data);
+            _this.integrated = data;
+        }, function (err) { return console.log(err); });
     };
     DashboardComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -956,6 +970,11 @@ var SignupServiceService = /** @class */ (function () {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' })
         });
     };
+    SignupServiceService.prototype.integrated = function () {
+        return this.http.get('/integrated', {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' })
+        });
+    };
     SignupServiceService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
@@ -976,7 +995,7 @@ var SignupServiceService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Welcome to IBM Digital Banking Platform</h1>\r\n<br>\r\n<div class=\"row\">\r\n  <div class=\"col-sm-4\">\r\n\r\n  </div>\r\n  <div class=\"col-sm-4\">\r\n    <form [formGroup]=\"signupForm\" (ngSubmit) = \"onSubmit()\">\r\n      <div class=\"form-group\">\r\n            <label for=\"exampleInputUsername1\">Username</label>\r\n            <input type=\"email\" class=\"form-control\" formControlName=\"username\" placeholder=\"Enter Username\">\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label for=\"exampleInputEmail1\">Email address</label>\r\n        <input type=\"email\" class=\"form-control\" formControlName=\"email\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\r\n        <small id=\"emailHelp\" class=\"form-text text-muted\">We'll never share your email with anyone else.</small>\r\n      </div>\r\n      <div class=\"form-group\">\r\n        <label for=\"exampleFormControlSelect1\">Select Bank</label>\r\n        <select class=\"form-control\" formControlName=\"bank\">\r\n          <option [ngValue]=\"null\" disabled>Choose your Bank</option>\r\n          <option *ngFor=\"let list of allBanks\" [ngValue]=\"list\"> \r\n           {{ list.bankName }}\r\n          </option>\r\n        </select>\r\n      </div>\r\n    \r\n      <div class=\"form-group\">\r\n        <label for=\"exampleInputPass1\">Password</label>\r\n        <input type=\"password\" class=\"form-control\" formControlName=\"pass\" id=\"exampleInputPass1\" placeholder=\"Enter Password\">\r\n      </div>\r\n    \r\n    <!-- \r\n      <div class=\"form-group\">\r\n        <label for=\"exampleInputPass2\">Re-Type Password</label>\r\n        <input type=\"password\" class=\"form-control\" formControlName=\"pass2\" id=\"exampleInputPass2\" placeholder=\"Re-Type Password\">\r\n      </div> -->\r\n    \r\n    \r\n      <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\r\n    </form>\r\n  </div>\r\n  <div class=\"col-sm-4\">\r\n\r\n  </div>\r\n</div>\r\n"
+module.exports = "\r\n<div class=\"confirmation\" *ngIf=\"sent; else elseBlock\">\r\n    <p> An Email has been sent to your admin email. Please click on the link in your email to continue.</p>\r\n    <p><b> You can CLOSE this window now</b></p>\r\n</div>\r\n\r\n<ng-template #elseBlock>\r\n    <h1>Welcome to IBM Digital Banking Platform</h1>\r\n    <br>\r\n    <div class=\"row\">\r\n      <div class=\"col-sm-4\">\r\n\r\n      </div>\r\n      <div class=\"col-sm-4\">\r\n        <form [formGroup]=\"signupForm\" (ngSubmit) = \"onSubmit()\">\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputFName\">First Name</label>\r\n            <input type=\"text\" class=\"form-control\" formControlName=\"fname\" placeholder=\"Enter First Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputLName\">Last Name</label>\r\n            <input type=\"text\" class=\"form-control\" formControlName=\"lname\" placeholder=\"Enter Last Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n                <label for=\"exampleInputAdminName\">Admin Name</label>\r\n                <input type=\"text\" class=\"form-control\" formControlName=\"admin\" placeholder=\"Enter Admin Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputEmail1\">Email address</label>\r\n            <input type=\"email\" class=\"form-control\" formControlName=\"email\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\r\n            <small id=\"emailHelp\" class=\"form-text text-muted\">We'll never share your email with anyone else.</small>\r\n          </div>\r\n        \r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputPass1\">Password</label>\r\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass\" id=\"exampleInputPass1\" placeholder=\"Enter Password\">\r\n          </div>\r\n        \r\n        <!-- \r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputPass2\">Re-Type Password</label>\r\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass2\" id=\"exampleInputPass2\" placeholder=\"Re-Type Password\">\r\n          </div> -->\r\n        \r\n          <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\r\n        </form>\r\n      </div>\r\n      <div class=\"col-sm-4\">\r\n\r\n      </div>\r\n    </div>\r\n\r\n</ng-template>\r\n"
 
 /***/ }),
 
@@ -1013,29 +1032,26 @@ var SignupComponent = /** @class */ (function () {
     function SignupComponent(fb, signservice) {
         this.fb = fb;
         this.signservice = signservice;
+        this.sent = 0;
     }
     SignupComponent.prototype.ngOnInit = function () {
         this.signupForm = this.fb.group({
             email: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
             username: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
-            bank: ['null', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
             pass: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]]
         });
-        this.allBanks = this.signservice.getallBanks();
     };
     SignupComponent.prototype.onSubmit = function () {
+        var _this = this;
         var myObj = {
             email: this.signupForm.controls.email.value,
             username: this.signupForm.controls.username.value,
-            bank: this.signupForm.controls.bank.value.bankName,
             pass: this.signupForm.controls.pass.value
         };
-        // var bankval = JSON.stringify(this.signupForm.controls.bank.value);
-        // console.log('display' + bankval);
         this.signservice.sendSignUpDetails(myObj)
             .subscribe(function (data) {
             console.log(data);
-            alert("Email has been sent. Please verify your email to continue");
+            _this.sent = 1;
         }, function (error) { return console.log('error'); });
     };
     SignupComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

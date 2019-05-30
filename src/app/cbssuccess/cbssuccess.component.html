@@ -1,8 +1,17 @@
-<h2>
-  Finnacle Integration Successful!!
-</h2>
-<br><br>
-<p>Click next to Browse API</p>
-<div class="connect">
-    <button class="btn btn-primary"  [routerLink]="['/api']" type="submit"> Next </button>
+
+<div *ngIf="loaded; else elseBlock">
+    <h2>
+        Finnacle Integration Successful!!
+      </h2>
+      <br><br>
+      <p>Click next to Browse API</p>
+      <div class="connect">
+          <button class="btn btn-primary"  [routerLink]="['/api']" type="submit"> Next </button>
+      </div>
 </div>
+<ng-template #elseBlock>
+  Integrating with your Core Banking Solution..<br>
+              Please Wait 
+</ng-template>
+
+

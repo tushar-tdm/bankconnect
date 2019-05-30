@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   select_api : Array<String> = [];
+  integrated : Number = 0;
 
   constructor(private signservice: SignupServiceService, private route: ActivatedRoute) { 
     this.select_api = this.route.snapshot.data['selected_api'];
@@ -17,5 +18,11 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    //make a call to service to know whether the confirmation is done or not.
+    this.signservice.integrated()
+    .subscribe((data)=>{
+      console.log(data);
+      this.integrated = data;
+    },(err)=> console.log(err));
   }
 }
