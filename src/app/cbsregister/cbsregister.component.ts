@@ -49,6 +49,11 @@ export class CbsregisterComponent implements OnInit{
     {value: 'v11.1.1', viewValue: 'v11.1.1'}
   ];
 
+  verver : any = {};
+  fin : Array<string> = [];
+  tcs : Array<string> = [];
+  flex : Array<string> = [];
+
   intoptions: intopt[] = [
     {value: 'FI', viewValue: 'FI Integrator'},
     {value: 'TCP', viewValue: 'TCP-IP ISO 8385'}
@@ -70,11 +75,10 @@ export class CbsregisterComponent implements OnInit{
     //make a get request
     this.signservice.getVersions()
       .subscribe((data:any)=>{
-        //data ismyObj.convert
-        var d = JSON.stringify(data);
-        console.log("1: "+d);
-        console.log("2: "+data[0].fin);
-
+        this.fin = data.fin;
+        this.tcs = data.tcs;
+        this.flex = data.flex;
+        console.log(this.fin+" "+this.tcs+" "+this.flex);
       },(err:any)=> console.log("error while getting versions "+err));
   }
 
@@ -87,7 +91,7 @@ export class CbsregisterComponent implements OnInit{
         cred : this.CBSForm.controls.cred.value
       }
 
-      console.log(this.CBSForm.controls.IntOpt.value);
+    console.log(this.CBSForm.controls.IntOpt.value);
       if(1){
         console.log("valid data: "+ myObj);
         this.signservice.sendCbsDetails(myObj)
@@ -101,14 +105,31 @@ export class CbsregisterComponent implements OnInit{
       this.router.navigateByUrl('/corebankservices/success');
    }
 
-   getVer(){
-     var version = this.CBSForm.controls.CBS.value;
-     if(version == "Finnacle"){
+   newCbs(value){
+     //set the versions list to corresponding version
+    console.log(value);
+    if(value == "Finnacle"){
+      this.verver = this.fin;
+      console.log("verver updated: "+this.verver);
+    }else if(value == "TCS Bancs"){
+      this.verver = this.tcs;
+      console.log("verver updated: "+this.verver);
+    }else{
+      this.verver = this.flex;
+      console.log("verver updated: "+this.verver);
+    }
 
-     }else if(version == "TCS BaNCS"){
+    (document.querySelector('.version-div') as HTMLElement).style.display = 'block';
+    (document.querySelector('.cbs-div') as HTMLElement).style.top = 'none';
+   }
 
-     }else{
+   showintopt(){
+    (document.querySelector('.version-div') as HTMLElement).style.display = 'none';
+    (document.querySelector('.intopt-div') as HTMLElement).style.display = 'block';
+   }
 
-     }
+   showcred(){
+    (document.querySelector('.intopt-div') as HTMLElement).style.display = 'none';
+    (document.querySelector('.cred-div') as HTMLElement).style.display = 'block';
    }
 }

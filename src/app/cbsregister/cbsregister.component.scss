@@ -21,3 +21,24 @@ button[type="submit"]{
 .example-margin {
   margin: 0 10px;
 }
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+.version-div{
+  display: none;
+}
+
+.intopt-div{
+  display: none;
+}
+
+.cred-div{
+  display: none;
+}

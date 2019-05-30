@@ -1,58 +1,79 @@
 <div class="formcbs" >
   <form [formGroup]="CBSForm" (ngSubmit)="onSubmit()">
   <div class="container">
-    <div class="row">
-    <div class="col-lg-6">
+
           <h4>Core banking</h4>
-          <mat-label><b>Select core banking</b> </mat-label>
-          <mat-form-field>
-            <mat-select formControlName="CBS" onchange="myFunc()">
-              <mat-option *ngFor="let list of cbslist" [value]="list.value">
-                {{list.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
 
-          <button  mat-raised-button (ngClick)="getVer()"> </button>
+          <!-- ====================== CORE BANKING SERVICE ================================ -->
+          <div class="cbs-div">
+            <label id="CBS-radio-group-label">Pick your CBS</label>
+              <mat-radio-group
+                aria-labelledby="CBS-radio-group-label"
+                class="CBS-radio-group"
+                formControlName="CBS">
+                <mat-radio-button class="example-radio-button" *ngFor="let list of cbslist" [value]="list.value" (change)="newCbs(list.value)">
+                  {{list.viewValue}}
+                </mat-radio-button>
+              </mat-radio-group>
+          </div>
+
+          <!-- ====================== VERSIONS ================================ -->
+
           <br><br>
-          <mat-label><b>Select version</b></mat-label>
-          <mat-form-field>
-            <mat-select formControlName="version">
-              <mat-option *ngFor="let list of versions" [value]="list.value">
-                {{list.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+          <div class="version-div">
+            <mat-label><b>Select version</b></mat-label>
+            <label id="version-radio-group-label">Pick your version</label>
+              <mat-radio-group
+                aria-labelledby="version-radio-group-label"
+                class="version-radio-group"
+                formControlName="version">
+                <mat-radio-button class="example-radio-button" *ngFor="let list of verver" [value]="list" (change)="showintopt()">
+                  {{list}}
+                </mat-radio-button>
+              </mat-radio-group>
+              <!-- <input type="radio" *ngFor="let list of verver" [value]="list" (change)="showintopt()" formControlName="version">
+              <p> {{list}} </p> -->
+            </div>
 
-    </div>
+      <!-- ====================== INTEGRATION OPTIONS ================================ -->
 
-    <div class="col-lg-6">
+        <div class="intopt-div">
         <mat-label> <b>Choose your integration method </b></mat-label><br><br>
-        <mat-form-field>
-          <mat-select formControlName="IntOpt">
-            <mat-option *ngFor="let list of intoptions" [value]="list.value">
-              {{list.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+    
+             <mat-radio-group
+                aria-labelledby="intopt-radio-group-label"
+                class="intopt-radio-group"
+                formControlName="IntOpt">
+                <mat-radio-button class="example-radio-button" *ngFor="let list of intoptions" [value]="list.value" (change)="showcred()">
+                  {{list.viewValue}}
+                </mat-radio-button>
+              </mat-radio-group>
+              <!-- <input type="radio" *ngFor="let list of intoptions" [value]="list.value" (change)="showcred()" formControlName="IntOpt"> 
+              <span> {{list.viewValue}} </span> -->
+
+        </div>
+
+        <!-- ====================== CREDENTIALS ================================ -->
 
           <br><br>
-          <mat-label> Enter your Core credentials </mat-label> <br>
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Enter Server IP" formControlName="SIP" >
-          </mat-form-field>
-          <br>
-          <mat-form-field class="example-full-width">
-            <input  type="password" matInput placeholder="Enter Credentials" formControlName="cred">
-          </mat-form-field>
-          <br>
-          <br>
-    </div>
-    <div class="connect">
-        <button mat-raised-button color="primary"  type="submit"> Connect!</button>
-    </div>
+          <div class="cred-div">
+              <mat-label> Enter your Core credentials </mat-label> <br>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Enter Server IP" formControlName="SIP" >
+              </mat-form-field>
+              <br>
+              <mat-form-field class="example-full-width">
+                <input  type="password" matInput placeholder="Enter Credentials" formControlName="cred">
+              </mat-form-field>
 
-  </div>
+                    <br>
+                    <br>
+              <div class="connect">
+                  <button mat-raised-button color="primary"  type="submit"> Connect!</button>
+              </div>
+          </div>
+
+
   </div>
   </form>
 

@@ -104,11 +104,11 @@ routes.route('/corebankservices/register')
                 obj.fin = doc[i].versions;
             }else if(doc[i].name == "TCS Bancs"){
                 obj.tcs = doc[i].versions;
-            }else{
+            }else if(doc[i].name == "Flexcube"){
                 obj.flex = doc[i].versions;
             }
         }
-
+        //console.log("versions: "+obj);
         res.json(obj);
     })
 })
