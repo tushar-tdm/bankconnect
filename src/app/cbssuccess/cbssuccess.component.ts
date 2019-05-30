@@ -12,7 +12,7 @@ export class CbssuccessComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    
+
     setInterval(() => {
       console.log("function called");
       if(this.i)

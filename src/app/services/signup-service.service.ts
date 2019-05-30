@@ -31,6 +31,14 @@ export class SignupServiceService {
     });
   }
 
+  getSignUpDetails():Observable<any>{
+    return this.http.get<any>('route/profile', {
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    });
+  }
+
+
   sendCbsDetails(cbsdet:any):Observable<any>{
     return this.http.post<any>('route/corebankservices/register',cbsdet,{
       headers:
