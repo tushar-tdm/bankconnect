@@ -75,7 +75,7 @@ export class SignupServiceService {
   }
 
   integrated(){
-    return this.http.get<any>('/integrated',{
+    return this.http.get<any>('/route/integrated',{
       headers :
       new HttpHeaders({ 'Content-Type':'application/json'})
     });

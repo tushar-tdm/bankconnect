@@ -20,7 +20,10 @@ export class SignupComponent implements OnInit {
     this.signupForm = this.fb.group({
       email:['',[Validators.required]],
       username:['',[Validators.required]],
-      pass:['',[Validators.required]]
+      pass:['',[Validators.required]],
+      fname:['',[Validators.required]],
+      lname:['',[Validators.required]],
+      admin:['',[Validators.required]],
     });
   }
 
@@ -28,7 +31,10 @@ export class SignupComponent implements OnInit {
     var myObj = {
       email: this.signupForm.controls.email.value,
       username: this.signupForm.controls.username.value,
-      pass: this.signupForm.controls.pass.value
+      pass: this.signupForm.controls.pass.value,
+      fname : this.signupForm.controls.fname.value,
+      lname : this.signupForm.controls.lname.value,
+      admin : this.signupForm.controls.admin.value
     }
     
     this.signservice.sendSignUpDetails(myObj)
