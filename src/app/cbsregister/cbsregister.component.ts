@@ -120,7 +120,7 @@ export class CbsregisterComponent implements OnInit{
     }
 
     (document.querySelector('.version-div') as HTMLElement).style.display = 'block';
-    (document.querySelector('.cbs-div') as HTMLElement).style.top = 'none';
+    (document.querySelector('.cbs-div') as HTMLElement).style.display = 'none';
    }
 
    showintopt(){
