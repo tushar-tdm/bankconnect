@@ -120,16 +120,16 @@ export class CbsregisterComponent implements OnInit{
     }
 
     (document.querySelector('.version-div') as HTMLElement).style.display = 'block';
-    (document.querySelector('.cbs-div') as HTMLElement).style.display = 'none';
+    //(document.querySelector('.cbs-div') as HTMLElement).style.display = 'none';
    }
 
    showintopt(){
-    (document.querySelector('.version-div') as HTMLElement).style.display = 'none';
+    //(document.querySelector('.version-div') as HTMLElement).style.display = 'none';
     (document.querySelector('.intopt-div') as HTMLElement).style.display = 'block';
    }
 
    showcred(){
-    (document.querySelector('.intopt-div') as HTMLElement).style.display = 'none';
+    //(document.querySelector('.intopt-div') as HTMLElement).style.display = 'none';
     (document.querySelector('.cred-div') as HTMLElement).style.display = 'block';
    }
 }

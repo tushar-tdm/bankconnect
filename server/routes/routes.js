@@ -170,7 +170,7 @@ routes.route('/api')
 
     //console.log(apis);
 
-    usermodel.findOneAndUpdate({email : sess.email},{api_list : apis},(err,doc)=>{
+    usermodel.findOneAndUpdate({email : sess.email},{api_list : apis, integrated: true},(err,doc)=>{
         if(err) console.log(err);
     });
 
@@ -195,15 +195,13 @@ routes.route('/api/selected')
     });
 });
 
-routes.route('/integrated')
+routes.route('/confirmed')
 .get((req,res)=>{
     var sess = req.session;
 
     if(sess.email){
         usermodel.find({email: sess.email},(err,doc)=>{
-            console.log(doc[0].integrated);
-            console.log(doc[0].confirmation);
-            if((!doc[0].integrated && !doc[0].confirmation)||(doc[0].integrated)){
+            if(!doc[0].integrated && doc[0].confirmation){
                 console.log("sending 1");
                 res.json(1);
             }
@@ -212,6 +210,15 @@ routes.route('/integrated')
     }else
         res.json(1);
 
+})
+
+routes.route('/integrated')
+.get((req,res)=>{
+    usermodel.find({email:sess.email},(err,doc)=>{
+        if(doc[0].integrated)
+            res.json(1);
+        else res.json(0);
+    })
 })
 
 routes.route('/profile')

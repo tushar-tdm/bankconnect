@@ -11,6 +11,7 @@ export class DashboardComponent implements OnInit {
 
   select_api : Array<String> = [];
   integrated : Number = 0;
+  confirmed : Number = 0;
 
   constructor(private signservice: SignupServiceService, private route: ActivatedRoute) { 
     this.select_api = this.route.snapshot.data['selected_api'];
@@ -24,5 +25,12 @@ export class DashboardComponent implements OnInit {
       console.log(data);
       this.integrated = data;
     },(err)=> console.log(err));
+
+    this.signservice.confirmed()
+    .subscribe((data)=>{
+      console.log(data);
+      this.confirmed = data;
+    },(err)=>console.log(err));
   }
+
 }

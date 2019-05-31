@@ -1,8 +1,10 @@
-<p>API Services opted</p>
 <br>
-<div class="message" *ngIf="!integrated">
+<div class="message" *ngIf="confirmed">
     Your account has been activated. Please integrate with your Core Bank Solution to continue.
 </div>
-<div>
-    {{select_api}}
+<div *ngIf="integrated">
+    List of Api services published
+    <div *ngFor=" let api of select_api">
+        <b> {{api}} </b>
+    </div>
 </div>

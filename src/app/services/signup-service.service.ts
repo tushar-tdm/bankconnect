@@ -80,4 +80,11 @@ export class SignupServiceService {
       new HttpHeaders({ 'Content-Type':'application/json'})
     });
   }
+
+  confirmed(){
+    return this.http.get<any>('/route/confirmed',{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    });
+  }
 }
