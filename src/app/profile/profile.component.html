@@ -1,6 +1,19 @@
-<p>
-  {{show_user_profile[0].fname}}
-</p>
-<p>
-  profile
-</p>
+<h3><b>Your account details</b></h3>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <ul>
+            <li><b>User Name: </b>{{show_user_profile.username}}</li>
+            <li><b>First Name: </b>{{show_user_profile.fname}}</li>
+            <li><b>Last Name: </b>{{show_user_profile.lname}}</li>
+            <li><b>Admin: </b>{{show_user_profile.admin}}</li>
+            <li><b>Email: </b>{{show_user_profile.useremail}}</li>
+        </ul>
+    </div>
+    <div class="col-4"></div>
+  </div>
+</div>
+
+
