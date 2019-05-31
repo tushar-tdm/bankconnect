@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row">
     <h4><b>Core banking Service Registration</b></h4><br>
-    <div class="col-4"></div>
-    <div class="col-4">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4">
         <form [formGroup]="CBSForm" (ngSubmit)="onSubmit()">
                     <!-- ====================== CORE BANKING SERVICE ================================ -->
                     <div class="cbs-div">
@@ -64,13 +64,14 @@
                         <mat-form-field class="example-full-width">
                           <input  type="password" matInput placeholder="Enter Credentials" formControlName="cred">
                         </mat-form-field>
+                        <div class="connect">
+                          <button mat-raised-button color="primary"  type="submit"> Connect!</button>
+                        </div>
                     </div><br>
-                    <div class="connect">
-                        <button mat-raised-button color="primary"  type="submit"> Connect!</button>
-                    </div>
+                    
           </form>
     </div>
-    <div class="col-4"></div>
+    <div class="col-lg-4"></div>
   </div>
 
 </div>

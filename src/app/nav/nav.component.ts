@@ -10,16 +10,10 @@ import { SignupServiceService } from '../services/signup-service.service';
 export class NavComponent implements OnInit {
 
   appTitle = 'IDBP';
-  integrated = 0;
 
   constructor( private signservice: SignupServiceService ) { }
 
   ngOnInit() {
-    this.signservice.integrated()
-    .subscribe((data)=>{
-      console.log("nav.ts. the data is: "+data);
-      this.integrated = data;
-    });
   }
 
 }

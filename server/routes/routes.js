@@ -60,10 +60,10 @@ routes.route('/sendmail')
 
 
     sess = req.session;
-    sess.email = useremail;
+    sess.email = req.body.email;
     sess.ts = timestamp;
 
-    sendmail(useremail,timestamp);
+    sendmail(req.body.email,timestamp);
     var msg = "Email sent.. Please check your email to continue the process'+ `<br>` + 'you can close this window";
     res.json(msg);
 });
