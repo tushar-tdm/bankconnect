@@ -31,6 +31,13 @@ export class SignupServiceService {
     });
   }
 
+  sendLoginDetails(user:any):Observable<any>{
+    return this.http.post<any>('route/loginconfirm',user,{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    });
+  }
+
   getSignUpDetails():Observable<any>{
     return this.http.get<any>('route/profile', {
       headers :

@@ -3,7 +3,7 @@ var nodemailer = require('nodemailer');
 var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-//var passwordHash = require('./lib/password-hash');
+var passwordHash = require('password-hash');
 
 var usermodel = require('../models/usermodel');
 var cbsmodel = require('../models/cbsmodel');
@@ -24,12 +24,10 @@ routes.route('/sendmail')
     console.log("entered /sendmail");
     console.log(req.body);
 
-    // var pass = req.body.pass;
-    // var hashpwd = passwordHash.generate(pass);
-    // if(passwordHash.verify(pass,hashpwd))
-    //     console.log("correct");
-    // else    
-    //     console.log("false");
+    var pass = req.body.pass;
+    var hashpwd = passwordHash.generate(pass);
+    //if(passwordHash.verify(pass,hashpwd))
+
     //generate a code.
     var date = new Date();
     var timestamp = date.getTime();
@@ -51,7 +49,7 @@ routes.route('/sendmail')
         sip : "default",
         cred : "default",
         integrated : false,
-        pass : null
+        pass : hashpwd
     });
     newuser.save((err)=>{
         if(err)
@@ -66,6 +64,40 @@ routes.route('/sendmail')
     sendmail(req.body.email,timestamp);
     var msg = "Email sent.. Please check your email to continue the process'+ `<br>` + 'you can close this window";
     res.json(msg);
+});
+
+routes.route('/loginconfirm')
+.post(urlencodedParser,(req,res)=>{
+    var sess = req.session;
+    usermodel.find({email: req.body.email},(err,doc)=>{
+        if(doc.length == 0){
+            var msg = "Invalid email";
+            var obj = {
+                status: 0,
+                msg : "entered invalid email"
+            }
+            res.json(obj);
+        }
+        else{
+            //check for password.
+            if(passwordHash.verify(req.body.pass,doc[0].pass)){
+                //login successful
+                sess.email = req.body.email;
+                var obj = {
+                    status: 1,
+                    msg : "Login Successful"
+                }
+                res.json(obj);
+            }else{
+                console.log("entered wrong pass");
+                var obj = {
+                    status: 0,
+                    msg : "Wrong Password.Please try again"
+                }
+                res.json(obj);
+            }
+        }
+    })
 });
 
 routes.route('/confirm/:ts/:id')
@@ -211,6 +243,8 @@ routes.route('/confirmed')
 
 routes.route('/integrated')
 .get((req,res)=>{
+    var sess = req.session;
+    
     usermodel.find({email:sess.email},(err,doc)=>{
         if(doc[0].integrated)
             res.json(1);

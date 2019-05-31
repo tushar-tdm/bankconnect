@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div>
+    <h1>Welcome to IBM Digital Banking Platform</h1>
+    <br>
+    <div class="row">
+      <div class="col-sm-4">
+
+      </div>
+      <div class="col-sm-4">
+        <form [formGroup]="loginForm" (ngSubmit) = "onSubmit()">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputPass1">Password</label>
+            <input type="password" class="form-control" formControlName="pass" id="exampleInputPass1" placeholder="Enter Password">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <div class="col-sm-4">
+
+      </div>
+    </div>
+
+  </div>

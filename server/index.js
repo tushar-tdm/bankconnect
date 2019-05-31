@@ -30,7 +30,6 @@ app.get('*',(req,res)=>{
 setInterval(() => {
     var date = new Date();
     var cts = date.getTime(); //current time stamp.
-    //console.log(cts);
 
     usermodel.find({},(err,doc)=>{
         var len = doc.length;
@@ -39,14 +38,16 @@ setInterval(() => {
             //convert the variable to int .
             if(doc[i].ts != "expired"){
                 var ts = parseInt(doc[i].ts);
-                if(cts - ts >= 86400000){
-                    //if the time is more than a day.
-                    usermodel.findOneAndUpdate({ts: ts},{$set : {ts : "expired"}},{new : true});  
+                if(cts - ts >= 86400000){  
+                    if(!doc[i].confirmation){
+                        //delete the user
+                        usermodel.findOneAndRemove({ts:ts},(err,doc)=> console.log(err));
+                    }else  usermodel.findOneAndUpdate({ts: ts},{$set : {ts : "expired"}},{new : true});
                 }
             }
         }
     });
-}, 12000);
+}, 120000);
 
 
 app.listen(3000);
