@@ -26,6 +26,7 @@ import { CbssuccessComponent } from './cbssuccess/cbssuccess.component';
 import { SelectedApiListResolverService } from './dashboard/select-apilist-resolver.service';
 import { ProfileComponent } from './profile/profile.component';
 import { GetUserProfileResolverService } from './profile/get-userprofile-resolver.service';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { GetUserProfileResolverService } from './profile/get-userprofile-resolve
     DashboardComponent,
     CbsregisterComponent,
     CbssuccessComponent,
-    ProfileComponent
+    ProfileComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

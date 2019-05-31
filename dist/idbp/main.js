@@ -193,6 +193,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
 /* harmony import */ var _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./dashboard/select-apilist-resolver.service */ "./src/app/dashboard/select-apilist-resolver.service.ts");
 /* harmony import */ var _profile_get_userprofile_resolver_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./profile/get-userprofile-resolver.service */ "./src/app/profile/get-userprofile-resolver.service.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+
 
 
 
@@ -223,7 +225,8 @@ var routes = [
         ]
     },
     { path: 'dashboard', component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_9__["DashboardComponent"], resolve: { selected_api: _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_13__["SelectedApiListResolverService"] } },
-    { path: 'profile', component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_12__["ProfileComponent"], resolve: { user_profile: _profile_get_userprofile_resolver_service__WEBPACK_IMPORTED_MODULE_14__["GetUserProfileResolverService"] } }
+    { path: 'profile', component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_12__["ProfileComponent"], resolve: { user_profile: _profile_get_userprofile_resolver_service__WEBPACK_IMPORTED_MODULE_14__["GetUserProfileResolverService"] } },
+    { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_15__["LoginComponent"] }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -328,6 +331,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./dashboard/select-apilist-resolver.service */ "./src/app/dashboard/select-apilist-resolver.service.ts");
 /* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
 /* harmony import */ var _profile_get_userprofile_resolver_service__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./profile/get-userprofile-resolver.service */ "./src/app/profile/get-userprofile-resolver.service.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+
 
 
 
@@ -368,7 +373,8 @@ var AppModule = /** @class */ (function () {
                 _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_16__["DashboardComponent"],
                 _cbsregister_cbsregister_component__WEBPACK_IMPORTED_MODULE_18__["CbsregisterComponent"],
                 _cbssuccess_cbssuccess_component__WEBPACK_IMPORTED_MODULE_19__["CbssuccessComponent"],
-                _profile_profile_component__WEBPACK_IMPORTED_MODULE_21__["ProfileComponent"]
+                _profile_profile_component__WEBPACK_IMPORTED_MODULE_21__["ProfileComponent"],
+                _login_login_component__WEBPACK_IMPORTED_MODULE_23__["LoginComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -606,7 +612,7 @@ var CbsregisterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div *ngIf=\"loaded; else elseBlock\">\r\n    <h2>\r\n        Finnacle Integration Successful!!\r\n      </h2>\r\n      <br><br>\r\n      <p>Click next to Browse API</p>\r\n      <div class=\"connect\">\r\n          <button class=\"btn btn-primary\"  [routerLink]=\"['/api']\" type=\"submit\"> Next </button>\r\n      </div>\r\n</div>\r\n<ng-template #elseBlock>\r\n  <p>Integrating with your Core Banking Solution..\r\n              Please Wait </p>\r\n</ng-template>\r\n\r\n\r\n"
+module.exports = "\r\n<div *ngIf=\"loaded; else elseBlock\">\r\n    <h2>\r\n        Finnacle Integration Successful!!\r\n      </h2>\r\n      <br><br>\r\n      <p>Click next to Browse API</p>\r\n      <div class=\"connect\">\r\n          <button class=\"btn btn-primary\"  [routerLink]=\"['/api']\" type=\"submit\"> Next </button>\r\n      </div>\r\n</div>\r\n<ng-template #elseBlock>\r\n  <h3><b>Integrating with your Core Banking Solution..\r\n              Please Wait </b></h3>\r\n</ng-template>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -793,6 +799,92 @@ var Banks = /** @class */ (function () {
         this.bankName = bankName;
     }
     return Banks;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/login/login.component.html":
+/*!********************************************!*\
+  !*** ./src/app/login/login.component.html ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n\n<div>\n    <h1>Welcome to IBM Digital Banking Platform</h1>\n    <br>\n    <div class=\"row\">\n      <div class=\"col-sm-4\">\n\n      </div>\n      <div class=\"col-sm-4\">\n        <form [formGroup]=\"loginForm\" (ngSubmit) = \"onSubmit()\">\n          <div class=\"form-group\">\n            <label for=\"exampleInputEmail1\">Email address</label>\n            <input type=\"email\" class=\"form-control\" formControlName=\"email\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\n            <small id=\"emailHelp\" class=\"form-text text-muted\">We'll never share your email with anyone else.</small>\n          </div>\n\n          <div class=\"form-group\">\n            <label for=\"exampleInputPass1\">Password</label>\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass\" id=\"exampleInputPass1\" placeholder=\"Enter Password\">\n          </div>\n\n          <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n        </form>\n      </div>\n      <div class=\"col-sm-4\">\n\n      </div>\n    </div>\n\n  </div>\n"
+
+/***/ }),
+
+/***/ "./src/app/login/login.component.scss":
+/*!********************************************!*\
+  !*** ./src/app/login/login.component.scss ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "h1, h3, p {\n  text-align: center; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9hcHAvbG9naW4vQzpcXFVzZXJzXFxUdXNoYXJNQUxDSEFQVVJFXFxEZXNrdG9wXFxHaXRodWJcXGJhbmtjb25uZWN0XFxzZXJ2ZXIvLi5cXHNyY1xcYXBwXFxsb2dpblxcbG9naW4uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxrQkFBa0IsRUFBQSIsImZpbGUiOiIuLi9zcmMvYXBwL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaDEsaDMscHtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICB9XHJcbiAgIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/login/login.component.ts":
+/*!******************************************!*\
+  !*** ./src/app/login/login.component.ts ***!
+  \******************************************/
+/*! exports provided: LoginComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return LoginComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _services_signup_service_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/signup-service.service */ "./src/app/services/signup-service.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+
+var LoginComponent = /** @class */ (function () {
+    function LoginComponent(fb, signservice, router) {
+        this.fb = fb;
+        this.signservice = signservice;
+        this.router = router;
+        this.sent = 0;
+    }
+    LoginComponent.prototype.ngOnInit = function () {
+        this.loginForm = this.fb.group({
+            email: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
+            pass: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
+        });
+    };
+    LoginComponent.prototype.onSubmit = function () {
+        var _this = this;
+        var myObj = {
+            email: this.loginForm.controls.email.value,
+            pass: this.loginForm.controls.pass.value,
+        };
+        this.signservice.sendLoginDetails(myObj)
+            .subscribe(function (data) {
+            if (data.status) {
+                _this.router.navigateByUrl('/dashboard');
+            }
+            else {
+                alert(data.msg);
+            }
+        }, function (error) { return console.log('error'); });
+    };
+    LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-login',
+            template: __webpack_require__(/*! ./login.component.html */ "./src/app/login/login.component.html"),
+            styles: [__webpack_require__(/*! ./login.component.scss */ "./src/app/login/login.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _services_signup_service_service__WEBPACK_IMPORTED_MODULE_3__["SignupServiceService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+    ], LoginComponent);
+    return LoginComponent;
 }());
 
 
@@ -988,7 +1080,7 @@ var GetUserProfileResolverService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  {{show_user_profile[0].fname}}\r\n</p>\r\n<p>\r\n  profile\r\n</p>\r\n"
+module.exports = "<h3><b>Your account details</b></h3>\r\n<br>\r\n<div class=\"container\">\r\n  <div class=\"row\">\r\n    <div class=\"col-4\"></div>\r\n    <div class=\"col-4\">\r\n        <ul>\r\n            <li><b>User Name: </b>{{show_user_profile.username}}</li>\r\n            <li><b>First Name: </b>{{show_user_profile.fname}}</li>\r\n            <li><b>Last Name: </b>{{show_user_profile.lname}}</li>\r\n            <li><b>Admin: </b>{{show_user_profile.admin}}</li>\r\n            <li><b>Email: </b>{{show_user_profile.useremail}}</li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"col-4\"></div>\r\n  </div>\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -1087,6 +1179,11 @@ var SignupServiceService = /** @class */ (function () {
             })
         });
     };
+    SignupServiceService.prototype.sendLoginDetails = function (user) {
+        return this.http.post('route/loginconfirm', user, {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' })
+        });
+    };
     SignupServiceService.prototype.getSignUpDetails = function () {
         return this.http.get('route/profile', {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' })
@@ -1147,7 +1244,7 @@ var SignupServiceService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\r\n<div class=\"confirmation\" *ngIf=\"sent; else elseBlock\">\r\n    <h3><b><i class=\"fa fa-envelope\" style=\"font-size:25px\"></i>\r\n      An Email has been sent to your admin email. Please click on the link in your email to continue.</b></h3>\r\n    <p> You can CLOSE this window now</p>\r\n</div>\r\n\r\n<ng-template #elseBlock>\r\n    <h1>Welcome to IBM Digital Banking Platform</h1>\r\n    <br>\r\n    <div class=\"row\">\r\n      <div class=\"col-sm-4\">\r\n\r\n      </div>\r\n      <div class=\"col-sm-4\">\r\n        <form [formGroup]=\"signupForm\" (ngSubmit) = \"onSubmit()\">\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputFName\">First Name</label>\r\n            <input type=\"text\" class=\"form-control\" formControlName=\"fname\" placeholder=\"Enter First Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputLName\">Last Name</label>\r\n            <input type=\"text\" class=\"form-control\" formControlName=\"lname\" placeholder=\"Enter Last Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n                <label for=\"exampleInputAdminName\">Admin Name</label>\r\n                <input type=\"text\" class=\"form-control\" formControlName=\"admin\" placeholder=\"Enter Admin Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n              <label for=\"exampleInputUserName\">User Name</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"username\" placeholder=\"Enter User Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputEmail1\">Email address</label>\r\n            <input type=\"email\" class=\"form-control\" formControlName=\"email\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\r\n            <small id=\"emailHelp\" class=\"form-text text-muted\">We'll never share your email with anyone else.</small>\r\n          </div>\r\n\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputPass1\">Password</label>\r\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass\" id=\"exampleInputPass1\" placeholder=\"Enter Password\">\r\n          </div>\r\n\r\n        <!--\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputPass2\">Re-Type Password</label>\r\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass2\" id=\"exampleInputPass2\" placeholder=\"Re-Type Password\">\r\n          </div> -->\r\n\r\n          <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\r\n        </form>\r\n      </div>\r\n      <div class=\"col-sm-4\">\r\n\r\n      </div>\r\n    </div>\r\n\r\n</ng-template>\r\n"
+module.exports = "   <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\r\n<div class=\"confirmation\" *ngIf=\"sent; else elseBlock\">\r\n    <h3><b><i class=\"fa fa-envelope\" style=\"font-size:25px\"></i>\r\n      An Email has been sent to your admin email. Please click on the link in your email to continue.</b></h3>\r\n    <p> You can CLOSE this window now</p>\r\n</div>\r\n\r\n<ng-template #elseBlock>\r\n    <h1>Welcome to IBM Digital Banking Platform</h1>\r\n    <br>\r\n    <div class=\"row\">\r\n      <div class=\"col-sm-4\">\r\n\r\n      </div>\r\n      <div class=\"col-sm-4\">\r\n        <form [formGroup]=\"signupForm\" (ngSubmit) = \"onSubmit()\">\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputFName\">First Name</label>\r\n            <input type=\"text\" class=\"form-control\" formControlName=\"fname\" placeholder=\"Enter First Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputLName\">Last Name</label>\r\n            <input type=\"text\" class=\"form-control\" formControlName=\"lname\" placeholder=\"Enter Last Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n                <label for=\"exampleInputAdminName\">Admin Name</label>\r\n                <input type=\"text\" class=\"form-control\" formControlName=\"admin\" placeholder=\"Enter Admin Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n              <label for=\"exampleInputUserName\">User Name</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"username\" placeholder=\"Enter User Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputEmail1\">Email address</label>\r\n            <input type=\"email\" class=\"form-control\" formControlName=\"email\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\r\n            <small id=\"emailHelp\" class=\"form-text text-muted\">We'll never share your email with anyone else.</small>\r\n          </div>\r\n\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputPass1\">Password</label>\r\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass\" id=\"exampleInputPass1\" placeholder=\"Enter Password\">\r\n          </div>\r\n\r\n        <!--\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputPass2\">Re-Type Password</label>\r\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass2\" id=\"exampleInputPass2\" placeholder=\"Re-Type Password\">\r\n          </div> -->\r\n\r\n          <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\r\n        </form>\r\n      </div>\r\n      <div class=\"col-sm-4\">\r\n\r\n      </div>\r\n    </div>\r\n\r\n</ng-template>\r\n"
 
 /***/ }),
 
