@@ -3,8 +3,7 @@ var nodemailer = require('nodemailer');
 var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var axios = require('axios');
-
+//var passwordHash = require('./lib/password-hash');
 
 var usermodel = require('../models/usermodel');
 var cbsmodel = require('../models/cbsmodel');
@@ -17,9 +16,6 @@ routes.use(bodyParser.json());
 
 var sess;
 
-routes.get('/',(req,res)=>{
-})
-
 //YOU SHOULD USE 'urlencodedParser' TO GET THE POST DATA
 routes.route('/sendmail')
 .post(urlencodedParser,(req,res)=>{
@@ -28,12 +24,12 @@ routes.route('/sendmail')
     console.log("entered /sendmail");
     console.log(req.body);
 
-    var username = req.body.username;
-    var fname = req.body.fname;
-    var lname = req.body.lname;
-    var admin = req.body.admin;
-    var useremail = req.body.email;
-    var pass = req.body.pass;
+    // var pass = req.body.pass;
+    // var hashpwd = passwordHash.generate(pass);
+    // if(passwordHash.verify(pass,hashpwd))
+    //     console.log("correct");
+    // else    
+    //     console.log("false");
     //generate a code.
     var date = new Date();
     var timestamp = date.getTime();
@@ -41,12 +37,12 @@ routes.route('/sendmail')
     //make an entry in the database in a collection called users.
     //use the schema of the collection.
     var newuser = new usermodel({
-        username: username,
-        fname : fname,
-        lname : lname,
-        admin : admin,
+        username: req.body.username,
+        fname : req.body.fname,
+        lname : req.body.lname,
+        admin : req.body.admin,
         ts : timestamp,
-        email : useremail,
+        email : req.body.email,
         confirmation : false,
         version : "default",
         api_list: null,
@@ -54,7 +50,8 @@ routes.route('/sendmail')
         cbs : "default",
         sip : "default",
         cred : "default",
-        integrated : false
+        integrated : false,
+        pass : null
     });
     newuser.save((err)=>{
         if(err)

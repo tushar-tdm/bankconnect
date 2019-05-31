@@ -672,7 +672,7 @@ var CbssuccessComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<br>\r\n<div class=\"message\" *ngIf=\"confirmed\">\r\n    Your account has been activated. Please integrate with your Core Bank Solution to continue.\r\n</div>\r\n<div *ngIf=\"integrated\">\r\n    List of Api services published\r\n    <div *ngFor=\" let api of select_api\">\r\n        <b> {{api}} </b>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<br>\r\n<div class=\"message\" *ngIf=\"confirmed\">\r\n    Your account has been activated. Please integrate with your Core Bank Solution to continue.\r\n    <a routerLink=\"/corebankservices/register\">Intergrate with CBS</a>\r\n</div>\r\n<div *ngIf=\"integrated\">\r\n    List of Api services published\r\n    <div *ngFor=\" let api of select_api\">\r\n        <b> {{api}} </b>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -894,7 +894,7 @@ var MaterialModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>\r\n\r\n<header>\r\n  <div class=\"navcontainer\">\r\n    <a routerLink=\"/\">{{ appTitle }}</a>\r\n    <nav>\r\n      <ul>\r\n        \r\n        <li *ngIf=\"!integrated\"><a routerLink=\"/corebankservices/register\">Intergrate with CBS</a></li>\r\n        <li><a routerLink=\"/api\">API</a></li>\r\n        <li><a routerLink=\"/support\">Support</a></li>\r\n        <li><a routerLink=\"/profile\"><i class='fas fa-user-alt' style='font-size:24px'></i></a></li>\r\n      </ul>\r\n    </nav>\r\n  </div>\r\n</header>\r\n"
+module.exports = "<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>\r\n\r\n<header>\r\n  <div class=\"navcontainer\">\r\n    <a routerLink=\"/\">{{ appTitle }}</a>\r\n    <nav>\r\n      <ul>\r\n        <li><a routerLink=\"/api\">API</a></li>\r\n        <li><a routerLink=\"/support\">Support</a></li>\r\n        <li><a routerLink=\"/profile\"><i class='fas fa-user-alt' style='font-size:24px'></i></a></li>\r\n      </ul>\r\n    </nav>\r\n  </div>\r\n</header>\r\n"
 
 /***/ }),
 
