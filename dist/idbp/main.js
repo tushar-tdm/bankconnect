@@ -570,14 +570,14 @@ var CbsregisterComponent = /** @class */ (function () {
             console.log("verver updated: " + this.verver);
         }
         document.querySelector('.version-div').style.display = 'block';
-        document.querySelector('.cbs-div').style.display = 'none';
+        //(document.querySelector('.cbs-div') as HTMLElement).style.display = 'none';
     };
     CbsregisterComponent.prototype.showintopt = function () {
-        document.querySelector('.version-div').style.display = 'none';
+        //(document.querySelector('.version-div') as HTMLElement).style.display = 'none';
         document.querySelector('.intopt-div').style.display = 'block';
     };
     CbsregisterComponent.prototype.showcred = function () {
-        document.querySelector('.intopt-div').style.display = 'none';
+        //(document.querySelector('.intopt-div') as HTMLElement).style.display = 'none';
         document.querySelector('.cred-div').style.display = 'block';
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

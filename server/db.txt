@@ -1,3 +1,12 @@
 db.apis.insert({name:"account",cbs:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"]});
 
 db.cbservices.insert({name:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"]});
+
+https://infosys-finacle-explorer.openbankproject.com/?ignoredefcat=true&tags=
+
+db.apis.insert({name:"remittance",cbs:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"]});
+db.apis.insert({name:"webHooks",cbs:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"]});
+db.apis.insert({name:"counterparties",cbs:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"]});
+db.apis.insert({name:"KYC",cbs:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"]});
+db.apis.insert({name:"transfers",cbs:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"]});
+
