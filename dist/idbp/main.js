@@ -41,7 +41,7 @@ module.exports = "<h1>Browse  Services</h1>\r\n\r\n<form [formGroup]=\"apiservic
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "label {\n  font-size: 100%;\n  font-weight: bold; }\n\nbutton[type=\"submit\"] {\n  background-color: #6a27b6;\n  color: white;\n  font-weight: bold;\n  padding: 12px 45x;\n  border-radius: 4px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9hcHAvYXBpL0M6XFxVc2Vyc1xcVHVzaGFyTUFMQ0hBUFVSRVxcRGVza3RvcFxcR2l0aHViXFxiYW5rY29ubmVjdFxcc2VydmVyLy4uXFxzcmNcXGFwcFxcYXBpXFxhcGkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFlO0VBQ2YsaUJBQWlCLEVBQUE7O0FBRW5CO0VBQ0UseUJBQW1DO0VBQ25DLFlBQVk7RUFDWixpQkFBaUI7RUFDakIsaUJBQWlCO0VBQ2pCLGtCQUFrQixFQUFBIiwiZmlsZSI6Ii4uL3NyYy9hcHAvYXBpL2FwaS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImxhYmVse1xyXG4gICAgZm9udC1zaXplOiAxMDAlO1xyXG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgfVxyXG4gIGJ1dHRvblt0eXBlPVwic3VibWl0XCJde1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogcmdiKDEwNiwgMzksIDE4Mik7XHJcbiAgICBjb2xvcjogd2hpdGU7XHJcbiAgICBmb250LXdlaWdodDogYm9sZDtcclxuICAgIHBhZGRpbmc6IDEycHggNDV4O1xyXG4gICAgYm9yZGVyLXJhZGl1czogNHB4O1xyXG4gIH1cclxuICAiXX0= */"
+module.exports = "label {\n  font-size: 100%;\n  font-weight: bold; }\n\nbutton[type=\"submit\"] {\n  background-color: #6a27b6;\n  color: white;\n  font-weight: bold;\n  padding: 12px 45x;\n  border-radius: 4px; }\n\n.bankstandard {\n  display: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9hcHAvYXBpL0M6XFxVc2Vyc1xcVHVzaGFyTUFMQ0hBUFVSRVxcRGVza3RvcFxcR2l0aHViXFxiYW5rY29ubmVjdFxcc2VydmVyLy4uXFxzcmNcXGFwcFxcYXBpXFxhcGkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFlO0VBQ2YsaUJBQWlCLEVBQUE7O0FBRW5CO0VBQ0UseUJBQW1DO0VBQ25DLFlBQVk7RUFDWixpQkFBaUI7RUFDakIsaUJBQWlCO0VBQ2pCLGtCQUFrQixFQUFBOztBQUd0QjtFQUNFLGFBQWEsRUFBQSIsImZpbGUiOiIuLi9zcmMvYXBwL2FwaS9hcGkuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJsYWJlbHtcclxuICAgIGZvbnQtc2l6ZTogMTAwJTtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIH1cclxuICBidXR0b25bdHlwZT1cInN1Ym1pdFwiXXtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYigxMDYsIDM5LCAxODIpO1xyXG4gICAgY29sb3I6IHdoaXRlO1xyXG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgICBwYWRkaW5nOiAxMnB4IDQ1eDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDRweDtcclxuICB9XHJcbiAgXHJcbi5iYW5rc3RhbmRhcmR7XHJcbiAgZGlzcGxheTogbm9uZTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -78,12 +78,11 @@ var ApiComponent = /** @class */ (function () {
     }
     ApiComponent.prototype.ngOnInit = function () {
         this.apiservicesform = this.formBuilder.group({
-            apis: this.addApisControls()
+            apis: this.addApisControls(),
         });
     };
     ApiComponent.prototype.addApisControls = function () {
         var _this = this;
-        console.log("addapiControls called. 1:->" + this.apilist);
         var arr = this.apilist.map(function (element) {
             return _this.formBuilder.control(false);
         });
@@ -91,7 +90,6 @@ var ApiComponent = /** @class */ (function () {
     };
     Object.defineProperty(ApiComponent.prototype, "apilistArray", {
         get: function () {
-            console.log("apilistArray called. 2:->" + this.apilist);
             return this.apiservicesform.get('apis');
         },
         enumerable: true,
@@ -109,15 +107,17 @@ var ApiComponent = /** @class */ (function () {
     ApiComponent.prototype.OnSubmit = function () {
         var _this = this;
         var newItem = this.apiselected;
-        console.log(tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, this.apiservicesform.value, { newItem: newItem }));
-        console.log(newItem);
+        //console.log({...this.apiservicesform.value,newItem});
         var obj = {
-            apis: newItem
+            apis: newItem,
         };
         this.signservice.postApis(obj)
             .subscribe(function (data) {
             _this.router.navigateByUrl('/dashboard');
         }, function (err) { console.log(err); });
+    };
+    ApiComponent.prototype.shownext = function () {
+        document.querySelector('.bankstandard').style.display = 'block';
     };
     ApiComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -459,7 +459,7 @@ var CbsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\r\n  <div class=\"row\">\r\n    <h4><b>Core banking Service Registration</b></h4><br>\r\n    <div class=\"col-lg-4\"></div>\r\n    <div class=\"col-lg-4\">\r\n        <form [formGroup]=\"CBSForm\" (ngSubmit)=\"onSubmit()\">\r\n                    <!-- ====================== CORE BANKING SERVICE ================================ -->\r\n                    <div class=\"cbs-div\">\r\n                      <label id=\"CBS-radio-group-label\">Pick your CBS</label><br>\r\n                        <mat-radio-group\r\n                          aria-labelledby=\"CBS-radio-group-label\"\r\n                          class=\"CBS-radio-group\"\r\n                          formControlName=\"CBS\">\r\n                          <mat-radio-button class=\"example-radio-button\" *ngFor=\"let list of cbslist\" [value]=\"list.value\" (change)=\"newCbs(list.value)\">\r\n                            {{list.viewValue}}\r\n                          </mat-radio-button>\r\n                        </mat-radio-group>\r\n                    </div>\r\n\r\n                    <!-- ====================== VERSIONS ================================ -->\r\n\r\n                    <br>\r\n                    <div class=\"version-div\">\r\n                      <label id=\"version-radio-group-label\">Pick version</label><br>\r\n                        <mat-radio-group\r\n                          aria-labelledby=\"version-radio-group-label\"\r\n                          class=\"version-radio-group\"\r\n                          formControlName=\"version\">\r\n                          <mat-radio-button class=\"example-radio-button\" *ngFor=\"let list of verver\" [value]=\"list\" (change)=\"showintopt()\">\r\n                            {{list}}\r\n                          </mat-radio-button>\r\n                        </mat-radio-group>\r\n                        <!-- <input type=\"radio\" *ngFor=\"let list of verver\" [value]=\"list\" (change)=\"showintopt()\" formControlName=\"version\">\r\n                        <p> {{list}} </p> -->\r\n                      </div>\r\n\r\n                <!-- ====================== INTEGRATION OPTIONS ================================ -->\r\n                  <br>\r\n                  <div class=\"intopt-div\">\r\n                  <label> <b>Choose your integration method </b></label><br>\r\n\r\n                       <mat-radio-group\r\n                          aria-labelledby=\"intopt-radio-group-label\"\r\n                          class=\"intopt-radio-group\"\r\n                          formControlName=\"IntOpt\">\r\n                          <mat-radio-button class=\"example-radio-button\" *ngFor=\"let list of intoptions\" [value]=\"list.value\" (change)=\"showcred()\">\r\n                            {{list.viewValue}}\r\n                          </mat-radio-button>\r\n                        </mat-radio-group>\r\n                        <!-- <input type=\"radio\" *ngFor=\"let list of intoptions\" [value]=\"list.value\" (change)=\"showcred()\" formControlName=\"IntOpt\">\r\n                        <span> {{list.viewValue}} </span> -->\r\n\r\n                  </div>\r\n\r\n                  <!-- ====================== CREDENTIALS ================================ -->\r\n\r\n                    <br>\r\n                    <div class=\"cred-div\">\r\n                        <label> Enter your Core credentials </label> <br>\r\n                        <mat-form-field class=\"example-full-width\">\r\n                          <input matInput placeholder=\"Enter Server IP\" formControlName=\"SIP\" >\r\n                        </mat-form-field>\r\n                        <br>\r\n                        <mat-form-field class=\"example-full-width\">\r\n                          <input  type=\"password\" matInput placeholder=\"Enter Credentials\" formControlName=\"cred\">\r\n                        </mat-form-field>\r\n                        <div class=\"connect\">\r\n                          <button mat-raised-button color=\"primary\"  type=\"submit\"> Connect!</button>\r\n                        </div>\r\n                    </div><br>\r\n                    \r\n          </form>\r\n    </div>\r\n    <div class=\"col-lg-4\"></div>\r\n  </div>\r\n\r\n</div>\r\n"
+module.exports = "<div class=\"container\">\r\n  <div class=\"row\">\r\n    <h4><b>Core banking Service Registration</b></h4><br>\r\n    <div class=\"col-lg-4\"></div>\r\n    <div class=\"col-lg-4\">\r\n        <form [formGroup]=\"CBSForm\" (ngSubmit)=\"onSubmit()\">\r\n                    <!-- ====================== CORE BANKING SERVICE ================================ -->\r\n                    <div class=\"cbs-div\">\r\n                      <label id=\"CBS-radio-group-label\">Pick your CBS</label><br>\r\n                        <mat-radio-group\r\n                          aria-labelledby=\"CBS-radio-group-label\"\r\n                          class=\"CBS-radio-group\"\r\n                          formControlName=\"CBS\">\r\n                          <mat-radio-button class=\"example-radio-button\" *ngFor=\"let list of cbslist\" [value]=\"list.value\" (change)=\"newCbs(list.value)\">\r\n                            {{list.viewValue}}\r\n                          </mat-radio-button>\r\n                        </mat-radio-group>\r\n                    </div>\r\n\r\n                    <!-- ====================== VERSIONS ================================ -->\r\n\r\n                    <br>\r\n                    <div class=\"version-div\">\r\n                      <label id=\"version-radio-group-label\">Pick version</label><br>\r\n                        <mat-radio-group\r\n                          aria-labelledby=\"version-radio-group-label\"\r\n                          class=\"version-radio-group\"\r\n                          formControlName=\"version\">\r\n                          <mat-radio-button class=\"example-radio-button\" *ngFor=\"let list of verver\" [value]=\"list\" (change)=\"showintopt()\">\r\n                            {{list}}\r\n                          </mat-radio-button>\r\n                        </mat-radio-group>\r\n                        <!-- <input type=\"radio\" *ngFor=\"let list of verver\" [value]=\"list\" (change)=\"showintopt()\" formControlName=\"version\">\r\n                        <p> {{list}} </p> -->\r\n                    </div>\r\n\r\n                <!-- ====================== INTEGRATION OPTIONS ================================ -->\r\n                  <br>\r\n                  <div class=\"intopt-div\">\r\n                  <label> <b>Choose your integration method </b></label><br>\r\n                       <mat-radio-group\r\n                          aria-labelledby=\"intopt-radio-group-label\"\r\n                          class=\"intopt-radio-group\"\r\n                          formControlName=\"IntOpt\">\r\n                          <mat-radio-button class=\"example-radio-button\" *ngFor=\"let list of intoptions\" [value]=\"list.value\" (change)=\"showcred()\">\r\n                            {{list.viewValue}}\r\n                          </mat-radio-button>\r\n                        </mat-radio-group>\r\n                  </div>\r\n\r\n                  <!-- ====================== CREDENTIALS ================================ -->\r\n\r\n                    <br>\r\n                    <div class=\"cred-div\">\r\n                        <label> <b>Choose your Open Banking standard </b></label><br>\r\n                        <mat-radio-group\r\n                           aria-labelledby=\"intopt-radio-group-label\"\r\n                           class=\"intopt-radio-group\"\r\n                           formControlName=\"bankstandard\">\r\n                           <mat-radio-button class=\"example-radio-button\" value=\"open\">\r\n                             Open Banking\r\n                           </mat-radio-button>\r\n                           <mat-radio-button class=\"example-radio-button\" value=\"bayn\">\r\n                            BAYN\r\n                            </mat-radio-button>\r\n                         </mat-radio-group>\r\n\r\n                        <label> Enter your Core credentials </label> <br>\r\n                        <mat-form-field class=\"example-full-width\">\r\n                          <input matInput placeholder=\"Enter Server IP\" formControlName=\"SIP\" >\r\n                        </mat-form-field>\r\n                        <br>\r\n                        <mat-form-field class=\"example-full-width\">\r\n                          <input  type=\"password\" matInput placeholder=\"Enter Credentials\" formControlName=\"cred\">\r\n                        </mat-form-field>\r\n                        <div class=\"connect\">\r\n                          <button mat-raised-button color=\"primary\"  type=\"submit\"> Connect!</button>\r\n                        </div>\r\n                    </div><br>\r\n                    \r\n          </form>\r\n    </div>\r\n    <div class=\"col-lg-4\"></div>\r\n  </div>\r\n\r\n</div>\r\n"
 
 /***/ }),
 
@@ -508,11 +508,6 @@ var CbsregisterComponent = /** @class */ (function () {
             { value: 'TCS Bancs', viewValue: 'TCS BaNCS' },
             { value: 'Flexcube', viewValue: 'Flexcube' }
         ];
-        this.versions = [
-            { value: 'v10.0.1', viewValue: 'v10.0.1' },
-            { value: 'v10.2.0', viewValue: 'v10.2.0' },
-            { value: 'v11.1.1', viewValue: 'v11.1.1' }
-        ];
         this.verver = {};
         this.fin = [];
         this.tcs = [];
@@ -528,6 +523,7 @@ var CbsregisterComponent = /** @class */ (function () {
             CBS: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"]]],
             version: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"]]],
             IntOpt: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"]]],
+            bankstandard: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"]]],
             SIP: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"]]],
             cred: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"]]],
         });
@@ -546,10 +542,11 @@ var CbsregisterComponent = /** @class */ (function () {
             cbs: this.CBSForm.controls.CBS.value,
             version: this.CBSForm.controls.version.value,
             intopt: this.CBSForm.controls.IntOpt.value,
+            standard: this.CBSForm.controls.bankstandard.value,
             sip: this.CBSForm.controls.SIP.value,
             cred: this.CBSForm.controls.cred.value
         };
-        console.log(this.CBSForm.controls.IntOpt.value);
+        console.log(this.CBSForm.controls.bankstandard.value);
         if (1) {
             console.log("valid data: " + myObj);
             this.signservice.sendCbsDetails(myObj)
@@ -576,14 +573,11 @@ var CbsregisterComponent = /** @class */ (function () {
             console.log("verver updated: " + this.verver);
         }
         document.querySelector('.version-div').style.display = 'block';
-        //(document.querySelector('.cbs-div') as HTMLElement).style.display = 'none';
     };
     CbsregisterComponent.prototype.showintopt = function () {
-        //(document.querySelector('.version-div') as HTMLElement).style.display = 'none';
         document.querySelector('.intopt-div').style.display = 'block';
     };
     CbsregisterComponent.prototype.showcred = function () {
-        //(document.querySelector('.intopt-div') as HTMLElement).style.display = 'none';
         document.querySelector('.cred-div').style.display = 'block';
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -812,7 +806,7 @@ var Banks = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n\n<div>\n    <h1>Welcome to IBM Digital Banking Platform</h1>\n    <br>\n    <div class=\"row\">\n      <div class=\"col-sm-4\">\n\n      </div>\n      <div class=\"col-sm-4\">\n        <form [formGroup]=\"loginForm\" (ngSubmit) = \"onSubmit()\">\n          <div class=\"form-group\">\n            <label for=\"exampleInputEmail1\">Email address</label>\n            <input type=\"email\" class=\"form-control\" formControlName=\"email\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\n            <small id=\"emailHelp\" class=\"form-text text-muted\">We'll never share your email with anyone else.</small>\n          </div>\n\n          <div class=\"form-group\">\n            <label for=\"exampleInputPass1\">Password</label>\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass\" id=\"exampleInputPass1\" placeholder=\"Enter Password\">\n          </div>\n\n          <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n        </form>\n      </div>\n      <div class=\"col-sm-4\">\n\n      </div>\n    </div>\n\n  </div>\n"
+module.exports = "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\n\n<div>\n    <h1>Welcome to IBM Digital Banking Platform</h1>\n    <br>\n    <div class=\"row\">\n      <div class=\"col-sm-4\">\n\n      </div>\n      <div class=\"col-sm-4\">\n        <form [formGroup]=\"loginForm\" (ngSubmit) = \"onSubmit()\">\n          <div class=\"form-group\">\n            <label for=\"exampleInputEmail1\">Email address</label>\n            <input type=\"email\" class=\"form-control\" formControlName=\"email\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\n            <small id=\"emailHelp\" class=\"form-text text-muted\">We'll never share your email with anyone else.</small>\n          </div>\n\n          <div class=\"form-group\">\n            <label for=\"exampleInputPass1\">Password</label>\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass\" id=\"exampleInputPass1\" placeholder=\"Enter Password\">\n          </div>\n\n          <button type=\"submit\" class=\"btn btn-primary sbmt\">Submit</button>\n        </form>\n        <div class=\"signin\"> Don't have an account? <a routerLink=\"/signup\">Register Here </a></div>\n      </div>\n      <div class=\"col-sm-4\">\n\n      </div>\n    </div>\n\n  </div>\n"
 
 /***/ }),
 
@@ -823,7 +817,7 @@ module.exports = "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/a
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "h1, h3, p {\n  text-align: center; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9hcHAvbG9naW4vQzpcXFVzZXJzXFxUdXNoYXJNQUxDSEFQVVJFXFxEZXNrdG9wXFxHaXRodWJcXGJhbmtjb25uZWN0XFxzZXJ2ZXIvLi5cXHNyY1xcYXBwXFxsb2dpblxcbG9naW4uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxrQkFBa0IsRUFBQSIsImZpbGUiOiIuLi9zcmMvYXBwL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaDEsaDMscHtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICB9XHJcbiAgIl19 */"
+module.exports = "h1, h3, p {\n  text-align: center; }\n\n.sbmt {\n  margin-left: 40%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9hcHAvbG9naW4vQzpcXFVzZXJzXFxUdXNoYXJNQUxDSEFQVVJFXFxEZXNrdG9wXFxHaXRodWJcXGJhbmtjb25uZWN0XFxzZXJ2ZXIvLi5cXHNyY1xcYXBwXFxsb2dpblxcbG9naW4uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxrQkFBa0IsRUFBQTs7QUFHdEI7RUFDRSxnQkFBZ0IsRUFBQSIsImZpbGUiOiIuLi9zcmMvYXBwL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaDEsaDMscHtcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICB9XHJcbiAgXHJcbi5zYm10e1xyXG4gIG1hcmdpbi1sZWZ0OiA0MCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1244,7 +1238,7 @@ var SignupServiceService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "   <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\r\n<div class=\"confirmation\" *ngIf=\"sent; else elseBlock\">\r\n    <h3><b><i class=\"fa fa-envelope\" style=\"font-size:25px\"></i>\r\n      An Email has been sent to your admin email. Please click on the link in your email to continue.</b></h3>\r\n    <p> You can CLOSE this window now</p>\r\n</div>\r\n\r\n<ng-template #elseBlock>\r\n    <h1>Welcome to IBM Digital Banking Platform</h1>\r\n    <br>\r\n    <div class=\"row\">\r\n      <div class=\"col-sm-4\">\r\n\r\n      </div>\r\n      <div class=\"col-sm-4\">\r\n        <form [formGroup]=\"signupForm\" (ngSubmit) = \"onSubmit()\">\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputFName\">First Name</label>\r\n            <input type=\"text\" class=\"form-control\" formControlName=\"fname\" placeholder=\"Enter First Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputLName\">Last Name</label>\r\n            <input type=\"text\" class=\"form-control\" formControlName=\"lname\" placeholder=\"Enter Last Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n                <label for=\"exampleInputAdminName\">Admin Name</label>\r\n                <input type=\"text\" class=\"form-control\" formControlName=\"admin\" placeholder=\"Enter Admin Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n              <label for=\"exampleInputUserName\">User Name</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"username\" placeholder=\"Enter User Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputEmail1\">Email address</label>\r\n            <input type=\"email\" class=\"form-control\" formControlName=\"email\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\r\n            <small id=\"emailHelp\" class=\"form-text text-muted\">We'll never share your email with anyone else.</small>\r\n          </div>\r\n\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputPass1\">Password</label>\r\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass\" id=\"exampleInputPass1\" placeholder=\"Enter Password\">\r\n          </div>\r\n\r\n        <!--\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputPass2\">Re-Type Password</label>\r\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass2\" id=\"exampleInputPass2\" placeholder=\"Re-Type Password\">\r\n          </div> -->\r\n\r\n          <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\r\n        </form>\r\n      </div>\r\n      <div class=\"col-sm-4\">\r\n\r\n      </div>\r\n    </div>\r\n\r\n</ng-template>\r\n"
+module.exports = "   <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css\">\r\n<div class=\"confirmation\" *ngIf=\"sent; else elseBlock\">\r\n    <h3><b><i class=\"fa fa-envelope\" style=\"font-size:25px\"></i>\r\n      An Email has been sent to your admin email. Please click on the link in your email to continue.</b></h3>\r\n    <p> You can CLOSE this window now</p>\r\n</div>\r\n\r\n<ng-template #elseBlock>\r\n    <h1>Welcome to IBM Digital Banking Platform</h1>\r\n    <br>\r\n    <div class=\"row\">\r\n      <div class=\"col-sm-4\">\r\n\r\n      </div>\r\n      <div class=\"col-sm-4\">\r\n        <form [formGroup]=\"signupForm\" (ngSubmit) = \"onSubmit()\">\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputFName\">First Name</label>\r\n            <input type=\"text\" class=\"form-control\" formControlName=\"fname\" placeholder=\"Enter First Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputLName\">Last Name</label>\r\n            <input type=\"text\" class=\"form-control\" formControlName=\"lname\" placeholder=\"Enter Last Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n              <label for=\"exampleInputUserName\">User Name</label>\r\n              <input type=\"text\" class=\"form-control\" formControlName=\"username\" placeholder=\"Enter User Name\">\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputEmail1\">Email address</label>\r\n            <input type=\"email\" class=\"form-control\" formControlName=\"email\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\r\n            <small id=\"emailHelp\" class=\"form-text text-muted\">We'll never share your email with anyone else.</small>\r\n          </div>\r\n\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputPass1\">Password</label>\r\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass\" id=\"exampleInputPass1\" placeholder=\"Enter Password\">\r\n          </div>\r\n\r\n        <!--\r\n          <div class=\"form-group\">\r\n            <label for=\"exampleInputPass2\">Re-Type Password</label>\r\n            <input type=\"password\" class=\"form-control\" formControlName=\"pass2\" id=\"exampleInputPass2\" placeholder=\"Re-Type Password\">\r\n          </div> -->\r\n\r\n          <button class=\"sbmt\" type=\"submit\" class=\"btn btn-primary\">Submit</button>\r\n        </form>\r\n        <div> Have an account? <a routerLink=\"/login\">Sign in</a></div>\r\n      </div>\r\n      <div class=\"col-sm-4\">\r\n\r\n      </div>\r\n    </div>\r\n\r\n</ng-template>\r\n"
 
 /***/ }),
 
@@ -1255,7 +1249,7 @@ module.exports = "   <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.co
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "h1, h3, p {\n  text-align: center; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9hcHAvc2lnbnVwL0M6XFxVc2Vyc1xcVHVzaGFyTUFMQ0hBUFVSRVxcRGVza3RvcFxcR2l0aHViXFxiYW5rY29ubmVjdFxcc2VydmVyLy4uXFxzcmNcXGFwcFxcc2lnbnVwXFxzaWdudXAuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxrQkFBa0IsRUFBQSIsImZpbGUiOiIuLi9zcmMvYXBwL3NpZ251cC9zaWdudXAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJoMSxoMyxwe1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG4iXX0= */"
+module.exports = "h1, h3, p {\n  text-align: center; }\n\n.sbmt {\n  margin-left: 40%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9hcHAvc2lnbnVwL0M6XFxVc2Vyc1xcVHVzaGFyTUFMQ0hBUFVSRVxcRGVza3RvcFxcR2l0aHViXFxiYW5rY29ubmVjdFxcc2VydmVyLy4uXFxzcmNcXGFwcFxcc2lnbnVwXFxzaWdudXAuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxrQkFBa0IsRUFBQTs7QUFHcEI7RUFDRSxnQkFBZ0IsRUFBQSIsImZpbGUiOiIuLi9zcmMvYXBwL3NpZ251cC9zaWdudXAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJoMSxoMyxwe1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuLnNibXR7XHJcbiAgbWFyZ2luLWxlZnQ6IDQwJTtcclxufSJdfQ== */"
 
 /***/ }),
 

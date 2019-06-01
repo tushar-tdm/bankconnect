@@ -43,12 +43,6 @@ export class CbsregisterComponent implements OnInit{
     {value: 'Flexcube', viewValue: 'Flexcube'}
   ];
 
-  versions: version[] = [
-    {value: 'v10.0.1', viewValue: 'v10.0.1'},
-    {value: 'v10.2.0', viewValue: 'v10.2.0'},
-    {value: 'v11.1.1', viewValue: 'v11.1.1'}
-  ];
-
   verver : any = {};
   fin : Array<string> = [];
   tcs : Array<string> = [];
@@ -67,6 +61,7 @@ export class CbsregisterComponent implements OnInit{
       CBS: ['', [Validators.required, Validators]],
       version: ['',[Validators.required, Validators]],
       IntOpt: ['',[Validators.required, Validators]],
+      bankstandard : ['',[Validators.required, Validators]],
       SIP: ['', [Validators.required, Validators]],
       cred: ['', [Validators.required, Validators]],
     });
@@ -87,11 +82,12 @@ export class CbsregisterComponent implements OnInit{
         cbs : this.CBSForm.controls.CBS.value,
         version : this.CBSForm.controls.version.value,
         intopt : this.CBSForm.controls.IntOpt.value,
+        standard : this.CBSForm.controls.bankstandard.value,
         sip : this.CBSForm.controls.SIP.value,
         cred : this.CBSForm.controls.cred.value
       }
 
-    console.log(this.CBSForm.controls.IntOpt.value);
+    console.log(this.CBSForm.controls.bankstandard.value);
       if(1){
         console.log("valid data: "+ myObj);
         this.signservice.sendCbsDetails(myObj)
@@ -120,16 +116,13 @@ export class CbsregisterComponent implements OnInit{
     }
 
     (document.querySelector('.version-div') as HTMLElement).style.display = 'block';
-    //(document.querySelector('.cbs-div') as HTMLElement).style.display = 'none';
    }
 
    showintopt(){
-    //(document.querySelector('.version-div') as HTMLElement).style.display = 'none';
     (document.querySelector('.intopt-div') as HTMLElement).style.display = 'block';
    }
 
    showcred(){
-    //(document.querySelector('.intopt-div') as HTMLElement).style.display = 'none';
     (document.querySelector('.cred-div') as HTMLElement).style.display = 'block';
    }
 }

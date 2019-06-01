@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { SignupServiceService} from '../services/signup-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -28,12 +28,11 @@ export class ApiComponent implements OnInit {
   ngOnInit()
   {
       this.apiservicesform = this.formBuilder.group({
-        apis : this.addApisControls()
+        apis : this.addApisControls(),
       });
   }
 
   addApisControls(){
-    console.log("addapiControls called. 1:->"+this.apilist);
     var arr = this.apilist.map(element =>{
       return this.formBuilder.control(false);
     });
@@ -42,7 +41,6 @@ export class ApiComponent implements OnInit {
   }
 
   get apilistArray(){
-    console.log("apilistArray called. 2:->"+this.apilist);
     return <FormArray>this.apiservicesform.get('apis')
   }
 
@@ -58,11 +56,10 @@ export class ApiComponent implements OnInit {
   OnSubmit() {
 
     var newItem = this.apiselected;
-    console.log({...this.apiservicesform.value,newItem});
-    console.log(newItem);
+    //console.log({...this.apiservicesform.value,newItem});
 
     var obj = {
-      apis : newItem
+      apis : newItem,
     }
 
      this.signservice.postApis(obj)
@@ -70,6 +67,10 @@ export class ApiComponent implements OnInit {
 
       this.router.navigateByUrl('/dashboard');
     },(err)=>{ console.log(err); })
+  }
+
+  shownext(){
+    (document.querySelector('.bankstandard') as HTMLElement).style.display = 'block';
   }
 
 }

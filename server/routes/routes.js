@@ -1,8 +1,6 @@
 var express = require('express');
 var nodemailer = require('nodemailer');
-var path = require('path');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
 var passwordHash = require('password-hash');
 
 var usermodel = require('../models/usermodel');
@@ -20,10 +18,6 @@ var sess;
 routes.route('/sendmail')
 .post(urlencodedParser,(req,res)=>{
 
-    //get the email and phone.
-    console.log("entered /sendmail");
-    console.log(req.body);
-
     var pass = req.body.pass;
     var hashpwd = passwordHash.generate(pass);
     //if(passwordHash.verify(pass,hashpwd))
@@ -38,7 +32,6 @@ routes.route('/sendmail')
         username: req.body.username,
         fname : req.body.fname,
         lname : req.body.lname,
-        admin : req.body.admin,
         ts : timestamp,
         email : req.body.email,
         confirmation : false,
@@ -49,7 +42,8 @@ routes.route('/sendmail')
         sip : "default",
         cred : "default",
         integrated : false,
-        pass : hashpwd
+        pass : hashpwd,
+        standard: "default"
     });
     newuser.save((err)=>{
         if(err)
@@ -107,7 +101,6 @@ routes.route('/confirm/:ts/:id')
         if(req.params.ts == doc[0].ts){
             usermodel.findOneAndUpdate({ts : req.params.ts},{$set : {confirmation : true}},{new : true},(err,doc)=>{
             });
-            console.log("updated");
             res.redirect('/dashboard'); //dashboard
          }
         else{
@@ -137,7 +130,6 @@ routes.route('/corebankservices/register')
                 obj.flex = doc[i].versions;
             }
         }
-        //console.log("versions: "+obj);
         res.json(obj);
     })
 })
@@ -153,8 +145,6 @@ routes.route('/corebankservices/register')
 
     var sess = req.session;
 
-    console.log(sess.email);
-    console.log("cbs details: "+cbs+" "+version+" "+intopt+" "+sip+" "+cred);
     // use $set to update a single field
     usermodel.findOneAndUpdate({ email : sess.email }, {cbs : cbs, version : version, intopt : intopt, sip: sip, cred:cred},{new : true},(err,doc)=>{
             if(err) console.log(err);
@@ -184,7 +174,6 @@ routes.route('/api')
                 global.apis.push(doc[i].name);
             }
 
-            console.log(global.apis);
             res.json(global.apis);
         });
     });
@@ -194,12 +183,11 @@ routes.route('/api')
 .post(urlencodedParser,(req,res)=>{
     //add the chosen apis in the user models.
     var apis = req.body.apis;
-    var api_arr = [];
     var sess = req.session;
+    var standard = req.body.standard;
 
-    //console.log(apis);
-
-    usermodel.findOneAndUpdate({email : sess.email},{api_list : apis, integrated: true},(err,doc)=>{
+    console.log(standard);
+    usermodel.findOneAndUpdate({email : sess.email},{api_list : apis, integrated: true, standard: standard },(err,doc)=>{
         if(err) console.log(err);
     });
 
@@ -209,7 +197,6 @@ routes.route('/api')
 routes.route('/api/selected')
 .get((req,res)=>{
 
-    console.log("entered here");
     var sess = req.session;
     global.apis=[];
 
@@ -217,7 +204,6 @@ routes.route('/api/selected')
     usermodel.find({email : sess.email },(err,doc)=>{
         //only 1 document will be returned.
         //directly get the api_list
-        console.log("selected apis: "+ doc[0].api_list);
         var selected_api = doc[0].api_list;
 
         res.json(selected_api);
@@ -231,7 +217,6 @@ routes.route('/confirmed')
     if(sess.email){
         usermodel.find({email: sess.email},(err,doc)=>{
             if(!doc[0].integrated && doc[0].confirmation){
-                console.log("sending 1");
                 res.json(1);
             }
             else res.json(0);
@@ -244,7 +229,7 @@ routes.route('/confirmed')
 routes.route('/integrated')
 .get((req,res)=>{
     var sess = req.session;
-    
+
     usermodel.find({email:sess.email},(err,doc)=>{
         if(doc[0].integrated)
             res.json(1);

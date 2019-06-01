@@ -32,13 +32,12 @@
                         </mat-radio-group>
                         <!-- <input type="radio" *ngFor="let list of verver" [value]="list" (change)="showintopt()" formControlName="version">
                         <p> {{list}} </p> -->
-                      </div>
+                    </div>
 
                 <!-- ====================== INTEGRATION OPTIONS ================================ -->
                   <br>
                   <div class="intopt-div">
                   <label> <b>Choose your integration method </b></label><br>
-
                        <mat-radio-group
                           aria-labelledby="intopt-radio-group-label"
                           class="intopt-radio-group"
@@ -47,15 +46,25 @@
                             {{list.viewValue}}
                           </mat-radio-button>
                         </mat-radio-group>
-                        <!-- <input type="radio" *ngFor="let list of intoptions" [value]="list.value" (change)="showcred()" formControlName="IntOpt">
-                        <span> {{list.viewValue}} </span> -->
-
                   </div>
 
                   <!-- ====================== CREDENTIALS ================================ -->
 
                     <br>
                     <div class="cred-div">
+                        <label> <b>Choose your Open Banking standard </b></label><br>
+                        <mat-radio-group
+                           aria-labelledby="intopt-radio-group-label"
+                           class="intopt-radio-group"
+                           formControlName="bankstandard">
+                           <mat-radio-button class="example-radio-button" value="open">
+                             Open Banking
+                           </mat-radio-button>
+                           <mat-radio-button class="example-radio-button" value="bayn">
+                            BAYN
+                            </mat-radio-button>
+                         </mat-radio-group>
+
                         <label> Enter your Core credentials </label> <br>
                         <mat-form-field class="example-full-width">
                           <input matInput placeholder="Enter Server IP" formControlName="SIP" >
