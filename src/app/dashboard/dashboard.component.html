@@ -3,9 +3,16 @@
     Your account has been activated. Please integrate with your Core Bank Solution to continue.
     <a routerLink="/corebankservices/register">Intergrate with CBS</a>
 </div>
-<div *ngIf="integrated">
-    List of Api services published
-    <div *ngFor=" let api of select_api">
-        <b> {{api}} </b>
-    </div>
+ <div *ngIf="integrated" class="ibc">
+    Click <button (click)="showibc()">Here</button> to integrate with bank connect.
+</div> 
+
+<div class="ibcform">
+    <form [formGroup]="Integration" >
+        <label> Enter your Security token: </label>
+        <input type="text" formControlName="secureToken">
+        <button type="button" (click)="check()">Integrate</button>
+    </form>
 </div>
+
+<div class="message"> Integration with Bank Connect successful</div>

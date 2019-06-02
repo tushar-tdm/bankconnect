@@ -23,6 +23,40 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 
 /***/ }),
 
+/***/ "./src/app/api/api-resolver.service.ts":
+/*!*********************************************!*\
+  !*** ./src/app/api/api-resolver.service.ts ***!
+  \*********************************************/
+/*! exports provided: ApiResolverService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApiResolverService", function() { return ApiResolverService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _services_signup_service_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/signup-service.service */ "./src/app/services/signup-service.service.ts");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+
+var ApiResolverService = /** @class */ (function () {
+    function ApiResolverService(signupservice) {
+        this.signupservice = signupservice;
+    }
+    ApiResolverService.prototype.resolve = function (route, state) {
+        return this.signupservice.getApis();
+    };
+    ApiResolverService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_signup_service_service__WEBPACK_IMPORTED_MODULE_1__["SignupServiceService"]])
+    ], ApiResolverService);
+    return ApiResolverService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/api/api.component.html":
 /*!****************************************!*\
   !*** ./src/app/api/api.component.html ***!
@@ -134,10 +168,10 @@ var ApiComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/api/apilist-resolver.service.ts":
-/*!*************************************************!*\
-  !*** ./src/app/api/apilist-resolver.service.ts ***!
-  \*************************************************/
+/***/ "./src/app/apilist/apilist-resolver.service.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/apilist/apilist-resolver.service.ts ***!
+  \*****************************************************/
 /*! exports provided: ApiListResolverService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -155,13 +189,76 @@ var ApiListResolverService = /** @class */ (function () {
         this.signupservice = signupservice;
     }
     ApiListResolverService.prototype.resolve = function (route, state) {
-        return this.signupservice.getApis();
+        return this.signupservice.getSelectedApis();
     };
     ApiListResolverService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_signup_service_service__WEBPACK_IMPORTED_MODULE_1__["SignupServiceService"]])
     ], ApiListResolverService);
     return ApiListResolverService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/apilist/apilist.component.html":
+/*!************************************************!*\
+  !*** ./src/app/apilist/apilist.component.html ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\n  <div class=\"col-sm-6\" *ngFor=\" let api of apilist\">\n    <div class=\"card\">\n      <div class=\"card-body\">\n        <h5 class=\"card-title\">{{api | uppercase}}</h5>\n        <p class=\"card-text\">With supporting text below as a natural lead-in to additional content.</p>\n        <button class=\"test btn btn-primary\" type=\"button\"> Test </button>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/apilist/apilist.component.scss":
+/*!************************************************!*\
+  !*** ./src/app/apilist/apilist.component.scss ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".card {\n  margin-bottom: 15px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9hcHAvYXBpbGlzdC9DOlxcVXNlcnNcXFR1c2hhck1BTENIQVBVUkVcXERlc2t0b3BcXEdpdGh1YlxcYmFua2Nvbm5lY3RcXHNlcnZlci8uLlxcc3JjXFxhcHBcXGFwaWxpc3RcXGFwaWxpc3QuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxtQkFBbUIsRUFBQSIsImZpbGUiOiIuLi9zcmMvYXBwL2FwaWxpc3QvYXBpbGlzdC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jYXJke1xyXG4gICAgbWFyZ2luLWJvdHRvbTogMTVweDtcclxufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/apilist/apilist.component.ts":
+/*!**********************************************!*\
+  !*** ./src/app/apilist/apilist.component.ts ***!
+  \**********************************************/
+/*! exports provided: ApilistComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ApilistComponent", function() { return ApilistComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+var ApilistComponent = /** @class */ (function () {
+    function ApilistComponent(router, route) {
+        this.router = router;
+        this.route = route;
+        this.apilist = [];
+        this.apilist = this.route.snapshot.data['apiList'];
+        console.log("this is the apilist: " + this.apilist);
+    }
+    ApilistComponent.prototype.ngOnInit = function () {
+    };
+    ApilistComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-apilist',
+            template: __webpack_require__(/*! ./apilist.component.html */ "./src/app/apilist/apilist.component.html"),
+            styles: [__webpack_require__(/*! ./apilist.component.scss */ "./src/app/apilist/apilist.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+    ], ApilistComponent);
+    return ApilistComponent;
 }());
 
 
@@ -186,14 +283,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _signup_signup_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./signup/signup.component */ "./src/app/signup/signup.component.ts");
 /* harmony import */ var _submit_submit_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./submit/submit.component */ "./src/app/submit/submit.component.ts");
 /* harmony import */ var _cbs_cbs_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./cbs/cbs.component */ "./src/app/cbs/cbs.component.ts");
-/* harmony import */ var _api_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./api/apilist-resolver.service */ "./src/app/api/apilist-resolver.service.ts");
-/* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/dashboard/dashboard.component.ts");
-/* harmony import */ var _cbssuccess_cbssuccess_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./cbssuccess/cbssuccess.component */ "./src/app/cbssuccess/cbssuccess.component.ts");
-/* harmony import */ var _cbsregister_cbsregister_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./cbsregister/cbsregister.component */ "./src/app/cbsregister/cbsregister.component.ts");
-/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
-/* harmony import */ var _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./dashboard/select-apilist-resolver.service */ "./src/app/dashboard/select-apilist-resolver.service.ts");
-/* harmony import */ var _profile_get_userprofile_resolver_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./profile/get-userprofile-resolver.service */ "./src/app/profile/get-userprofile-resolver.service.ts");
-/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _api_api_resolver_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./api/api-resolver.service */ "./src/app/api/api-resolver.service.ts");
+/* harmony import */ var _apilist_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./apilist/apilist-resolver.service */ "./src/app/apilist/apilist-resolver.service.ts");
+/* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/dashboard/dashboard.component.ts");
+/* harmony import */ var _cbssuccess_cbssuccess_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./cbssuccess/cbssuccess.component */ "./src/app/cbssuccess/cbssuccess.component.ts");
+/* harmony import */ var _cbsregister_cbsregister_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./cbsregister/cbsregister.component */ "./src/app/cbsregister/cbsregister.component.ts");
+/* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
+/* harmony import */ var _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./dashboard/select-apilist-resolver.service */ "./src/app/dashboard/select-apilist-resolver.service.ts");
+/* harmony import */ var _profile_get_userprofile_resolver_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./profile/get-userprofile-resolver.service */ "./src/app/profile/get-userprofile-resolver.service.ts");
+/* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _apilist_apilist_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./apilist/apilist.component */ "./src/app/apilist/apilist.component.ts");
+
+
 
 
 
@@ -212,7 +313,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var routes = [
     { path: '', redirectTo: 'signup', pathMatch: 'full' },
-    { path: 'api', component: _api_api_component__WEBPACK_IMPORTED_MODULE_4__["ApiComponent"], resolve: { apiList: _api_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_8__["ApiListResolverService"] } },
+    { path: 'api', component: _api_api_component__WEBPACK_IMPORTED_MODULE_4__["ApiComponent"], resolve: { apiList: _api_api_resolver_service__WEBPACK_IMPORTED_MODULE_8__["ApiResolverService"] } },
     { path: 'support', component: _support_support_component__WEBPACK_IMPORTED_MODULE_3__["SupportComponent"] },
     { path: 'submit', component: _submit_submit_component__WEBPACK_IMPORTED_MODULE_6__["SubmitComponent"] },
     { path: 'signup', component: _signup_signup_component__WEBPACK_IMPORTED_MODULE_5__["SignupComponent"] },
@@ -220,13 +321,14 @@ var routes = [
         component: _cbs_cbs_component__WEBPACK_IMPORTED_MODULE_7__["CbsComponent"],
         children: [
             { path: '', redirectTo: 'register', pathMatch: 'full' },
-            { path: 'success', component: _cbssuccess_cbssuccess_component__WEBPACK_IMPORTED_MODULE_10__["CbssuccessComponent"] },
-            { path: 'register', component: _cbsregister_cbsregister_component__WEBPACK_IMPORTED_MODULE_11__["CbsregisterComponent"] }
+            { path: 'success', component: _cbssuccess_cbssuccess_component__WEBPACK_IMPORTED_MODULE_11__["CbssuccessComponent"] },
+            { path: 'register', component: _cbsregister_cbsregister_component__WEBPACK_IMPORTED_MODULE_12__["CbsregisterComponent"] }
         ]
     },
-    { path: 'dashboard', component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_9__["DashboardComponent"], resolve: { selected_api: _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_13__["SelectedApiListResolverService"] } },
-    { path: 'profile', component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_12__["ProfileComponent"], resolve: { user_profile: _profile_get_userprofile_resolver_service__WEBPACK_IMPORTED_MODULE_14__["GetUserProfileResolverService"] } },
-    { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_15__["LoginComponent"] }
+    { path: 'dashboard', component: _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_10__["DashboardComponent"], resolve: { selected_api: _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_14__["SelectedApiListResolverService"] } },
+    { path: 'profile', component: _profile_profile_component__WEBPACK_IMPORTED_MODULE_13__["ProfileComponent"], resolve: { user_profile: _profile_get_userprofile_resolver_service__WEBPACK_IMPORTED_MODULE_15__["GetUserProfileResolverService"] } },
+    { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_16__["LoginComponent"] },
+    { path: 'apilist', component: _apilist_apilist_component__WEBPACK_IMPORTED_MODULE_17__["ApilistComponent"], resolve: { apiList: _apilist_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_9__["ApiListResolverService"] } }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -325,13 +427,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _submit_submit_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./submit/submit.component */ "./src/app/submit/submit.component.ts");
 /* harmony import */ var _cbs_cbs_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./cbs/cbs.component */ "./src/app/cbs/cbs.component.ts");
 /* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/dashboard/dashboard.component.ts");
-/* harmony import */ var _api_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./api/apilist-resolver.service */ "./src/app/api/apilist-resolver.service.ts");
+/* harmony import */ var _api_api_resolver_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./api/api-resolver.service */ "./src/app/api/api-resolver.service.ts");
 /* harmony import */ var _cbsregister_cbsregister_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./cbsregister/cbsregister.component */ "./src/app/cbsregister/cbsregister.component.ts");
 /* harmony import */ var _cbssuccess_cbssuccess_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./cbssuccess/cbssuccess.component */ "./src/app/cbssuccess/cbssuccess.component.ts");
 /* harmony import */ var _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./dashboard/select-apilist-resolver.service */ "./src/app/dashboard/select-apilist-resolver.service.ts");
 /* harmony import */ var _profile_profile_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./profile/profile.component */ "./src/app/profile/profile.component.ts");
 /* harmony import */ var _profile_get_userprofile_resolver_service__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./profile/get-userprofile-resolver.service */ "./src/app/profile/get-userprofile-resolver.service.ts");
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
+/* harmony import */ var _apilist_apilist_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./apilist/apilist.component */ "./src/app/apilist/apilist.component.ts");
+/* harmony import */ var _apilist_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./apilist/apilist-resolver.service */ "./src/app/apilist/apilist-resolver.service.ts");
+
+
 
 
 
@@ -374,7 +480,8 @@ var AppModule = /** @class */ (function () {
                 _cbsregister_cbsregister_component__WEBPACK_IMPORTED_MODULE_18__["CbsregisterComponent"],
                 _cbssuccess_cbssuccess_component__WEBPACK_IMPORTED_MODULE_19__["CbssuccessComponent"],
                 _profile_profile_component__WEBPACK_IMPORTED_MODULE_21__["ProfileComponent"],
-                _login_login_component__WEBPACK_IMPORTED_MODULE_23__["LoginComponent"]
+                _login_login_component__WEBPACK_IMPORTED_MODULE_23__["LoginComponent"],
+                _apilist_apilist_component__WEBPACK_IMPORTED_MODULE_24__["ApilistComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -385,7 +492,7 @@ var AppModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"]
             ],
-            providers: [_services_signup_service_service__WEBPACK_IMPORTED_MODULE_4__["SignupServiceService"], _api_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_17__["ApiListResolverService"], _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_20__["SelectedApiListResolverService"], _profile_get_userprofile_resolver_service__WEBPACK_IMPORTED_MODULE_22__["GetUserProfileResolverService"]],
+            providers: [_services_signup_service_service__WEBPACK_IMPORTED_MODULE_4__["SignupServiceService"], _api_api_resolver_service__WEBPACK_IMPORTED_MODULE_17__["ApiResolverService"], _apilist_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_25__["ApiListResolverService"], _dashboard_select_apilist_resolver_service__WEBPACK_IMPORTED_MODULE_20__["SelectedApiListResolverService"], _profile_get_userprofile_resolver_service__WEBPACK_IMPORTED_MODULE_22__["GetUserProfileResolverService"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
         })
     ], AppModule);
@@ -546,7 +653,7 @@ var CbsregisterComponent = /** @class */ (function () {
             sip: this.CBSForm.controls.SIP.value,
             cred: this.CBSForm.controls.cred.value
         };
-        console.log(this.CBSForm.controls.bankstandard.value);
+        console.log("banking standard: " + this.CBSForm.controls.bankstandard.value);
         if (1) {
             console.log("valid data: " + myObj);
             this.signservice.sendCbsDetails(myObj)
@@ -672,7 +779,7 @@ var CbssuccessComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<br>\r\n<div class=\"message\" *ngIf=\"confirmed\">\r\n    Your account has been activated. Please integrate with your Core Bank Solution to continue.\r\n    <a routerLink=\"/corebankservices/register\">Intergrate with CBS</a>\r\n</div>\r\n<div *ngIf=\"integrated\">\r\n    List of Api services published\r\n    <div *ngFor=\" let api of select_api\">\r\n        <b> {{api}} </b>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<br>\r\n<div class=\"message\" *ngIf=\"confirmed\">\r\n    Your account has been activated. Please integrate with your Core Bank Solution to continue.\r\n    <a routerLink=\"/corebankservices/register\">Intergrate with CBS</a>\r\n</div>\r\n <div *ngIf=\"integrated\" class=\"ibc\">\r\n    Click <button (click)=\"showibc()\">Here</button> to integrate with bank connect.\r\n</div> \r\n\r\n<div class=\"ibcform\">\r\n    <form [formGroup]=\"Integration\" >\r\n        <label> Enter your Security token: </label>\r\n        <input type=\"text\" formControlName=\"secureToken\">\r\n        <button type=\"button\" (click)=\"check()\">Integrate</button>\r\n        <div class=\"message\"> Integration with Bank Connect successful</div>\r\n    </form>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -683,7 +790,7 @@ module.exports = "<br>\r\n<div class=\"message\" *ngIf=\"confirmed\">\r\n    You
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuLi9zcmMvYXBwL2Rhc2hib2FyZC9kYXNoYm9hcmQuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = ".ibcform {\n  display: none; }\n\n.message {\n  display: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9hcHAvZGFzaGJvYXJkL0M6XFxVc2Vyc1xcVHVzaGFyTUFMQ0hBUFVSRVxcRGVza3RvcFxcR2l0aHViXFxiYW5rY29ubmVjdFxcc2VydmVyLy4uXFxzcmNcXGFwcFxcZGFzaGJvYXJkXFxkYXNoYm9hcmQuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxhQUFhLEVBQUE7O0FBRWpCO0VBQ0ksYUFBYSxFQUFBIiwiZmlsZSI6Ii4uL3NyYy9hcHAvZGFzaGJvYXJkL2Rhc2hib2FyZC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5pYmNmb3Jte1xyXG4gICAgZGlzcGxheTogbm9uZTtcclxufVxyXG4ubWVzc2FnZXtcclxuICAgIGRpc3BsYXk6IG5vbmU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -701,14 +808,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_signup_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/signup-service.service */ "./src/app/services/signup-service.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+
 
 
 
 
 var DashboardComponent = /** @class */ (function () {
-    function DashboardComponent(signservice, route) {
+    function DashboardComponent(signservice, route, fb) {
         this.signservice = signservice;
         this.route = route;
+        this.fb = fb;
         this.select_api = [];
         this.integrated = 0;
         this.confirmed = 0;
@@ -717,6 +827,9 @@ var DashboardComponent = /** @class */ (function () {
     }
     DashboardComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.Integration = this.fb.group({
+            secureToken: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"]]]
+        });
         //make a call to service to know whether the confirmation is done or not.
         this.signservice.integrated()
             .subscribe(function (data) {
@@ -729,13 +842,29 @@ var DashboardComponent = /** @class */ (function () {
             _this.confirmed = data;
         }, function (err) { return console.log(err); });
     };
+    DashboardComponent.prototype.check = function () {
+        //Integraton
+        var token = this.Integration.controls.secureToken.value;
+        console.log(token);
+        if ('weijd67wuyfiyi84fo4d39rdewdo0ur3' == token) {
+            document.querySelector('.ibcform').style.display = 'none';
+            document.querySelector('.message').style.display = 'block';
+        }
+        else {
+            alert("Wrong Secure Token!");
+        }
+    };
+    DashboardComponent.prototype.showibc = function () {
+        document.querySelector('.ibc').style.display = 'none';
+        document.querySelector('.ibcform').style.display = 'block';
+    };
     DashboardComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-dashboard',
             template: __webpack_require__(/*! ./dashboard.component.html */ "./src/app/dashboard/dashboard.component.html"),
             styles: [__webpack_require__(/*! ./dashboard.component.scss */ "./src/app/dashboard/dashboard.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_signup_service_service__WEBPACK_IMPORTED_MODULE_2__["SignupServiceService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_signup_service_service__WEBPACK_IMPORTED_MODULE_2__["SignupServiceService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"]])
     ], DashboardComponent);
     return DashboardComponent;
 }());
@@ -980,7 +1109,7 @@ var MaterialModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>\r\n\r\n<header>\r\n  <div class=\"navcontainer\">\r\n    <a routerLink=\"/\">{{ appTitle }}</a>\r\n    <nav>\r\n      <ul>\r\n        <li><a routerLink=\"/api\">API</a></li>\r\n        <li><a routerLink=\"/support\">Support</a></li>\r\n        <li><a routerLink=\"/profile\"><i class='fas fa-user-alt' style='font-size:24px'></i></a></li>\r\n      </ul>\r\n    </nav>\r\n  </div>\r\n</header>\r\n"
+module.exports = "<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>\r\n\r\n<header>\r\n  <div class=\"navcontainer\">\r\n    <a routerLink=\"/\">{{ appTitle }}</a>\r\n    <nav>\r\n      <ul>\r\n        <li><a routerLink=\"/apilist\">API</a></li>\r\n        <li><a routerLink=\"/support\">Contact Us</a></li>\r\n        <li><a routerLink=\"/profile\"><i class='fas fa-user-alt' style='font-size:24px'></i></a></li>\r\n      </ul>\r\n    </nav>\r\n  </div>\r\n</header>\r\n"
 
 /***/ }),
 
@@ -1074,7 +1203,7 @@ var GetUserProfileResolverService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h3><b>Your account details</b></h3>\r\n<br>\r\n<div class=\"container\">\r\n  <div class=\"row\">\r\n    <div class=\"col-4\"></div>\r\n    <div class=\"col-4\">\r\n        <ul>\r\n            <li><b>User Name: </b>{{show_user_profile.username}}</li>\r\n            <li><b>First Name: </b>{{show_user_profile.fname}}</li>\r\n            <li><b>Last Name: </b>{{show_user_profile.lname}}</li>\r\n            <li><b>Admin: </b>{{show_user_profile.admin}}</li>\r\n            <li><b>Email: </b>{{show_user_profile.useremail}}</li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"col-4\"></div>\r\n  </div>\r\n</div>\r\n\r\n\r\n"
+module.exports = "<h3><b>Your account details</b></h3>\r\n<br>\r\n<div class=\"container\">\r\n  <div class=\"row\">\r\n    <div class=\"col-4\"></div>\r\n    <div class=\"col-4\">\r\n        <ul>\r\n            <li><b>User Name: </b>{{show_user_profile.username}}</li>\r\n            <li><b>First Name: </b>{{show_user_profile.fname}}</li>\r\n            <li><b>Last Name: </b>{{show_user_profile.lname}}</li>\r\n            <li><b>Email: </b>{{show_user_profile.useremail}}</li>\r\n        </ul>\r\n    </div>\r\n    <div class=\"col-4\"></div>\r\n  </div>\r\n</div>\r\n\r\n\r\n"
 
 /***/ }),
 

@@ -20,13 +20,15 @@ import { SubmitComponent } from './submit/submit.component';
 import { CbsComponent } from './cbs/cbs.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-import { ApiListResolverService } from './api/apilist-resolver.service';
+import { ApiResolverService } from './api/api-resolver.service';
 import { CbsregisterComponent } from './cbsregister/cbsregister.component';
 import { CbssuccessComponent } from './cbssuccess/cbssuccess.component';
 import { SelectedApiListResolverService } from './dashboard/select-apilist-resolver.service';
 import { ProfileComponent } from './profile/profile.component';
 import { GetUserProfileResolverService } from './profile/get-userprofile-resolver.service';
 import { LoginComponent } from './login/login.component';
+import { ApilistComponent } from './apilist/apilist.component';
+import { ApiListResolverService } from './apilist/apilist-resolver.service';
 
 
 @NgModule({
@@ -42,7 +44,8 @@ import { LoginComponent } from './login/login.component';
     CbsregisterComponent,
     CbssuccessComponent,
     ProfileComponent,
-    LoginComponent
+    LoginComponent,
+    ApilistComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,7 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [SignupServiceService,ApiListResolverService,SelectedApiListResolverService, GetUserProfileResolverService],
+  providers: [SignupServiceService,ApiResolverService, ApiListResolverService,SelectedApiListResolverService, GetUserProfileResolverService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

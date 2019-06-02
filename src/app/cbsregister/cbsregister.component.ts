@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { SignupServiceService} from '../services/signup-service.service';
@@ -87,7 +87,7 @@ export class CbsregisterComponent implements OnInit{
         cred : this.CBSForm.controls.cred.value
       }
 
-    console.log(this.CBSForm.controls.bankstandard.value);
+    console.log("banking standard: "+this.CBSForm.controls.bankstandard.value);
       if(1){
         console.log("valid data: "+ myObj);
         this.signservice.sendCbsDetails(myObj)

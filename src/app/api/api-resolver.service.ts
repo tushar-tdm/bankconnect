@@ -4,7 +4,7 @@ import { SignupServiceService } from '../services/signup-service.service';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class ApiListResolverService implements Resolve<any>{
+export class ApiResolverService implements Resolve<any>{
     
     constructor(private signupservice: SignupServiceService){}
     
