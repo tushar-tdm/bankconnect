@@ -14,9 +14,9 @@ var userschema = mongoose.Schema({
     password: String,
     fname : String,
     lname: String,
-    admin: String,
     integrated: Boolean,
-    pass : String
+    pass : String,
+    standard : String
 },{
     timestamp : true
 });
