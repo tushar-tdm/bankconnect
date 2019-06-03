@@ -45,7 +45,8 @@ export class DashboardComponent implements OnInit {
     console.log(token);
     if('weijd67wuyfiyi84fo4d39rdewdo0ur3' == token){
       (document.querySelector('.ibcform') as HTMLElement).style.display='none';  
-      (document.querySelector('.message') as HTMLElement).style.display='block';  
+      (document.querySelector('.message') as HTMLElement).style.display='block';
+      //make sure that this option is not showed again.
     }else{
       alert("Wrong Secure Token!");
     }
