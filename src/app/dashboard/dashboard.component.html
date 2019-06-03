@@ -1,18 +1,26 @@
 <br>
-<div class="message" *ngIf="confirmed">
+<div class="message msg" *ngIf="confirmed">
     Your account has been activated. Please integrate with your Core Bank Solution to continue.
     <a routerLink="/corebankservices/register">Intergrate with CBS</a>
 </div>
  <div *ngIf="integrated" class="ibc">
-    Click <button (click)="showibc()">Here</button> to integrate with bank connect.
+    Click <button class="btn btn-primary" (click)="showibc()">Here</button> to integrate with bank connect.
 </div> 
 
 <div class="ibcform">
     <form [formGroup]="Integration" >
-        <label> Enter your Security token: </label>
-        <input type="text" formControlName="secureToken">
-        <button type="button" (click)="check()">Integrate</button>
+        <label class="lbl"> Enter your Security token: </label>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" formControlName="secureToken">
+                </div>
+                <div class="col-lg-6">
+                    <button class="btn btn-primary" type="button" (click)="check()">Integrate</button>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
 
-<div class="message"> Integration with Bank Connect successful</div>
+<div class="message msg"> Integration with Bank Connect successful</div>
