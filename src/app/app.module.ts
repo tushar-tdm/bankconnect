@@ -29,6 +29,8 @@ import { GetUserProfileResolverService } from './profile/get-userprofile-resolve
 import { LoginComponent } from './login/login.component';
 import { ApilistComponent } from './apilist/apilist.component';
 import { ApiListResolverService } from './apilist/apilist-resolver.service';
+import { HomeComponent } from './home/home.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import { ApiListResolverService } from './apilist/apilist-resolver.service';
     CbssuccessComponent,
     ProfileComponent,
     LoginComponent,
-    ApilistComponent
+    ApilistComponent,
+    HomeComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

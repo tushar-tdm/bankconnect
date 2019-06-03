@@ -10,10 +10,20 @@ import { SignupServiceService } from '../services/signup-service.service';
 export class NavComponent implements OnInit {
 
   appTitle = 'IDBP';
+  login : Number = 0;
+  username: string ='';
 
   constructor( private signservice: SignupServiceService ) { }
 
   ngOnInit() {
+    this.signservice.checkLogin()
+    .subscribe((data) => {
+      console.log(data);
+      if(data === 0) {
+        this.login = data;
+      } else {this.username = data;
+              this.login = 1; }
+    }, (err) => console.log(err));
   }
 
 }

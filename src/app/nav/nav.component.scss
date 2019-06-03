@@ -1,42 +1,25 @@
-header {
-  background: rgb(64, 22, 112);
 
-  .logo {
-      font-weight: bold;
-  }
-
-  nav {
-      justify-self: right;
-
-      ul {
-          list-style-type: none;
-          margin: 0; padding: 0;
-
-          li {
-              float: left;
-
-              a {
-                  padding: 1.5em;
-                  text-transform: uppercase;
-                  font-size: .8em;
-
-                  &:hover {
-                      background: rgb(186, 184, 189);
-                  }
-              }
-          }
-      }
-  }
-
-  .navcontainer {
-    width: 80%;
-    margin: 0 auto;
-    padding: 1.3em;
-    display: grid;
-    grid-template-columns: 30% auto;
-
-    a {
-        color: white;
-    }
+.dropdown:hover>.dropdown-menu {
+  display: inline;
+  float: left;
 }
+
+// .dropdown>.dropdown-toggle:active {
+//   /*Without this, clicking will make it sticky*/
+//     pointer-events: none;
+// }
+
+.seperateLi{
+  margin-left: 20px;
+}
+
+.material-icons{
+  margin-right: 5px;
+}
+
+.logo{
+  padding-left: 30px;
+  padding-right: 50px;
+  background-color: #047cc0;
+  border-radius: 2px;
 }

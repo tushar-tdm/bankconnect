@@ -237,6 +237,17 @@ routes.route('/integrated')
     })
 })
 
+routes.route('/checklogin')
+.get((req,res)=>{
+    var sess = req.session;
+
+    if(sess.email){
+      usermodel.find({email: sess.email},(err,doc)=>{
+        res.json(doc[0].username)
+      });
+    }else {res.json(0); }
+})
+
 routes.route('/profile')
 .get((req,res)=>{
     var sess = req.session;

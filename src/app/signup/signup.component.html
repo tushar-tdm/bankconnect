@@ -7,49 +7,65 @@
 
 <ng-template #elseBlock>
     <h1>Welcome to IBM Digital Banking Platform</h1>
-    <br>
-    <div class="row">
-      <div class="col-sm-4">
+    <p>Sign Up to continue</p><br>
+    <div class="container">
+        <div class="row justify-content-center">
+        <div class="col-md-6">
+        <div class="card">
+        <header class="card-header">
+          <a href="" class="float-right btn btn-primary mt-1">Log in</a>
+          <h4 class="card-title mt-2">Sign up</h4>
+        </header>
+        <article class="card-body">
+            <form [formGroup]="signupForm" (ngSubmit) = "onSubmit()">
+                <div class="form-group">
+                  <label for="exampleInputFName">First Name</label>
+                  <input type="text" class="form-control" formControlName="fname" placeholder="Enter First Name">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputLName">Last Name</label>
+                  <input type="text" class="form-control" formControlName="lname" placeholder="Enter Last Name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputUserName">User Name</label>
+                    <input type="text" class="form-control" formControlName="username" placeholder="Enter User Name">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
 
-      </div>
-      <div class="col-sm-4">
-        <form [formGroup]="signupForm" (ngSubmit) = "onSubmit()">
-          <div class="form-group">
-            <label for="exampleInputFName">First Name</label>
-            <input type="text" class="form-control" formControlName="fname" placeholder="Enter First Name">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputLName">Last Name</label>
-            <input type="text" class="form-control" formControlName="lname" placeholder="Enter Last Name">
-          </div>
-          <div class="form-group">
-              <label for="exampleInputUserName">User Name</label>
-              <input type="text" class="form-control" formControlName="username" placeholder="Enter User Name">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-          </div>
+                <div class="form-group">
+                  <label for="exampleInputPass1">Password</label>
+                  <input type="password" class="form-control" formControlName="pass" id="exampleInputPass1" placeholder="Enter Password">
+                </div>
 
-          <div class="form-group">
-            <label for="exampleInputPass1">Password</label>
-            <input type="password" class="form-control" formControlName="pass" id="exampleInputPass1" placeholder="Enter Password">
-          </div>
+              <!--
+                <div class="form-group">
+                  <label for="exampleInputPass2">Re-Type Password</label>
+                  <input type="password" class="form-control" formControlName="pass2" id="exampleInputPass2" placeholder="Re-Type Password">
+                </div> -->
+                <div class="form-row align-items-center">
+                    <div class="col-auto">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Agree to <a>Terms and Conditions</a></label>
+                        </div>
+                    </div><br><br>
+                    <div class="col-auto" class="sbmt">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+              </form>
+        </article> <!-- card-body end .// -->
+        <div class="border-top card-body text-center">Have an account? <a routerLink="/login">Log In</a></div>
+        </div> <!-- card.// -->
+        </div> <!-- col.//-->
 
-        <!--
-          <div class="form-group">
-            <label for="exampleInputPass2">Re-Type Password</label>
-            <input type="password" class="form-control" formControlName="pass2" id="exampleInputPass2" placeholder="Re-Type Password">
-          </div> -->
+        </div> <!-- row.//-->
 
-          <button class="sbmt" type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <div> Have an account? <a routerLink="/login">Sign in</a></div>
-      </div>
-      <div class="col-sm-4">
 
-      </div>
-    </div>
-
+        </div>
+        <!--container end.//-->
 </ng-template>

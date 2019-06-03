@@ -1,11 +1,11 @@
 <br>
-<div class="message msg" *ngIf="confirmed">
+<div class="msg" *ngIf="confirmed">
     Your account has been activated. Please integrate with your Core Bank Solution to continue.
     <a routerLink="/corebankservices/register">Intergrate with CBS</a>
 </div>
  <div *ngIf="integrated" class="ibc">
     Click <button class="btn btn-primary" (click)="showibc()">Here</button> to integrate with bank connect.
-</div> 
+</div>
 
 <div class="ibcform">
     <form [formGroup]="Integration" >
