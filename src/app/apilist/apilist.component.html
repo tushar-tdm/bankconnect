@@ -4,8 +4,8 @@
       <div class="card-body">
         <h5 class="card-title">{{api | uppercase}}</h5>
         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <button class="Overview btn btn-primary" type="button"> Overview </button>
-        <button class="test btn btn-primary" type="button"> Test </button>
+        <button class="Overview btn btn-primary" type="button" (click)="setApi(api)"> Overview </button>
+        <!-- <a class="btn btn-primary" [routerLink]="['/overview',api]">Overview</a> -->
       </div>
     </div>
   </div>

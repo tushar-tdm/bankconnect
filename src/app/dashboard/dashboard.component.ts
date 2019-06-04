@@ -48,6 +48,7 @@ export class DashboardComponent implements OnInit {
       (document.querySelector('.ibcform') as HTMLElement).style.display='none';  
       (document.querySelector('.message') as HTMLElement).style.display='block';
       //make sure that this option is not showed again.
+      this.integrated = 0; 
     }else{
       alert("Wrong Secure Token!");
     }

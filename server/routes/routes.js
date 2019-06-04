@@ -191,10 +191,11 @@ routes.route('/api')
     var standard = req.body.standard;
 
     console.log(standard);
-    adminmodel.findOneAndUpdate({email : sess.email},{api_list : apis, integrated: true, standard: standard },(err,doc)=>{
+    adminmodel.findOneAndUpdate({email : sess.email},{api_list : apis, integrated: true },(err,doc)=>{
         if(err) console.log(err);
     });
 
+       
     //run  a shell command before sending the response
     res.json("Services published successfully");
 });
@@ -247,7 +248,7 @@ routes.route('/checklogin')
     var sess = req.session;
 
     if(sess.email){
-      usermodel.find({email: sess.email},(err,doc)=>{
+      adminmodel.find({email: sess.email},(err,doc)=>{
         res.json(doc[0].username)
       });
     }else {res.json(0); }
@@ -327,6 +328,22 @@ routes.route('/registry')
     res.json("updated registry.. not really xD");
 })
 
+routes.route('/getapiDetails/:name')
+.get((req,res)=>{
+    apimodel.find({name:req.params.name},(err,doc)=>{
+        var keys = []; var uses = [];
+        
+        var myObj ={
+            name : req.params.name,
+            desc : doc[0].desc,
+            key : doc[0].key_features,
+            use : doc[0].use_cases
+        }
+        //console.log("final object is :"+myObj.use);
+        res.json(myObj);
+    })
+})
+
 //==============================END OF ROUTING =======================================
 
 function sendmail(email,ts,sub){
@@ -346,7 +363,7 @@ function sendmail(email,ts,sub){
             to: `${email}`,
             subject: `${sub}`,
             text: 'That was easy!',
-            html : `${link}`
+            html : `<a href="${link}">Accept</a>`
         };
 
         transporter.sendMail(mailOptions, function(error, info){

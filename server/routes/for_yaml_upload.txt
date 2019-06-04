@@ -1,0 +1,25 @@
+
+    //get his cbs and version
+    adminmodel.find({email:sess.email},(err,doc)=>{
+        var cbs = doc[0].cbs;
+        var version = doc[0].version;
+
+        for(var i=0;i<apis.length;++i){
+            var prod_file_name = apis[i]+'-product_1.0.0.yaml';
+            var stub_file_name = apis[i]+'-stub_1.0.0.yaml';
+            
+            var prod_file_path = __dirname+'../../api_files/'+cbs+'product'+prod_file_name;
+            var stub_file_path = __dirname+'../../api_files/'+cbs+'stub'+stub_file_name;
+            var prod_data = fs.readFileSync(prod_file_path).toString('base64');
+            var stub_data = fs.readFileSync(stub_file_path).toString('base64');
+        
+            //this is to read the base64 file to string.
+            var b = new Buffer(prod_data,'base64');
+        
+            var db = client.db('idbp');
+            var collection = db.collection('');
+            collection.insert({prod_file : prod_data, stub_file: stub_data},(err,res)=>{
+                if(err) console.log(err);
+            });
+        } 
+    })

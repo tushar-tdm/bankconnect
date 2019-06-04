@@ -54,23 +54,21 @@ export class ApiComponent implements OnInit {
   }
 
   OnSubmit() {
-
     var newItem = this.apiselected;
-    //console.log({...this.apiservicesform.value,newItem});
-
     var obj = {
       apis : newItem,
     }
 
      this.signservice.postApis(obj)
      .subscribe((data)=>{
-
       this.router.navigateByUrl('/dashboard');
     },(err)=>{ console.log(err); })
+
+    //upload to api manager.
+    
   }
 
   shownext(){
     (document.querySelector('.bankstandard') as HTMLElement).style.display = 'block';
   }
-
 }

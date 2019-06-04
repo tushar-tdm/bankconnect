@@ -17,6 +17,8 @@ import { GetUserProfileResolverService } from './profile/get-userprofile-resolve
 import { LoginComponent } from './login/login.component';
 import { ApilistComponent } from './apilist/apilist.component';
 import { HomeComponent } from './home/home.component';
+import { OverviewComponent } from './overview/overview.component';
+import { OverviewResolverService } from './overview/overview-resolver.service';
 
 
 const routes: Routes = [
@@ -37,7 +39,8 @@ const routes: Routes = [
   { path: 'dashboard', component:DashboardComponent, resolve:{selected_api: SelectedApiListResolverService}},
   { path: 'profile', component: ProfileComponent, resolve : { user_profile : GetUserProfileResolverService}},
   { path: 'login', component: LoginComponent},
-  { path: 'apilist', component: ApilistComponent, resolve:{ apiList : ApiListResolverService}}
+  { path: 'apilist', component: ApilistComponent, resolve:{ apiList : ApiListResolverService}},
+  { path: 'overview', component: OverviewComponent, resolve:{ apiDetails : OverviewResolverService} }
 ];
 
 @NgModule({

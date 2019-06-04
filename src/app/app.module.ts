@@ -31,6 +31,9 @@ import { ApilistComponent } from './apilist/apilist.component';
 import { ApiListResolverService } from './apilist/apilist-resolver.service';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
+import { OverviewComponent } from './overview/overview.component';
+import { ApiserviceService } from './apiservice.service';
+import { OverviewResolverService } from './overview/overview-resolver.service';
 
 
 @NgModule({
@@ -49,7 +52,8 @@ import { FooterComponent } from './footer/footer.component';
     LoginComponent,
     ApilistComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    OverviewComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +64,14 @@ import { FooterComponent } from './footer/footer.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [SignupServiceService,ApiResolverService, ApiListResolverService,SelectedApiListResolverService, GetUserProfileResolverService],
+  providers: [SignupServiceService,
+    ApiResolverService,
+    ApiListResolverService,
+    SelectedApiListResolverService, 
+    GetUserProfileResolverService,
+    ApiserviceService,
+    OverviewResolverService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
