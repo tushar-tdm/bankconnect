@@ -4,7 +4,10 @@ var mongoose = require('mongoose');
 var api = mongoose.Schema({
     name :  String,
     cbs : String,
-    versions : Array
+    versions : Array,
+    desc : String,
+    key_features : Array,
+    use_cases : Array
 },{
     timestamp : true
 });

@@ -1,0 +1,69 @@
+
+.buttons{
+    border-bottom: solid 2px black;
+    border: solid 1px transparent;
+    width : 180px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Source Sans Pro', sans-serif;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: white;
+}
+
+.options{
+    border: solid 1px blueviolet;
+    width : 180px;
+    text-align: center;
+    text-transform: uppercase;
+    background: blueviolet;
+    color: white;
+    font-family: 'Source Sans Pro', sans-serif;
+    text-decoration: none;
+}
+
+label{
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.btn{
+    margin-top: 15px;
+}
+
+.userrole{
+    display: none;
+    margin-left: 15px;
+}
+.registry{
+    display: none;
+}
+.changepass{
+    display: none;
+}
+
+.example-radio-button{
+    margin-left:20px;
+}
+
+.custom-select{
+    margin-bottom: 20px;
+}
+
+mat-label{
+    font-weight: bold;
+}
+
+.choice{
+    margin-top: 30px;
+}
+.content{
+    border: solid 2px transparent;
+    box-shadow: 5px 5px 10px grey;
+    border-radius: 10px;
+    padding: 20px 20px 20px 20px; 
+}
+
+h3{
+    border-bottom: solid 2px blueviolet;
+}

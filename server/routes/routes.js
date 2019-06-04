@@ -2,10 +2,13 @@ var express = require('express');
 var nodemailer = require('nodemailer');
 var bodyParser = require('body-parser');
 var passwordHash = require('password-hash');
+var exec = require('child_process').exec;
 
-var usermodel = require('../models/usermodel');
+//models
+var adminmodel = require('../models/adminmodel');
 var cbsmodel = require('../models/cbsmodel');
 var apimodel = require('../models/apimodel');
+var usermodel = require('../models/usermodel');
 
 var routes = express.Router();
 
@@ -28,7 +31,7 @@ routes.route('/sendmail')
 
     //make an entry in the database in a collection called users.
     //use the schema of the collection.
-    var newuser = new usermodel({
+    var newuser = new adminmodel({
         username: req.body.username,
         fname : req.body.fname,
         lname : req.body.lname,
@@ -53,9 +56,9 @@ routes.route('/sendmail')
 
     sess = req.session;
     sess.email = req.body.email;
-    sess.ts = timestamp;
 
-    sendmail(req.body.email,timestamp);
+    var sub = "Email confirmation for Bank Connect";
+    sendmail(req.body.email,timestamp,sub);
     var msg = "Email sent.. Please check your email to continue the process'+ `<br>` + 'you can close this window";
     res.json(msg);
 });
@@ -63,7 +66,7 @@ routes.route('/sendmail')
 routes.route('/loginconfirm')
 .post(urlencodedParser,(req,res)=>{
     var sess = req.session;
-    usermodel.find({email: req.body.email},(err,doc)=>{
+    adminmodel.find({email: req.body.email},(err,doc)=>{
         if(doc.length == 0){
             var msg = "Invalid email";
             var obj = {
@@ -97,14 +100,14 @@ routes.route('/loginconfirm')
 routes.route('/confirm/:ts/:id')
 .get((req,res)=>{
 
-    usermodel.find({ts : req.params.ts},(err,doc)=>{
+    adminmodel.find({ts : req.params.ts},(err,doc)=>{
         if(req.params.ts == doc[0].ts){
-            usermodel.findOneAndUpdate({ts : req.params.ts},{$set : {confirmation : true}},{new : true},(err,doc)=>{
+            adminmodel.findOneAndUpdate({ts : req.params.ts},{$set : {confirmation : true}},{new : true},(err,doc)=>{
             });
             res.redirect('/dashboard'); //dashboard
          }
         else{
-            usermodel.findByIdAndRemove({ts : req.params.ts});
+            adminmodel.findByIdAndRemove({ts : req.params.ts});
             res.json('confirmation failed');
         }
      }).limit(1).sort({ ts : -1});
@@ -140,13 +143,14 @@ routes.route('/corebankservices/register')
     var cbs = req.body.cbs;
     var version = req.body.version;
     var intopt = req.body.intopt;
+    var standard = req.body.standard;
     var sip = req.body.sip;
     var cred = req.body.cred;
 
     var sess = req.session;
-
+    console.log("standard at routes.js "+standard);
     // use $set to update a single field
-    usermodel.findOneAndUpdate({ email : sess.email }, {cbs : cbs, version : version, intopt : intopt, sip: sip, cred:cred},{new : true},(err,doc)=>{
+    adminmodel.findOneAndUpdate({ email : sess.email }, {cbs : cbs, version : version, standard: standard, intopt : intopt, sip: sip, cred:cred},{new : true},(err,doc)=>{
             if(err) console.log(err);
         });
 
@@ -160,7 +164,7 @@ routes.route('/api')
     global.apis=[];
 
     //get the apis based on the users cbs and version.
-    usermodel.find({email : sess.email },(err,doc)=>{
+    adminmodel.find({email : sess.email },(err,doc)=>{
         //only 1 document will be returned.
         var cbs = doc[0].cbs;
         var ver = doc[0].version;
@@ -187,10 +191,11 @@ routes.route('/api')
     var standard = req.body.standard;
 
     console.log(standard);
-    usermodel.findOneAndUpdate({email : sess.email},{api_list : apis, integrated: true, standard: standard },(err,doc)=>{
+    adminmodel.findOneAndUpdate({email : sess.email},{api_list : apis, integrated: true, standard: standard },(err,doc)=>{
         if(err) console.log(err);
     });
 
+    //run  a shell command before sending the response
     res.json("Services published successfully");
 });
 
@@ -201,7 +206,7 @@ routes.route('/api/selected')
     global.apis=[];
 
     //get the apis based on the users cbs and version.
-    usermodel.find({email : sess.email },(err,doc)=>{
+    adminmodel.find({email : sess.email },(err,doc)=>{
         //only 1 document will be returned.
         //directly get the api_list
         var selected_api = doc[0].api_list;
@@ -215,7 +220,7 @@ routes.route('/confirmed')
     var sess = req.session;
 
     if(sess.email){
-        usermodel.find({email: sess.email},(err,doc)=>{
+        adminmodel.find({email: sess.email},(err,doc)=>{
             if(!doc[0].integrated && doc[0].confirmation){
                 res.json(1);
             }
@@ -230,7 +235,7 @@ routes.route('/integrated')
 .get((req,res)=>{
     var sess = req.session;
 
-    usermodel.find({email:sess.email},(err,doc)=>{
+    adminmodel.find({email:sess.email},(err,doc)=>{
         if(doc[0].integrated)
             res.json(1);
         else res.json(0);
@@ -241,7 +246,7 @@ routes.route('/profile')
 .get((req,res)=>{
     var sess = req.session;
 
-    usermodel.find({email: sess.email},(err,doc)=>{
+    adminmodel.find({email: sess.email},(err,doc)=>{
       var myObj = {
         username: doc[0].username,
         fname: doc[0].fname,
@@ -252,9 +257,68 @@ routes.route('/profile')
       res.json(myObj)
     })
 });
+
+routes.route('/checkshell')
+.get((req,res)=>{
+    exec(`cd C:/Users/TusharMALCHAPURE/Desktop/api_connect && apic products publish dummy-product_1.0.0.yaml --org think --catalog sandbox --server platform.9.202.177.31.xip.io
+    `,(err,stdout)=>{
+        console.log("this executed");
+        if(err) throw err;
+
+        console.log(stdout);
+    });
+})
+
+routes.route('/role')
+.post((req,res)=>{
+
+    var sess = req.session;
+    //set the role here
+    var newuser = new usermodel({
+        role : req.body.role,
+        username : "default",
+        fname : "default",
+        lname : "default",
+        email : req.body.email
+    });
+    newuser.save();
+
+    //send a mail
+    var sub = `${sess.email} has invited you to accept the role of ${req.body.role}. Please click on the link to accept the invitation`.
+    sendemail(req.body.email,ts,sess.email,sub);
+
+    res.json("Mail has been sent.");
+})
+
+routes.route('/password')
+.post((req,res)=>{
+
+    var sess = req.session;
+
+    //check if the passwords are correct
+    adminmodel.find({email : sess.email},(err,doc)=>{
+        if(passwordHash.verify(req.body.old,doc[0].pass)){
+            //check if the two passwords match
+            if(req.body.new == req.body.renew){
+                var hashpwd = passwordHash.generate(pass);
+                adminmodel.findOneAndUpdate({email :  sess.email},{$set:{pass : hashpwd }},(err,doc)=>{
+                    if(err) console.log(err);
+                    res.json(1);
+                });
+            }else res.json(-1);
+        }else res.json(0);
+    });
+})
+
+routes.route('/registry')
+.post((req,res)=>{
+    var sess = req.session;
+    res.json("updated registry.. not really xD");
+})
+
 //==============================END OF ROUTING =======================================
 
-function sendmail(email,ts){
+function sendmail(email,ts,sub){
     var link = `http://localhost:3000/route/confirm/${ts}/${email}`;
     var transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -269,7 +333,7 @@ function sendmail(email,ts){
         var mailOptions = {
             from: 'tushartdm117@gmail.com',
             to: `${email}`,
-            subject: 'Email confirmation for Bank Connect',
+            subject: `${sub}`,
             text: 'That was easy!',
             html : `${link}`
         };

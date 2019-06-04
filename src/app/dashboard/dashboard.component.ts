@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   confirmed : Number = 0;
   Integration : FormGroup;
 
+
   constructor(private signservice: SignupServiceService, private route: ActivatedRoute,private fb: FormBuilder) { 
     this.select_api = this.route.snapshot.data['selected_api'];
     console.log(this.select_api);
@@ -29,13 +30,13 @@ export class DashboardComponent implements OnInit {
     //make a call to service to know whether the confirmation is done or not.
     this.signservice.integrated()
     .subscribe((data)=>{
-      console.log(data);
+      console.log("integrated:"+data);
       this.integrated = data;
     },(err)=> console.log(err));
 
     this.signservice.confirmed()
     .subscribe((data)=>{
-      console.log(data);
+      console.log("confirmed:"+data);
       this.confirmed = data;
     },(err)=>console.log(err));
   }
@@ -57,4 +58,10 @@ export class DashboardComponent implements OnInit {
     (document.querySelector('.ibcform') as HTMLElement).style.display='block';
   }
 
+  checkshell(){
+    this.signservice.checkshell()
+    .subscribe((data)=>{
+      console.log(data);
+    },(err)=> console.log(err));
+  }
 }

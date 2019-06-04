@@ -1,4 +1,4 @@
-db.apis.insert({name:"account",cbs:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"]});
+db.apis.insert({name:"Cards",cbs:"Finacle",versions:["10.2.0","9.8.3","9.4.4"], desc:"Allow developers to get country specific variations.",key_features:["Location Accuracy","Location Bases Search","Improve Customer Data"],use_cases:[""]});
 
 db.cbservices.insert({name:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"]});
 

@@ -1,18 +1,111 @@
-<h3><b>Your account details</b></h3>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+</head>
+<h3><b>{{title}}</b></h3>
 <br>
 <div class="container">
   <div class="row">
-    <div class="col-4"></div>
-    <div class="col-4">
-        <ul>
-            <li><b>User Name: </b>{{show_user_profile.username}}</li>
-            <li><b>First Name: </b>{{show_user_profile.fname}}</li>
-            <li><b>Last Name: </b>{{show_user_profile.lname}}</li>
-            <li><b>Email: </b>{{show_user_profile.useremail}}</li>
-        </ul>
+    <div class="col-lg-3 choice">
+      <!-- options -->
+      <button [ngClass]="profileClass" (click)="show_profile()"> My Details</button>
+      <button [ngClass]="passClass" (click)="show_pass()"> Change Password</button>
+      <button [ngClass]="rolesClass" (click)="show_roles()"> User Roles </button>
+      <button [ngClass]="registryClass" (click)="show_registry()"> User Registry </button>
     </div>
-    <div class="col-4"></div>
+    <div class="col-lg-9 content">
+          <!-- ==================== PROFILE ============================ -->
+
+          <div class="profile">
+              <ul>
+                  <li><b>User Name: </b>{{show_user_profile.username}}</li>
+                  <li><b>First Name: </b>{{show_user_profile.fname}}</li>
+                  <li><b>Last Name: </b>{{show_user_profile.lname}}</li>
+                  <li><b>Email: </b>{{show_user_profile.useremail}}</li>
+              </ul>
+          </div>
+
+          <!-- ==================== PASSWORD ============================ -->
+
+          <div class="changepass">
+          <form [formGroup]="passForm" (ngSubmit)="onPassSubmit()">
+            <label> Current Password</label>
+            <input class="form-control" type="password" placeholder="Enter Current Password" formControlName="old">
+
+            <label> New Password</label>
+            <input class="form-control" type="password" placeholder="Enter New Password" formControlName="new">
+
+            <label> Re-Type New Password</label>
+            <input class="form-control" type="password" placeholder="Re-Type New Password" formControlName="renew">
+
+            <button class="btn btn-primary" style="margin-top: 15px;"> Change Password</button>
+          </form>
+          </div>
+
+          <!-- ==================== USER ROLE ============================ -->
+          <div class="userrole">
+          <div class="row">
+            <div class="col-lg-4">
+              <label>Product Manager</label>
+            </div>
+            <div class="col-lg-4">
+              <label>Business Manager</label>
+            </div>
+            <div class="col-lg-4">
+              <label>API Manager</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <form [formGroup]="roleForm" (ngSubmit)="onRoleSubmit()">
+                <label> Assign a Role</label>
+                  <select class="browser-default custom-select" formContorlName="role">
+                    <option selected>Choose a Role</option>
+                    <option value="product">Product Manager</option>
+                    <option value="business">Business Manager</option>
+                    <option value="api">API Manager</option>
+                  </select>
+                <br>
+                <mat-label> Choose User Type</mat-label>
+                <br>
+                <mat-radio-group
+                  aria-labelledby="intopt-radio-group-label"
+                  class="intopt-radio-group"
+                  formControlName="userType">
+                  <mat-radio-button class="example-radio-button" value="new">
+                    New User
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" value="exist">
+                    Existing User
+                  </mat-radio-button>
+                </mat-radio-group>
+                <br><br>
+                <input class="form-control" type="email" placeholder="Enter the Email of user" formConrolName="email">
+
+                <button class="btn btn-primary" type="submit"> Invite </button>
+            </form>
+          </div>
+        </div>
+          <!-- ==================== USER REGISTRY ============================ -->
+          <div class="registry">
+            <form [formGroup]="registryForm" (ngSubmit)="onRegistrySubmit()">
+              <mat-label> Choose Registry</mat-label>
+              <br>
+                <mat-radio-group
+                  aria-labelledby="intopt-radio-group-label"
+                  class="intopt-radio-group"
+                  formControlName="registryType">
+                  <mat-radio-button class="example-radio-button" value="ADS">
+                    ADS
+                  </mat-radio-button>
+                  <mat-radio-button class="example-radio-button" value="registry2">
+                    Another Registry
+                  </mat-radio-button>
+                </mat-radio-group>
+                <br><br>
+                <button class="btn btn-primary" type="submit"> Submit </button>
+            </form>
+          </div>
+      </div>
   </div>
 </div>
-
 

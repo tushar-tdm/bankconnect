@@ -94,4 +94,33 @@ export class SignupServiceService {
       new HttpHeaders({ 'Content-Type':'application/json'})
     });
   }
+
+  checkshell(){
+    return this.http.get<any>('/route/checkshell',{
+      headers:
+      new HttpHeaders({'Content-Type':'application/json'})
+    });
+  }
+
+  sendRoleDetails(){
+    return this.http.post<any>('route/role',{
+      headers:
+        new HttpHeaders({'Content-Type':'application/json'})
+    });
+  }
+
+  
+  sendPassDetails(){
+    return this.http.post<any>('route/password',{
+      headers:
+        new HttpHeaders({'Content-Type':'application/json'})
+    });
+  }
+
+  sendRegistryDetails(){
+    return this.http.post<any>('route/registry',{
+      headers:
+        new HttpHeaders({'Content-Type':'application/json'})
+    });
+  }
 }
