@@ -16,9 +16,12 @@ import { SelectedApiListResolverService } from './dashboard/select-apilist-resol
 import { GetUserProfileResolverService } from './profile/get-userprofile-resolver.service';
 import { LoginComponent } from './login/login.component';
 import { ApilistComponent } from './apilist/apilist.component';
+import { HomeComponent } from './home/home.component';
+
 
 const routes: Routes = [
-  { path : '' , redirectTo : 'signup', pathMatch: 'full'},
+  { path : '' , redirectTo : 'home', pathMatch: 'full'},
+  { path: 'home', component: HomeComponent },
   { path: 'api', component: ApiComponent, resolve : { apiList : ApiResolverService}},
   { path: 'support', component: SupportComponent },
   { path: 'submit', component: SubmitComponent },

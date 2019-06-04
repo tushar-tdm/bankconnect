@@ -123,4 +123,11 @@ export class SignupServiceService {
         new HttpHeaders({'Content-Type':'application/json'})
     });
   }
+
+  checkLogin(){
+    return this.http.get<any>('/route/checklogin',{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    });
+  }
 }
