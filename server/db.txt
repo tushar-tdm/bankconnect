@@ -1,6 +1,19 @@
-db.apis.insert({name:"Cards",cbs:"Finacle",versions:["10.2.0","9.8.3","9.4.4"], desc:"Allow developers to get country specific variations.",key_features:["Location Accuracy","Location Bases Search","Improve Customer Data"],use_cases:[""]});
+db.apis.insert({name:"ATM BRANCH  LOCATOR",cbs:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"], desc:"Allow developers to get country specific variations.",key_features:["Location Accuracy","Location Bases Search","Improve Customer Data"],use_cases:[""]});
+db.apis.insert({name:"ACCOUNTS",cbs:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"], desc:"Verify Citi customer accounts and grant your apps access to account data.",key_features:["Actionable Data","One Simple Call","Multi-Purpose API","No More Screen Scraping"],use_cases:["Account Aggregation","Alerts","Real-Time Updates"]});
+db.apis.insert({name:"CUSTOMERS",cbs:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"], desc:"Get approved access to shared Citi customer profile data for deeper engagement.",key_features:["Simplify Application Process","Save time"],use_cases:["Reduce Fraud","Autofill"]});
+db.apis.insert({name:"CARDS",cbs:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"], desc:"Give Citi customers the ability to manage their credit and debit cards.",key_features:["Report Card Activity.","Manage Cards While Traveling","Report Cards Lost or Stolen"],use_cases:["Card Protection","Travel alerts","Request Credit Increase"]});
+db.apis.insert({name:"INSURANCE",cbs:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"], desc:"This API returns customer’s source accounts eligible for insurance booking.",key_features:["Enable Policy Booking","Personalized Offers","Customer engagement & New Offer Retargeting","Seamless integration"],use_cases:["INCREASE REVENUES","SEAMLESS INTEGRATION","BUSINESS AS USUAL"]});
+db.apis.insert({name:"MONEY MOVEMENT",cbs:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"], desc:"Give Citi customers the ability to move money across accounts and institutions.",key_features:["In-Market Solution","Bill Pay","Bank-To-Bank Transfers"],use_cases:["Pay Bills","Move Money","Account Transfers"]});
+db.apis.insert({name:"SERVICES",cbs:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"], desc:"Allow Citi customers to view their bank statements/advices and change ATM PIN number.",key_features:["Request Statements","Change PIN"],use_cases:[""]});
+db.apis.insert({name:"PAY WITH POINTS",cbs:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"], desc:"Enable your app to accept Citi customers’ Citi rewards points to pay for their purchases.",key_features:["New Revenue Stream","Simple. Convenient.","Seamless Integration"],use_cases:["New Way to Pay","Promotional Opportunities","Improve Loyalty"]});
+db.apis.insert({name:"ONBOARDING",cbs:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"], desc:"Tap into the power of Citi acquisitions partner services.",key_features:["Enable Account Opening","Upload Documents","New Offer Retargeting"],use_cases:["Whitelabel","Suggest Offers","Seamless Onboarding"]});
+
+
 
 db.cbservices.insert({name:"Finnacle",versions:["10.2.0","9.8.3","9.4.4"]});
+db.cbservices.insert({name:"TCS",versions:["10.2.0","9.8.3","9.4.4"]});
+db.cbservices.insert({name:"Flexcube",versions:["10.2.0","9.8.3","9.4.4"]});
+
 
 https://infosys-finacle-explorer.openbankproject.com/?ignoredefcat=true&tags=
 
