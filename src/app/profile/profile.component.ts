@@ -65,7 +65,7 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  onPassSubmit(){
+  onRoleSubmit(){
     var myObj = {
       role : this.roleForm.controls.role.value,
       type : this.roleForm.controls.userType.value,
@@ -78,7 +78,7 @@ export class ProfileComponent implements OnInit {
     },(err)=> console.log(err));
   }
 
-  onRoleSubmit(){
+  onPassSubmit(){
     var myObj = {
       old : this.passForm.controls.role.value,
       new : this.passForm.controls.userType.value,
