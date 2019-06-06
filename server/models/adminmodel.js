@@ -16,7 +16,8 @@ var adminschema = mongoose.Schema({
     lname: String,
     integrated: Boolean,
     pass : String,
-    standard : String
+    standard : String,
+    bcintegrated : Boolean
 },{
     timestamp : true
 });
