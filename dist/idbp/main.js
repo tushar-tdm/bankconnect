@@ -75,11 +75,7 @@ module.exports = "<h1>Browse  Services</h1>\r\n\r\n<form [formGroup]=\"apiservic
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-<<<<<<< HEAD
-module.exports = "label {\n  font-size: 100%;\n  font-weight: bold; }\n\nbutton[type=\"submit\"] {\n  font-weight: bold;\n  padding: 12px 45x;\n  border-radius: 4px; }\n\n.bankstandard {\n  display: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9hcHAvYXBpL0M6XFxVc2Vyc1xcVHVzaGFyTUFMQ0hBUFVSRVxcRGVza3RvcFxcR2l0aHViXFxiYW5rY29ubmVjdFxcc2VydmVyLy4uXFxzcmNcXGFwcFxcYXBpXFxhcGkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFlO0VBQ2YsaUJBQWlCLEVBQUE7O0FBRW5CO0VBQ0UsaUJBQWlCO0VBQ2pCLGlCQUFpQjtFQUNqQixrQkFBa0IsRUFBQTs7QUFHdEI7RUFDRSxhQUFhLEVBQUEiLCJmaWxlIjoiLi4vc3JjL2FwcC9hcGkvYXBpLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsibGFiZWx7XHJcbiAgICBmb250LXNpemU6IDEwMCU7XHJcbiAgICBmb250LXdlaWdodDogYm9sZDtcclxuICB9XHJcbiAgYnV0dG9uW3R5cGU9XCJzdWJtaXRcIl17XHJcbiAgICBmb250LXdlaWdodDogYm9sZDtcclxuICAgIHBhZGRpbmc6IDEycHggNDV4O1xyXG4gICAgYm9yZGVyLXJhZGl1czogNHB4O1xyXG4gIH1cclxuXHJcbi5iYW5rc3RhbmRhcmR7XHJcbiAgZGlzcGxheTogbm9uZTtcclxufVxyXG4iXX0= */"
-=======
 module.exports = "label {\n  font-size: 100%;\n  font-weight: bold; }\n\nbutton[type=\"submit\"] {\n  font-weight: bold;\n  padding: 12px 45x;\n  border-radius: 4px; }\n\n.bankstandard {\n  display: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9hcHAvYXBpL0M6XFxVc2Vyc1xcU2FpS3VtYXJcXERlc2t0b3BcXEdpdGh1YlxcYmFua2Nvbm5lY3RcXHNlcnZlci8uLlxcc3JjXFxhcHBcXGFwaVxcYXBpLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZUFBZTtFQUNmLGlCQUFpQixFQUFBOztBQUVuQjtFQUNFLGlCQUFpQjtFQUNqQixpQkFBaUI7RUFDakIsa0JBQWtCLEVBQUE7O0FBR3RCO0VBQ0UsYUFBYSxFQUFBIiwiZmlsZSI6Ii4uL3NyYy9hcHAvYXBpL2FwaS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImxhYmVse1xyXG4gICAgZm9udC1zaXplOiAxMDAlO1xyXG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgfVxyXG4gIGJ1dHRvblt0eXBlPVwic3VibWl0XCJde1xyXG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgICBwYWRkaW5nOiAxMnB4IDQ1eDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDRweDtcclxuICB9XHJcblxyXG4uYmFua3N0YW5kYXJke1xyXG4gIGRpc3BsYXk6IG5vbmU7XHJcbn1cclxuIl19 */"
->>>>>>> 093278a53e337905816d8f565f4552ea48fc2ce2
 
 /***/ }),
 
@@ -1483,17 +1479,12 @@ var OverviewComponent = /** @class */ (function () {
         this.key_features = "defailt";
         this.use_cases = "default";
         this.apiDetails = this.ActivatedRoute.snapshot.data['apiDetails'];
-<<<<<<< HEAD
-        var x = JSON.stringify(this.apiDetails);
-        console.log("this is the api details got from resolver: " + this.apiDetails.key);
-=======
         this.x = JSON.stringify(this.apiDetails);
         this.name = this.apiDetails.name;
         this.desc = this.apiDetails.desc;
         this.key_features = this.apiDetails.key_features;
         this.use_cases = this.apiDetails.use_cases;
         console.log("this is the api details got from resolver: " + this.apiDetails.key_features);
->>>>>>> 093278a53e337905816d8f565f4552ea48fc2ce2
     }
     OverviewComponent.prototype.ngOnInit = function () {
     };
