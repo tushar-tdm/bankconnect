@@ -59,20 +59,20 @@ export class ApiComponent implements OnInit {
       apis : newItem,
     }
 
-    // this.signservice.getEmail()
-    // .subscribe((data)=>{
-    //   console.log("email of user: "+data);
+    this.signservice.getEmail()
+    .subscribe((data)=>{
+      console.log("email of user: "+data);
 
-    //   var newobj = {
-    //     apis : newItem,
-    //     email : data
-    //   }
+      var newobj = {
+        apis : newItem,
+        email : data
+      }
 
-    //   this.signservice.postInClient(newobj)
-    //   .subscribe((data)=>{
-    //     console.log("data received: "+data);
-    //   },(err)=> console.log(err));
-    // })
+      this.signservice.postInClient(newobj)
+      .subscribe((data)=>{
+        console.log("data received: "+data);
+      },(err)=> console.log(err));
+    })
 
 
      this.signservice.postApis(obj)
