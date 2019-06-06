@@ -225,6 +225,8 @@ routes.route('/api')
         }
     })
            
+
+    //run  a shell command before sending the response
     res.json("Services published successfully");
 });
 
@@ -360,12 +362,12 @@ routes.route('/getapiDetails/:name')
 .get((req,res)=>{
     apimodel.find({name:req.params.name},(err,doc)=>{
         var keys = []; var uses = [];
-        
+
         var myObj ={
             name : req.params.name,
             desc : doc[0].desc,
-            key : doc[0].key_features,
-            use : doc[0].use_cases
+            key_features : doc[0].key_features,
+            use_cases : doc[0].use_cases
         }
         //console.log("final object is :"+myObj.use);
         res.json(myObj);
