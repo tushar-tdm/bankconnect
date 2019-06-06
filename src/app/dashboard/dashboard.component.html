@@ -3,27 +3,51 @@
     Your account has been activated. Please integrate with your Core Bank Solution to continue.
     <a routerLink="/corebankservices/register">Intergrate with CBS</a>
 </div>
- <div *ngIf="integrated" class="ibc">
-    Click <button class="btn btn-primary" (click)="showibc()">Here</button> to integrate with bank connect.
+
+<div class="msg" *ngIf="integrated">
+    Integrate Bank Connect account from your <a routerLink="/profile">profile page</a>profile page
 </div>
 
-<div class="ibcform">
-    <form [formGroup]="Integration" >
-        <label class="lbl"> Enter your Security token: </label>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-lg-6">
-                    <input type="text" class="form-control secure" formControlName="secureToken">
-                </div>
-                <div class="col-lg-6">
-                    <button class="btn btn-primary secure" type="button" (click)="check()">Integrate</button>
-                </div>
-            </div>
-        </div>
-    </form>
+<div class="msg" *ngIf="bcintegrated">
+    Your dashboard appears here
 </div>
-
-<div class="message msg"> Integration with Bank Connect successful</div>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="card-deck">
+        <div class="col-sm-4">
+            <a routerLink="/apilist" class="custom-card">
+              <div class="card h-100" >
+                  <div class="card-header">API PRODUCTS</div>
+                    <div class="card-body">
+                    <p class="card-text">Edit, assemble, secure and test APIs. Package APIs using products for publishing to consumers.</p>
+                  </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-sm-4">
+              <a routerLink="/support" class="custom-card">
+                <div class="card h-100">
+                    <div class="card-header">LEARN MORE</div>
+                      <div class="card-body">
+                      <p class="card-text">Documentation and tutorials with step-by-step instructions.</p>
+                    </div>
+                </div>
+              </a>
+          </div>
+          <div class="col-sm-4">
+              <a routerLink="/support" class="custom-card">
+                <div class="card h-100">
+                  <div class="card-header">CONNECT</div>
+                    <div class="card-body">
+                      <p class="card-text">Find Expert answers in IDBP community forum.</p>
+                    </div>
+                </div>
+              </a>
+          </div>
+    </div>
+  </div>
+</div>
 
 <!-- <div class="msg">
     <button type="button" (click)="checkshell()">Check Shell</button>

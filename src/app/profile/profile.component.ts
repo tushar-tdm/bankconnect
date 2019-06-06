@@ -15,32 +15,40 @@ export class ProfileComponent implements OnInit {
   roleForm: FormGroup;
   passForm : FormGroup;
   registryForm : FormGroup;
+  BCIntegration : FormGroup;
+
 
   title = "PROFILE";
 
-  profile=1;pass=0;roles=0;registry=0;
+  profile=1;pass=0;roles=0;registry=0;bankconnect=0;
+  BCintegrated : Number;
   profileClass = {
     "buttons" : true,
     "options" : true
   };
 
+  bankconnectClass = {
+    "buttons" : true,
+    "options" : false
+  }
+
   passClass = {
     "buttons" : true,
-    "options" : false 
-  }; 
+    "options" : false
+  };
 
   rolesClass = {
     "buttons" : true,
-    "options" : false 
-  }; 
+    "options" : false
+  };
 
   registryClass = {
     "buttons" : true,
-    "options" : false 
-  }; 
-  
+    "options" : false
+  };
 
-  show_user_profile: Array<String> = [];
+
+  show_user_profile: any ;
 
   constructor(private signservice: SignupServiceService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
     this.show_user_profile = this.route.snapshot.data['user_profile'];
@@ -48,6 +56,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(){
+
     this.roleForm = this.formBuilder.group({
       role: ['', [Validators.required, Validators]],
       userType: ['',[Validators.required, Validators]],
@@ -63,6 +72,18 @@ export class ProfileComponent implements OnInit {
     this.registryForm = this.formBuilder.group({
       registryType : ['',[Validators.required,Validators]]
     });
+
+    this.signservice.checkbcintegrated()
+    .subscribe((data)=>{
+      console.log('BCintegrated:' + data);
+      this.BCintegrated = data;
+    }, (err) => console.log(err));
+
+    if(!this.BCintegrated){
+      this.BCIntegration = this.formBuilder.group({
+        secureToken: ['',[Validators.required,Validators]]
+      });
+    }
   }
 
   onRoleSubmit(){
@@ -102,12 +123,35 @@ export class ProfileComponent implements OnInit {
     },(err)=> console.log(err));
   }
 
+  check(){
+    //BCIntegraton
+    var token = this.BCIntegration.controls.secureToken.value;
+    console.log(token);
+    if('weijd67wuyfiyi84fo4d39rdewdo0ur3' == token){
+      (document.querySelector('.bankconnecttoken') as HTMLElement).style.display='none';
+      (document.querySelector('.bankconnectmessage') as HTMLElement).style.display='block';
+    }else{
+      alert("Wrong Secure Token!");
+    }
+
+    this.signservice.confirmbcintegrated()
+    .subscribe((data) =>{
+      console.log(data);
+    }, (err) => console.log(err));
+
+  }
+
   show_profile(){
     this.profileClass = {
       "buttons" : true,
-      "options" : true 
+      "options" : true
     };
-    
+
+    this.bankconnectClass = {
+      "buttons" : true,
+      "options" : false
+    };
+
     this.passClass = {
       "buttons" : true,
       "options" :false
@@ -126,6 +170,51 @@ export class ProfileComponent implements OnInit {
     this.title = "PROFILE";
     //show this and hide other divisions
     (document.querySelector('.profile') as HTMLElement).style.display = 'block';
+    (document.querySelector('.bankconnect') as HTMLElement).style.display = 'none';
+    (document.querySelector('.changepass') as HTMLElement).style.display = 'none';
+    (document.querySelector('.userrole') as HTMLElement).style.display = 'none';
+    (document.querySelector('.registry') as HTMLElement).style.display = 'none';
+  }
+
+  show_bankconnect(){
+    this.profileClass = {
+      "buttons" : true,
+      "options" : false
+    };
+
+    this.bankconnectClass = {
+      "buttons" : true,
+      "options" : true
+    };
+
+    this.passClass = {
+      "buttons" : true,
+      "options" :false
+    };
+
+    this.rolesClass = {
+      "buttons" : true,
+      "options" :false
+    };
+
+    this.registryClass = {
+      "buttons" : true,
+      "options" :false
+    };
+
+    this.title = "BANK CONNECT INTEGRATION";
+    //show this and hide other divisions
+    (document.querySelector('.profile') as HTMLElement).style.display = 'none';
+    if(this.BCintegrated){
+      console.log('Entered message section');
+      (document.querySelector('.bankconnect') as HTMLElement).style.display = 'block';
+      (document.querySelector('.bankconnecttoken') as HTMLElement).style.display = 'none';
+      (document.querySelector('.bankconnectmessage') as HTMLElement).style.display = 'block';
+    } else {
+      console.log('Entered token section');
+      (document.querySelector('.bankconnect') as HTMLElement).style.display = 'block';
+      (document.querySelector('.bankconnecttoken') as HTMLElement).style.display = 'block';
+      (document.querySelector('.bankconnectmessage') as HTMLElement).style.display = 'none'; }
     (document.querySelector('.changepass') as HTMLElement).style.display = 'none';
     (document.querySelector('.userrole') as HTMLElement).style.display = 'none';
     (document.querySelector('.registry') as HTMLElement).style.display = 'none';
@@ -134,9 +223,14 @@ export class ProfileComponent implements OnInit {
   show_roles(){
     this.profileClass = {
       "buttons" : true,
-      "options" : false 
+      "options" : false
     };
-    
+
+    this.bankconnectClass = {
+      "buttons" : true,
+      "options" : false
+    };
+
     this.passClass = {
       "buttons" : true,
       "options" :false
@@ -155,6 +249,7 @@ export class ProfileComponent implements OnInit {
     this.title = "ASSIGN ROLES";
     //show this and hide other divisions
     (document.querySelector('.profile') as HTMLElement).style.display = 'none';
+    (document.querySelector('.bankconnect') as HTMLElement).style.display = 'none';
     (document.querySelector('.changepass') as HTMLElement).style.display = 'none';
     (document.querySelector('.userrole') as HTMLElement).style.display = 'block';
     (document.querySelector('.registry') as HTMLElement).style.display = 'none';
@@ -163,9 +258,14 @@ export class ProfileComponent implements OnInit {
   show_pass(){
     this.profileClass = {
       "buttons" : true,
-      "options" : false 
+      "options" : false
     };
-    
+
+    this.bankconnectClass = {
+      "buttons" : true,
+      "options" : false
+    };
+
     this.passClass = {
       "buttons" : true,
       "options" :true
@@ -184,6 +284,7 @@ export class ProfileComponent implements OnInit {
     this.title = "CHANGE PASSWORD";
     //show this and hide other divisions
     (document.querySelector('.profile') as HTMLElement).style.display = 'none';
+    (document.querySelector('.bankconnect') as HTMLElement).style.display = 'none';
     (document.querySelector('.changepass') as HTMLElement).style.display = 'block';
     (document.querySelector('.userrole') as HTMLElement).style.display = 'none';
     (document.querySelector('.registry') as HTMLElement).style.display = 'none';
@@ -191,9 +292,14 @@ export class ProfileComponent implements OnInit {
   show_registry(){
     this.profileClass = {
       "buttons" : true,
-      "options" : false 
+      "options" : false
     };
-    
+
+    this.bankconnectClass = {
+      "buttons" : true,
+      "options" : false
+    };
+
     this.passClass = {
       "buttons" : true,
       "options" :false
@@ -212,6 +318,7 @@ export class ProfileComponent implements OnInit {
     this.title = "REGISTRY";
     //show this and hide other divisions
     (document.querySelector('.profile') as HTMLElement).style.display = 'none';
+    (document.querySelector('.bankconnect') as HTMLElement).style.display = 'none';
     (document.querySelector('.changepass') as HTMLElement).style.display = 'none';
     (document.querySelector('.userrole') as HTMLElement).style.display = 'none';
     (document.querySelector('.registry') as HTMLElement).style.display = 'block';

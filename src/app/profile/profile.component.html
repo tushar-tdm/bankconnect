@@ -8,6 +8,7 @@
     <div class="col-lg-3 choice">
       <!-- options -->
       <button [ngClass]="profileClass" (click)="show_profile()"> My Details</button>
+      <button [ngClass]="bankconnectClass" (click)="show_bankconnect()"> Bank connect </button>
       <button [ngClass]="passClass" (click)="show_pass()"> Change Password</button>
       <button [ngClass]="rolesClass" (click)="show_roles()"> User Roles </button>
       <button [ngClass]="registryClass" (click)="show_registry()"> User Registry </button>
@@ -22,6 +23,29 @@
                   <li><b>Last Name: </b>{{show_user_profile.lname}}</li>
                   <li><b>Email: </b>{{show_user_profile.useremail}}</li>
               </ul>
+          </div>
+
+          <!-- ==================== BANKCONNECT ============================ -->
+
+          <div class="bankconnect">
+            <div class="bankconnecttoken">
+                <form [formGroup]="BCIntegration" >
+                  <label class="lbl"> Enter your Security token: </label>
+                  <div class="form-group">
+                      <div class="row">
+                          <div class="col-lg-6">
+                              <input type="text" class="form-control secure" formControlName="secureToken">
+                          </div>
+                          <div class="col-lg-6">
+                              <button class="btn btn-primary secure" type="button" (click)="check()">Integrate</button>
+                          </div>
+                      </div>
+                  </div>
+                </form>
+            </div>
+            <div class="bankconnectmessage">
+                <h5>Integration with Bank Connect is been successful!!</h5>
+            </div>
           </div>
 
           <!-- ==================== PASSWORD ============================ -->

@@ -13,51 +13,37 @@ export class DashboardComponent implements OnInit {
   select_api : Array<String> = [];
   integrated : Number = 0;
   confirmed : Number = 0;
-  Integration : FormGroup;
+  bcintegrated : Number = 0;
 
 
-  constructor(private signservice: SignupServiceService, private route: ActivatedRoute,private fb: FormBuilder) { 
+  constructor(private signservice: SignupServiceService, private route: ActivatedRoute,private fb: FormBuilder) {
     this.select_api = this.route.snapshot.data['selected_api'];
     console.log(this.select_api);
   }
 
   ngOnInit() {
 
-    this.Integration = this.fb.group({
-      secureToken: ['',[Validators.required,Validators]]
-    });
+    this.signservice.confirmed()
+    .subscribe((data) => {
+      console.log('confirmed:'+data);
+      this.confirmed = data;
+    }, (err) => console.log(err));
 
     //make a call to service to know whether the confirmation is done or not.
     this.signservice.integrated()
-    .subscribe((data)=>{
-      console.log("integrated:"+data);
+    .subscribe((data) => {
+      console.log('integrated:'+ data);
       this.integrated = data;
-    },(err)=> console.log(err));
+    }, (err) => console.log(err));
 
-    this.signservice.confirmed()
-    .subscribe((data)=>{
-      console.log("confirmed:"+data);
-      this.confirmed = data;
-    },(err)=>console.log(err));
-  }
-  check(){
-    //Integraton
-    var token = this.Integration.controls.secureToken.value;
-    console.log(token);
-    if('weijd67wuyfiyi84fo4d39rdewdo0ur3' == token){
-      (document.querySelector('.ibcform') as HTMLElement).style.display='none';  
-      (document.querySelector('.message') as HTMLElement).style.display='block';
-      //make sure that this option is not showed again.
-      this.integrated = 0; 
-    }else{
-      alert("Wrong Secure Token!");
-    }
-  }
+    this.signservice.checkbcintegrated()
+    .subscribe((data) => {
+      console.log('bcintegrated:' + data);
+      this.bcintegrated = data;
+    }, (err) => console.log(err));
 
-  showibc(){
-    (document.querySelector('.ibc') as HTMLElement).style.display='none';
-    (document.querySelector('.ibcform') as HTMLElement).style.display='block';
-  }
+}
+
 
   checkshell(){
     this.signservice.checkshell()
