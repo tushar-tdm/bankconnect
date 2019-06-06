@@ -188,15 +188,43 @@ routes.route('/api')
     //add the chosen apis in the user models.
     var apis = req.body.apis;
     var sess = req.session;
-    var standard = req.body.standard;
 
-    console.log(standard);
     adminmodel.findOneAndUpdate({email : sess.email},{api_list : apis, integrated: true },(err,doc)=>{
         if(err) console.log(err);
     });
 
-       
-    //run  a shell command before sending the response
+    // exec(`cd C:/Users/TusharMALCHAPURE/Desktop/api_connect && apic products publish dummy-product_1.0.0.yaml --org think --catalog sandbox --server platform.9.202.177.31.xip.io
+    // `,(err,stdout)=>{
+    //     console.log("this executed");
+    //     if(err) console.log("1:->"+err);
+
+    //     console.log(stdout);
+    // });
+
+    adminmodel.find({email:sess.email},(err,doc)=>{
+        var cbs = doc[0].cbs;
+        var version = doc[0].version;
+    
+        //run  a shell command before sending the response
+
+        var prod_path = 'cd '+ __dirname +'\\api_files\\'+cbs+'\\product';
+        var stub_path = 'cd '+ __dirname +'\\api_files\\'+cbs+'\\stub';
+
+        //console.log(prod_path+" "+stub_path);
+        for(var i=0;i<apis.length;++i){
+            console.log("api to be published ->"+apis[i]);
+            var prod_file_name = apis[i]+'-product_1.0.0.yaml';
+            var stub_file_name = apis[i]+'-stub_1.0.0.yaml';
+
+            //for product
+            exec(`${prod_path} && apic products publish ${prod_file_name} --org think --catalog sandbox --server platform.9.202.177.31.xip.io`,
+            (err,stdout)=>{
+                if (err) console.log("error in product publishing "+err);
+                console.log("product publish output: "+stdout);
+            });
+        }
+    })
+           
     res.json("Services published successfully");
 });
 
@@ -342,6 +370,13 @@ routes.route('/getapiDetails/:name')
         //console.log("final object is :"+myObj.use);
         res.json(myObj);
     })
+})
+
+routes.route('/getEmail')
+.get((req,res)=>{
+    var sess = req.session;
+
+    res.json(sess.email);
 })
 
 //==============================END OF ROUTING =======================================

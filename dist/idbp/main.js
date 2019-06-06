@@ -75,7 +75,7 @@ module.exports = "<h1>Browse  Services</h1>\r\n\r\n<form [formGroup]=\"apiservic
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "label {\n  font-size: 100%;\n  font-weight: bold; }\n\nbutton[type=\"submit\"] {\n  background-color: #6a27b6;\n  color: white;\n  font-weight: bold;\n  padding: 12px 45x;\n  border-radius: 4px; }\n\n.bankstandard {\n  display: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9hcHAvYXBpL0M6XFxVc2Vyc1xcVHVzaGFyTUFMQ0hBUFVSRVxcRGVza3RvcFxcR2l0aHViXFxiYW5rY29ubmVjdFxcc2VydmVyLy4uXFxzcmNcXGFwcFxcYXBpXFxhcGkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFlO0VBQ2YsaUJBQWlCLEVBQUE7O0FBRW5CO0VBQ0UseUJBQW1DO0VBQ25DLFlBQVk7RUFDWixpQkFBaUI7RUFDakIsaUJBQWlCO0VBQ2pCLGtCQUFrQixFQUFBOztBQUd0QjtFQUNFLGFBQWEsRUFBQSIsImZpbGUiOiIuLi9zcmMvYXBwL2FwaS9hcGkuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJsYWJlbHtcclxuICAgIGZvbnQtc2l6ZTogMTAwJTtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIH1cclxuICBidXR0b25bdHlwZT1cInN1Ym1pdFwiXXtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IHJnYigxMDYsIDM5LCAxODIpO1xyXG4gICAgY29sb3I6IHdoaXRlO1xyXG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgICBwYWRkaW5nOiAxMnB4IDQ1eDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDRweDtcclxuICB9XHJcbiAgXHJcbi5iYW5rc3RhbmRhcmR7XHJcbiAgZGlzcGxheTogbm9uZTtcclxufSJdfQ== */"
+module.exports = "label {\n  font-size: 100%;\n  font-weight: bold; }\n\nbutton[type=\"submit\"] {\n  font-weight: bold;\n  padding: 12px 45x;\n  border-radius: 4px; }\n\n.bankstandard {\n  display: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9hcHAvYXBpL0M6XFxVc2Vyc1xcVHVzaGFyTUFMQ0hBUFVSRVxcRGVza3RvcFxcR2l0aHViXFxiYW5rY29ubmVjdFxcc2VydmVyLy4uXFxzcmNcXGFwcFxcYXBpXFxhcGkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxlQUFlO0VBQ2YsaUJBQWlCLEVBQUE7O0FBRW5CO0VBQ0UsaUJBQWlCO0VBQ2pCLGlCQUFpQjtFQUNqQixrQkFBa0IsRUFBQTs7QUFHdEI7RUFDRSxhQUFhLEVBQUEiLCJmaWxlIjoiLi4vc3JjL2FwcC9hcGkvYXBpLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsibGFiZWx7XHJcbiAgICBmb250LXNpemU6IDEwMCU7XHJcbiAgICBmb250LXdlaWdodDogYm9sZDtcclxuICB9XHJcbiAgYnV0dG9uW3R5cGU9XCJzdWJtaXRcIl17XHJcbiAgICBmb250LXdlaWdodDogYm9sZDtcclxuICAgIHBhZGRpbmc6IDEycHggNDV4O1xyXG4gICAgYm9yZGVyLXJhZGl1czogNHB4O1xyXG4gIH1cclxuXHJcbi5iYW5rc3RhbmRhcmR7XHJcbiAgZGlzcGxheTogbm9uZTtcclxufVxyXG4iXX0= */"
 
 /***/ }),
 
@@ -141,10 +141,21 @@ var ApiComponent = /** @class */ (function () {
     ApiComponent.prototype.OnSubmit = function () {
         var _this = this;
         var newItem = this.apiselected;
-        //console.log({...this.apiservicesform.value,newItem});
         var obj = {
             apis: newItem,
         };
+        this.signservice.getEmail()
+            .subscribe(function (data) {
+            console.log("email of user: " + data);
+            var newobj = {
+                apis: newItem,
+                email: data
+            };
+            _this.signservice.postInClient(newobj)
+                .subscribe(function (data) {
+                console.log("data received: " + data);
+            }, function (err) { return console.log(err); });
+        });
         this.signservice.postApis(obj)
             .subscribe(function (data) {
             _this.router.navigateByUrl('/dashboard');
@@ -861,7 +872,7 @@ var CbssuccessComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<br>\r\n<div class=\"msg\" *ngIf=\"confirmed\">\r\n    Your account has been activated. Please integrate with your Core Bank Solution to continue.\r\n    <a routerLink=\"/corebankservices/register\">Intergrate with CBS</a>\r\n</div>\r\n <div *ngIf=\"integrated\" class=\"ibc\">\r\n    Click <button class=\"btn btn-primary\" (click)=\"showibc()\">Here</button> to integrate with bank connect.\r\n</div>\r\n\r\n<div class=\"ibcform\">\r\n    <form [formGroup]=\"Integration\" >\r\n        <label class=\"lbl\"> Enter your Security token: </label>\r\n        <div class=\"form-group\">\r\n            <div class=\"row\">\r\n                <div class=\"col-lg-6\">\r\n                    <input type=\"text\" class=\"form-control secure\" formControlName=\"secureToken\">\r\n                </div>\r\n                <div class=\"col-lg-6\">\r\n                    <button class=\"btn btn-primary secure\" type=\"button\" (click)=\"check()\">Integrate</button>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </form>\r\n</div>\r\n\r\n<div class=\"message msg\"> Integration with Bank Connect successful</div>\r\n\r\n<!-- <div class=\"msg\">\r\n    <button type=\"button\" (click)=\"checkshell()\">Check Shell</button>\r\n</div> -->\r\n"
+module.exports = "<br>\r\n<div class=\"msg\" *ngIf=\"confirmed\">\r\n    Your account has been activated. Please integrate with your Core Bank Solution to continue.\r\n    <a routerLink=\"/corebankservices/register\">Intergrate with CBS</a>\r\n</div>\r\n <div *ngIf=\"integrated\" class=\"ibc\">\r\n    Click <button class=\"btn btn-primary\" (click)=\"showibc()\">Here</button> to integrate with bank connect.\r\n</div>\r\n\r\n<div class=\"ibcform\">\r\n    <form [formGroup]=\"Integration\" >\r\n        <label class=\"lbl\"> Enter your Security token: </label>\r\n        <div class=\"form-group\">\r\n            <div class=\"row\">\r\n                <div class=\"col-lg-6\">\r\n                    <input type=\"text\" class=\"form-control secure\" formControlName=\"secureToken\">\r\n                </div>\r\n                <div class=\"col-lg-6\">\r\n                    <button class=\"btn btn-primary secure\" type=\"button\" (click)=\"check()\">Integrate</button>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </form>\r\n</div>\r\n\r\n<div class=\"message msg\"> Integration with Bank Connect successful</div>\r\n\r\n<div class=\"msg\">\r\n    <button type=\"button\" (click)=\"checkshell()\">Check Shell</button>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1108,10 +1119,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HomeComponent", function() { return HomeComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_signup_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/signup-service.service */ "./src/app/services/signup-service.service.ts");
+
 
 
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent() {
+    function HomeComponent(signservice) {
+        this.signservice = signservice;
     }
     HomeComponent.prototype.ngOnInit = function () {
     };
@@ -1121,7 +1135,7 @@ var HomeComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./home.component.html */ "./src/app/home/home.component.html"),
             styles: [__webpack_require__(/*! ./home.component.scss */ "./src/app/home/home.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_signup_service_service__WEBPACK_IMPORTED_MODULE_2__["SignupServiceService"]])
     ], HomeComponent);
     return HomeComponent;
 }());
@@ -1463,8 +1477,6 @@ var OverviewComponent = /** @class */ (function () {
         this.desc = "default";
         this.apiDetails = this.ActivatedRoute.snapshot.data['apiDetails'];
         var x = JSON.stringify(this.apiDetails);
-        // var y = JSON.parse(x);
-        // console.log("parsed:"+y);
         console.log("this is the api details got from resolver: " + this.apiDetails.key);
     }
     OverviewComponent.prototype.ngOnInit = function () {
@@ -1857,6 +1869,17 @@ var SignupServiceService = /** @class */ (function () {
     };
     SignupServiceService.prototype.checkLogin = function () {
         return this.http.get('/route/checklogin', {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' })
+        });
+    };
+    SignupServiceService.prototype.getEmail = function () {
+        return this.http.get('/route/getEmail', {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' })
+        });
+    };
+    SignupServiceService.prototype.postInClient = function (obj) {
+        //console.log("in postInClient service "+obj);
+        return this.http.post('http://localhost:5000/route/publishApi', obj, {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' })
         });
     };

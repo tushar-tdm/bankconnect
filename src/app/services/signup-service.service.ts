@@ -130,4 +130,19 @@ export class SignupServiceService {
       new HttpHeaders({ 'Content-Type':'application/json'})
     });
   }
+
+  getEmail(){
+    return this.http.get<any>('/route/getEmail',{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    });
+  }
+
+  postInClient(obj:any):Observable<any>{
+    //console.log("in postInClient service "+obj);
+    return this.http.post<any>('http://localhost:5000/route/publishApi',obj,{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    });
+  }
 }
