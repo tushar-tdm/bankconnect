@@ -1,3 +1,7 @@
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'
+integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+
+
  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="logo">
         <a class="navbar-brand" routerLink="/home">IBM IDBP</a>
@@ -28,14 +32,18 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <li *ngIf="!login; else elseblock"><a routerLink="/signup">Create account</a></li>
-            <ng-template #elseblock>
+            <li *ngIf="login; else dashboard"><a routerLink="/dashboard"><span><i class='fas fa-desktop'></i></span>My Dashboard</a></li>
+            <ng-template #dashboard>
               <div class="divider">.</div>
             </ng-template>
+            <!-- <li *ngIf="!login; else elseblock"><a routerLink="/signup">Create account</a></li>
+            <ng-template #elseblock>
+              <div class="divider">.</div>
+            </ng-template> -->
             <div class="seperateLi">
-                <li *ngIf="!login; else elseBlock"><a routerLink="/login"><span class="glyphicon glyphicon-user"></span>Sign In</a></li>
+                <li *ngIf="!login; else elseBlock"><a routerLink="/login"><span><i class='fas fa-user-alt'></i></span>Sign In</a></li>
                 <ng-template #elseBlock>
-                  <li><a routerLink="/profile"><span class="glyphicon glyphicon-user"></span>{{username}}</a></li>
+                  <li><a routerLink="/profile"><span><i class='fas fa-user-alt'></i></span>{{username}}</a></li>
                 </ng-template>
             </div>
         </ul>

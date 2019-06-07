@@ -1,0 +1,27 @@
+info:
+  version: 1.0.0
+  title: dummy-product
+  name: dummy-product
+gateways:
+  - datapower-gateway
+plans:
+  default-plan:
+    rate-limits:
+      default:
+        value: 100/1hour
+    title: Default Plan
+    description: Default Plan
+    approval: false
+apis:
+  dummy-api1.0.0:
+    $ref: ./insurance-stub_1.0.0.yaml
+visibility:
+  view:
+    type: public
+    orgs: []
+    enabled: true
+  subscribe:
+    type: authenticated
+    orgs: []
+    enabled: true
+product: 1.0.0
