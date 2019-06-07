@@ -3,6 +3,7 @@ import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
 import { SignupServiceService} from '../services/signup-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -47,10 +48,15 @@ export class ProfileComponent implements OnInit {
     "options" : false
   };
 
+  securityClass = {
+    "buttons" : true,
+    "options" : false
+  }
+
 
   show_user_profile: any ;
 
-  constructor(private signservice: SignupServiceService, private route: ActivatedRoute, private formBuilder: FormBuilder) {
+  constructor(private signservice: SignupServiceService, private route: ActivatedRoute, private formBuilder: FormBuilder, private router: Router) {
     this.show_user_profile = this.route.snapshot.data['user_profile'];
     console.log(this.show_user_profile);
   }
@@ -167,6 +173,11 @@ export class ProfileComponent implements OnInit {
       "options" :false
     };
 
+    this.securityClass = {
+      "buttons" : true,
+      "options" :false
+    };
+
     this.title = "PROFILE";
     //show this and hide other divisions
     (document.querySelector('.profile') as HTMLElement).style.display = 'block';
@@ -174,6 +185,7 @@ export class ProfileComponent implements OnInit {
     (document.querySelector('.changepass') as HTMLElement).style.display = 'none';
     (document.querySelector('.userrole') as HTMLElement).style.display = 'none';
     (document.querySelector('.registry') as HTMLElement).style.display = 'none';
+    (document.querySelector('.security') as HTMLElement).style.display = 'none';
   }
 
   show_bankconnect(){
@@ -202,6 +214,11 @@ export class ProfileComponent implements OnInit {
       "options" :false
     };
 
+    this.securityClass = {
+      "buttons" : true,
+      "options" :false
+    };
+
     this.title = "BANK CONNECT INTEGRATION";
     //show this and hide other divisions
     (document.querySelector('.profile') as HTMLElement).style.display = 'none';
@@ -218,6 +235,8 @@ export class ProfileComponent implements OnInit {
     (document.querySelector('.changepass') as HTMLElement).style.display = 'none';
     (document.querySelector('.userrole') as HTMLElement).style.display = 'none';
     (document.querySelector('.registry') as HTMLElement).style.display = 'none';
+    (document.querySelector('.security') as HTMLElement).style.display = 'none';
+
   }
 
   show_roles(){
@@ -246,9 +265,15 @@ export class ProfileComponent implements OnInit {
       "options" :false
     };
 
+    this.securityClass = {
+      "buttons" : true,
+      "options" :false
+    };
+
     this.title = "ASSIGN ROLES";
     //show this and hide other divisions
     (document.querySelector('.profile') as HTMLElement).style.display = 'none';
+    (document.querySelector('.security') as HTMLElement).style.display = 'none';
     (document.querySelector('.bankconnect') as HTMLElement).style.display = 'none';
     (document.querySelector('.changepass') as HTMLElement).style.display = 'none';
     (document.querySelector('.userrole') as HTMLElement).style.display = 'block';
@@ -281,12 +306,18 @@ export class ProfileComponent implements OnInit {
       "options" :false
     };
 
+    this.securityClass = {
+      "buttons" : true,
+      "options" :false
+    };
+
     this.title = "CHANGE PASSWORD";
     //show this and hide other divisions
     (document.querySelector('.profile') as HTMLElement).style.display = 'none';
     (document.querySelector('.bankconnect') as HTMLElement).style.display = 'none';
     (document.querySelector('.changepass') as HTMLElement).style.display = 'block';
     (document.querySelector('.userrole') as HTMLElement).style.display = 'none';
+    (document.querySelector('.security') as HTMLElement).style.display = 'none';
     (document.querySelector('.registry') as HTMLElement).style.display = 'none';
   }
   show_registry(){
@@ -315,13 +346,64 @@ export class ProfileComponent implements OnInit {
       "options" :true
     };
 
+    this.securityClass = {
+      "buttons" : true,
+      "options" :false
+    };
+
     this.title = "REGISTRY";
     //show this and hide other divisions
     (document.querySelector('.profile') as HTMLElement).style.display = 'none';
     (document.querySelector('.bankconnect') as HTMLElement).style.display = 'none';
     (document.querySelector('.changepass') as HTMLElement).style.display = 'none';
     (document.querySelector('.userrole') as HTMLElement).style.display = 'none';
+    (document.querySelector('.security') as HTMLElement).style.display = 'none';
     (document.querySelector('.registry') as HTMLElement).style.display = 'block';
+  }
+  show_security(){
+    this.profileClass = {
+      "buttons" : true,
+      "options" : false
+    };
+
+    this.bankconnectClass = {
+      "buttons" : true,
+      "options" : false
+    };
+
+    this.passClass = {
+      "buttons" : true,
+      "options" :false
+    };
+
+    this.rolesClass = {
+      "buttons" : true,
+      "options" :false
+    };
+
+    this.registryClass = {
+      "buttons" : true,
+      "options" :false
+    };
+
+    this.securityClass={
+      "buttons" : true,
+      "options" : true
+    }
+
+    this.title = "REGISTRY";
+    //show this and hide other divisions
+    (document.querySelector('.profile') as HTMLElement).style.display = 'none';
+    (document.querySelector('.bankconnect') as HTMLElement).style.display = 'none';
+    (document.querySelector('.changepass') as HTMLElement).style.display = 'none';
+    (document.querySelector('.userrole') as HTMLElement).style.display = 'none';
+    (document.querySelector('.registry') as HTMLElement).style.display = 'none';
+    (document.querySelector('.security') as HTMLElement).style.display = 'block';
+
+  }
+
+  setSecurity(){
+    this.router.navigateByUrl('/apisecurity');
   }
 }
 

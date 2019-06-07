@@ -12,6 +12,7 @@
       <button [ngClass]="passClass" (click)="show_pass()"> Change Password</button>
       <button [ngClass]="rolesClass" (click)="show_roles()"> User Roles </button>
       <button [ngClass]="registryClass" (click)="show_registry()"> User Registry </button>
+      <button [ngClass]="securityClass" (click)="show_security()"> API Security </button>
     </div>
     <div class="col-lg-9 content">
           <!-- ==================== PROFILE ============================ -->
@@ -128,6 +129,11 @@
                 <br><br>
                 <button class="btn btn-primary" type="submit"> Submit </button>
             </form>
+          </div>
+
+          <div class="security">
+            <button class="btn btn-primary one" (click)="setSecurity()"> Set Security    </button>
+            <button class="btn btn-primary two" (click)="setCred()"> Set Credentials </button>
           </div>
       </div>
   </div>

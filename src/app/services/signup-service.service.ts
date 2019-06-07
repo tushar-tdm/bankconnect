@@ -159,4 +159,19 @@ export class SignupServiceService {
       new HttpHeaders({ 'Content-Type':'application/json'})
     });
   }
+
+  updateSecurity(obj:any):Observable<any>{
+    return this.http.post<any>('/route/updateSecurity',obj,{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    });
+  }
+
+  getUnselectedApis(){
+    return this.http.get<any>('/route/api/unselected',{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    });
+  }
+  
 }

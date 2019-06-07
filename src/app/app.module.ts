@@ -29,11 +29,15 @@ import { GetUserProfileResolverService } from './profile/get-userprofile-resolve
 import { LoginComponent } from './login/login.component';
 import { ApilistComponent } from './apilist/apilist.component';
 import { ApiListResolverService } from './apilist/apilist-resolver.service';
+import { ApiSecurityResolverService } from './apisecurity/apisecurity-resolver.service';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ApiserviceService } from './apiservice.service';
 import { OverviewResolverService } from './overview/overview-resolver.service';
+import { ApisecurityComponent } from './apisecurity/apisecurity.component';
+import { PublishComponent } from './publish/publish.component';
+import { PublishResolverService } from './publish/publish-resolver.service';
 
 
 @NgModule({
@@ -53,7 +57,9 @@ import { OverviewResolverService } from './overview/overview-resolver.service';
     ApilistComponent,
     HomeComponent,
     FooterComponent,
-    OverviewComponent
+    OverviewComponent,
+    ApisecurityComponent,
+    PublishComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +76,9 @@ import { OverviewResolverService } from './overview/overview-resolver.service';
     SelectedApiListResolverService, 
     GetUserProfileResolverService,
     ApiserviceService,
-    OverviewResolverService
+    OverviewResolverService,
+    ApiSecurityResolverService,
+    PublishResolverService
   ],
   bootstrap: [AppComponent]
 })

@@ -46,6 +46,10 @@ label{
   display: none;
 }
 
+.security{
+    display: none;
+}
+
 .bankconnectmessage{
   text-align: center;
   font-weight: bold;
@@ -76,4 +80,8 @@ mat-label{
 
 h3{
     border-bottom: solid 2px #047cc0;
+}
+
+.two{
+    margin-left: 50px;
 }

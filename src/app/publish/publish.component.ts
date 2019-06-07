@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { SignupServiceService} from '../services/signup-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -10,11 +10,11 @@ export interface API {
 
 
 @Component({
-  selector: 'app-api',
-  templateUrl: './api.component.html',
-  styleUrls: ['./api.component.scss']
+  selector: 'app-publish',
+  templateUrl: './publish.component.html',
+  styleUrls: ['./publish.component.scss']
 })
-export class ApiComponent implements OnInit {
+export class PublishComponent implements OnInit {
 
   apiservicesform: FormGroup;
   apilist: Array<String> = [];
@@ -22,7 +22,7 @@ export class ApiComponent implements OnInit {
   noapierror: boolean = true;
 
   constructor(private formBuilder: FormBuilder, private signservice : SignupServiceService, private router: Router,private route: ActivatedRoute) {
-    this.apilist = this.route.snapshot.data['apiList'];
+    this.apilist = this.route.snapshot.data['apilist'];
   }
 
   ngOnInit()
@@ -54,6 +54,7 @@ export class ApiComponent implements OnInit {
   }
 
   OnSubmit() {
+    //this has all the apis to be published on bankconnect as well as api manager
     var newItem = this.apiselected;
     var apivalue = [];
 
@@ -63,36 +64,32 @@ export class ApiComponent implements OnInit {
       apivalue.push(lowerItem);
     }
 
-    console.log("api value: "+apivalue);
-    var obj = {
-      apis : newItem,
-      value : apivalue 
-    }
+    // console.log("api value: "+apivalue);
+    // var obj = {
+    //   apis : newItem,
+    //   value : apivalue 
+    // }
 
-    // this.signservice.getEmail()
-    // .subscribe((data)=>{
-    //   console.log("email of user: "+data);
+    this.signservice.getEmail()
+    .subscribe((data)=>{
+      console.log("email of user: "+data);
 
-    //   var newobj = {
-    //     apis : newItem,
-    //     email : data
-    //   }
+      var newobj = {
+        apis : newItem,
+        email : data,
+        value : apivalue 
+      }
 
-    //   this.signservice.postInClient(newobj)
-    //   .subscribe((data)=>{
-    //     console.log("data received: "+data);
-    //   },(err)=> console.log(err));
-    // })
-
-
-     this.signservice.postApis(obj)
-     .subscribe((data)=>{
-      this.router.navigateByUrl('/dashboard');
-    },(err)=>{ console.log(err); })
+      this.signservice.postInClient(newobj)
+      .subscribe((data)=>{
+        console.log("data received: "+data);
+      },(err)=> console.log(err));
+    })
 
   }
 
   shownext(){
     (document.querySelector('.bankstandard') as HTMLElement).style.display = 'block';
   }
+
 }

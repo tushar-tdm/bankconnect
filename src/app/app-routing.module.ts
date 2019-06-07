@@ -5,7 +5,6 @@ import { ApiComponent } from './api/api.component';
 import { SignupComponent } from './signup/signup.component';
 import { SubmitComponent } from './submit/submit.component';
 import { CbsComponent } from './cbs/cbs.component';
-import { SignupServiceService } from './services/signup-service.service';
 import { ApiResolverService } from './api/api-resolver.service';
 import { ApiListResolverService } from './apilist/apilist-resolver.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -19,6 +18,10 @@ import { ApilistComponent } from './apilist/apilist.component';
 import { HomeComponent } from './home/home.component';
 import { OverviewComponent } from './overview/overview.component';
 import { OverviewResolverService } from './overview/overview-resolver.service';
+import { ApisecurityComponent } from './apisecurity/apisecurity.component';
+import { ApiSecurityResolverService } from './apisecurity/apisecurity-resolver.service';
+import { PublishComponent } from './publish/publish.component';
+import { PublishResolverService } from './publish/publish-resolver.service';
 
 
 const routes: Routes = [
@@ -40,7 +43,9 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, resolve : { user_profile : GetUserProfileResolverService}},
   { path: 'login', component: LoginComponent},
   { path: 'apilist', component: ApilistComponent, resolve:{ apiList : ApiListResolverService}},
-  { path: 'overview', component: OverviewComponent, resolve:{ apiDetails : OverviewResolverService} }
+  { path: 'overview', component: OverviewComponent, resolve:{ apiDetails : OverviewResolverService} },
+  { path: 'apisecurity', component: ApisecurityComponent, resolve:{ selectedApi : ApiSecurityResolverService}},
+  { path: 'publish', component: PublishComponent, resolve:{ apilist : PublishResolverService}}
 ];
 
 @NgModule({

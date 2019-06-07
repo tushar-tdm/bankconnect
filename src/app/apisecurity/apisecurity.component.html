@@ -1,0 +1,71 @@
+<div class="container p-3">
+  <div class="row">
+    <div class="col-12">
+      <form [formGroup]="form" (submit)="submit()">
+        <div class="card">
+          <!--<div class="card-header">API Security Setting</div>
+           <div class="card-body">
+            <div class="row">
+              <div class="form-group col-6">
+                <label>Core Banking Solution</label>
+                <input class="form-control" formControlName="cbs" type="text" value="" disabled>
+              </div>
+              <div class="form-group col-6">
+                <label>Version</label>
+                <input class="form-control" formControlName="version" type="text" value="" disabled>
+              </div>
+            </div>
+          </div> -->
+          <div class="card-header">API Security Selection</div>
+          <div class="card-body" formArrayName="apis">
+            <div class="row">
+              <div class="col-6" *ngFor="let api of selectedApi; let i = index;">
+                <div [formGroupName]="i" class="row">
+                  <!-- <div class="form-group col-6">
+                    <label>Type of Contact</label>
+                    <select (change)="changedFieldType(i)" class="form-control" formControlName="type" type="text">
+                      <option value="email">Email</option>
+                      <option value="phone">Phone</option>
+                    </select> 
+                  </div> -->
+                  <div class="form-group col-9">
+                    <label>Api Name</label>
+                    <input class="form-control" formControlName="name" type="text" [value]="api" placeholder="{{api}}" disabled>
+                    <span class="text-danger" *ngIf="getApiFormGroup(i).controls['name'].touched && getApiFormGroup(i).controls['name'].hasError('required')">
+                      Label is required! </span>
+                  </div>
+
+                  <div class="form-group col-12">
+                    <mat-radio-group aria-labelledby="intopt-radio-group-label" class="intopt-radio-group"
+                      formControlName="security">
+                      <mat-radio-button class="example-radio-button" value="oauth2">
+                        OAuth 2
+                      </mat-radio-button>
+                      <mat-radio-button style="margin-left: 10px;" class="example-radio-button" value="other">
+                        Other
+                      </mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="col-12">
+              <!--
+                <label>Server IP</label> 
+                <input class="form-control" type="text" formControlName="serverIP">
+                <label>Server Credential</label> 
+                <input class="form-control" type="password" formControlName="cred"> 
+                [disabled]="!form.valid"
+              -->
+              <button class="btn btn-success m-1"  type="submit"> Save Changes </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+

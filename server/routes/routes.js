@@ -9,7 +9,8 @@ var adminmodel = require('../models/adminmodel');
 var cbsmodel = require('../models/cbsmodel');
 var apimodel = require('../models/apimodel');
 var usermodel = require('../models/usermodel');
-
+var selectedapimodel = require('../models/selectedapimodel'); 
+  
 var routes = express.Router();
 
 var urlencodedParser = bodyParser.urlencoded({extended: true});
@@ -186,16 +187,28 @@ routes.route('/api')
 })
 
 .post(urlencodedParser,(req,res)=>{
-    //add the chosen apis in the user models.
-    var apis = req.body.apis;
-    var sess = req.session;
-    var standard = req.body.standard;
 
-    console.log(standard);
-    adminmodel.findOneAndUpdate({email : sess.email},{api_list : apis, integrated: true },(err,doc)=>{
+    api = req.body.apis;
+    value = req.body.value;
+    console.log("api selected: "+api+" "+value);
+    var sess = req.session;
+
+    //let api list be in the adminmodel as well.
+    adminmodel.findOneAndUpdate({email : sess.email},{api_list : api, integrated: true },(err,doc)=>{
         if(err) console.log(err);
     });
 
+    for(var i=0;i<api.length;++i){
+        var newapi = new selectedapimodel({
+            name : api[i],
+            value : value[i],
+            security : "oauth2", //by default oauth2 is provided.
+            email : sess.email,
+            published : false
+        });
+
+        newapi.save();
+    }
 
     //run  a shell command before sending the response
     // exec(`cd C:/Users/TusharMALCHAPURE/Desktop/api_connect && apic products publish dummy-product_1.0.0.yaml --org think --catalog sandbox --server platform.9.202.177.31.xip.io
@@ -206,29 +219,29 @@ routes.route('/api')
     //     console.log(stdout);
     // });
 
-    adminmodel.find({email:sess.email},(err,doc)=>{
-        var cbs = doc[0].cbs;
-        var version = doc[0].version;
+    // ========================= DEPLOYING IN API MANAGER =========================
+    // adminmodel.find({email:sess.email},(err,doc)=>{
+    //     var cbs = doc[0].cbs;
 
-        //run  a shell command before sending the response
+    //     //run  a shell command before sending the response
 
-        var prod_path = 'cd '+ __dirname +'\\api_files\\'+cbs+'\\product';
-        var stub_path = 'cd '+ __dirname +'\\api_files\\'+cbs+'\\stub';
+    //     var prod_path = 'cd '+ __dirname +'\\api_files\\'+cbs+'\\product';
+    //     var stub_path = 'cd '+ __dirname +'\\api_files\\'+cbs+'\\stub';
 
-        //console.log(prod_path+" "+stub_path);
-        for(var i=0;i<apis.length;++i){
-            console.log("api to be published ->"+apis[i]);
-            var prod_file_name = apis[i]+'-product_1.0.0.yaml';
-            var stub_file_name = apis[i]+'-stub_1.0.0.yaml';
+    //     //console.log(prod_path+" "+stub_path);
+    //     for(var i=0;i<apis.length;++i){
+    //         console.log("api to be published ->"+apis[i]);
+    //         var prod_file_name = apis[i]+'-product_1.0.0.yaml';
+    //         var stub_file_name = apis[i]+'-stub_1.0.0.yaml';
 
-            //for product
-            exec(`${prod_path} && apic products publish ${prod_file_name} --org think --catalog sandbox --server platform.9.202.177.31.xip.io`,
-            (err,stdout)=>{
-                if (err) console.log("error in product publishing "+err);
-                console.log("product publish output: "+stdout);
-            });
-        }
-    })
+    //         //for product
+    //         exec(`${prod_path} && apic products publish ${prod_file_name} --org think --catalog sandbox --server platform.9.202.177.31.xip.io`,
+    //         (err,stdout)=>{
+    //             if (err) console.log("error in product publishing "+err);
+    //             console.log("product publish output: "+stdout);
+    //         });
+    //     }
+    // })
     res.json("Services published successfully");
 });
 
@@ -248,19 +261,45 @@ routes.route('/api/selected')
     });
 });
 
-routes.route('/confirmed')
+routes.route('/api/unselected')
 .get((req,res)=>{
     var sess = req.session;
 
-    // if(sess.email){
-    //     adminmodel.find({email: sess.email},(err,doc)=>{
-    //         if(!doc[0].integrated && doc[0].confirmation){
-    //             res.json(1);
-    //         }
-    //         else res.json(0);
-    //     });
-    // }else
-    //     res.json(1);
+    //get the apis based on the users cbs and version.
+    adminmodel.find({email : sess.email },(err,doc)=>{
+        //only 1 document will be returned.
+        var cbs = doc[0].cbs;
+        var ver = doc[0].version;
+
+        apimodel.find({cbs : cbs},(err,doc)=>{
+            if(err) console.log(err);
+            var apis = [];
+            var len = doc.length; var i=0;
+
+            for(i=0;i<len;++i){
+                apis.push(doc[i].name);
+            }
+
+            //get the selected apis
+            adminmodel.find({email : sess.email },(err,doc)=>{
+                var selected_api = doc[0].api_list;
+
+                var unselected = [];
+                for(i=0;i<apis.length;++i){
+                    if(selected_api.indexOf(apis[i]) == -1)
+                        unselected.push(apis[i]);
+                }
+                console.log("unselected apis: "+unselected);
+                res.json(unselected);
+            });
+        });
+    });
+
+})
+
+routes.route('/confirmed')
+.get((req,res)=>{
+    var sess = req.session;
 
     adminmodel.find({email:sess.email},(err,doc)=>{
         if(doc[0].confirmation && !doc[0].integrated && !doc[0].bcintegrated){
@@ -407,6 +446,26 @@ routes.route('/getEmail')
     var sess = req.session;
 
     res.json(sess.email);
+})
+
+routes.route('/updateSecurity')
+.post((req,res)=>{
+    //get the apis from seletedapimodel
+
+    var sess = req.session;
+    selectedapimodel.find({email: sess.email},(err,doc)=>{
+        var apis = [];
+        for(i=0;i<doc.length;++i)
+            apis.push(doc[i].name);
+
+        for(i=0;i<apis.length;++i){
+            var newsecurity = req.body.sec.apis[i].security;
+            selectedapimodel.findOneAndUpdate({email:sess.email, name:apis[i]},{security: newsecurity},{new:true},(err,doc)=>{
+            })    
+        }        
+    });
+
+    res.send("security updated!");
 })
 
 //==============================END OF ROUTING =======================================
