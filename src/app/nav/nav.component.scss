@@ -1,7 +1,6 @@
 
 .dropdown:hover>.dropdown-menu {
   display: inline;
-  float: left;
 }
 
 // .dropdown>.dropdown-toggle:active {
@@ -26,4 +25,8 @@
 
 a{
   text-decoration: none;
+}
+
+i{
+  margin-right: 10px;
 }

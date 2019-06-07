@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
-  title: customer-api
-  x-ibm-name: customer-api
+  title: moneymovement-api
+  x-ibm-name: moneymovement-api
   version: 1.0.0
 x-ibm-configuration:
   cors:
@@ -22,7 +22,7 @@ x-ibm-configuration:
                     Status : {
                         code : "GW200",
                         msg :  "SUCCESS",
-                        desc : "this is a stub response from Finnacle"
+                        desc : "this is a stub response"
                     }
                 }
             }

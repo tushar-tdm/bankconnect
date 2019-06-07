@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
-  title: account-api
-  x-ibm-name: account-api
+  title: accounts-api
+  x-ibm-name: accounts-api
   version: 1.0.0
 x-ibm-configuration:
   cors:

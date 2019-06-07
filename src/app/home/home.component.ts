@@ -8,6 +8,11 @@ import { SignupServiceService } from '../services/signup-service.service';
 })
 export class HomeComponent implements OnInit {
 
+  Image1: any = '../../assets/ibm1.jpg';
+  Image2: any = '../../assets/ibm.jpg';
+  Image3: any = '../../assets/carosel4.jpg';
+
+
   constructor(private signservice:SignupServiceService) { }
 
   ngOnInit() {
