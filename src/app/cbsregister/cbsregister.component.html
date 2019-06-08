@@ -13,7 +13,7 @@
                           formControlName="CBS">
                           <mat-radio-button class="example-radio-button" *ngFor="let list of cbslist" [value]="list.value" (change)="newCbs(list.value)">
                             {{list.viewValue}}
-                          </mat-radio-button>
+                          </mat-radio-button> <br>
                         </mat-radio-group>
                     </div>
 
@@ -28,7 +28,7 @@
                           formControlName="version">
                           <mat-radio-button class="example-radio-button" *ngFor="let list of verver" [value]="list" (change)="showintopt()">
                             {{list}}
-                          </mat-radio-button>
+                          </mat-radio-button> <br>
                         </mat-radio-group>
                         <!-- <input type="radio" *ngFor="let list of verver" [value]="list" (change)="showintopt()" formControlName="version">
                         <p> {{list}} </p> -->
@@ -44,7 +44,7 @@
                           formControlName="IntOpt">
                           <mat-radio-button class="example-radio-button" *ngFor="let list of intoptions" [value]="list.value" (change)="showcred()">
                             {{list.viewValue}}
-                          </mat-radio-button>
+                          </mat-radio-button><br>
                         </mat-radio-group>
                   </div>
 

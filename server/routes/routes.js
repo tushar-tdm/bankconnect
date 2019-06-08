@@ -183,18 +183,18 @@ routes.route('/api')
             res.json(global.apis);
         });
     });
-
 })
 
 .post(urlencodedParser,(req,res)=>{
 
     api = req.body.apis;
     value = req.body.value;
-    console.log("api selected: "+api+" "+value);
+    //env = req.body.env;
+    console.log("api selected: "+api+" "+value+" "+env);
     var sess = req.session;
 
     //let api list be in the adminmodel as well.
-    adminmodel.findOneAndUpdate({email : sess.email},{api_list : api, integrated: true },(err,doc)=>{
+    adminmodel.findOneAndUpdate({email : sess.email},{api_list : api, environment : env, integrated: true },(err,doc)=>{
         if(err) console.log(err);
     });
 
@@ -210,38 +210,30 @@ routes.route('/api')
         newapi.save();
     }
 
-    //run  a shell command before sending the response
-    // exec(`cd C:/Users/TusharMALCHAPURE/Desktop/api_connect && apic products publish dummy-product_1.0.0.yaml --org think --catalog sandbox --server platform.9.202.177.31.xip.io
-    // `,(err,stdout)=>{
-    //     console.log("this executed");
-    //     if(err) console.log("1:->"+err);
-
-    //     console.log(stdout);
-    // });
-
     // ========================= DEPLOYING IN API MANAGER =========================
-    // adminmodel.find({email:sess.email},(err,doc)=>{
-    //     var cbs = doc[0].cbs;
+    adminmodel.find({email:sess.email},(err,doc)=>{
+        var cbs = doc[0].cbs;
+        var env = req.body.env;
 
-    //     //run  a shell command before sending the response
+        //run  a shell command before sending the response
 
-    //     var prod_path = 'cd '+ __dirname +'\\api_files\\'+cbs+'\\product';
-    //     var stub_path = 'cd '+ __dirname +'\\api_files\\'+cbs+'\\stub';
+        var prod_path = 'cd '+ __dirname +'\\api_files\\'+cbs+'\\product';
+        var stub_path = 'cd '+ __dirname +'\\api_files\\'+cbs+'\\stub';
 
-    //     //console.log(prod_path+" "+stub_path);
-    //     for(var i=0;i<apis.length;++i){
-    //         console.log("api to be published ->"+apis[i]);
-    //         var prod_file_name = apis[i]+'-product_1.0.0.yaml';
-    //         var stub_file_name = apis[i]+'-stub_1.0.0.yaml';
+        //console.log(prod_path+" "+stub_path);
+        for(var i=0;i<value.length;++i){
+            console.log("api to be published ->"+value[i]);
+            var prod_file_name = value[i]+'-product_1.0.0.yaml';
+            var stub_file_name = value[i]+'-stub_1.0.0.yaml';
 
-    //         //for product
-    //         exec(`${prod_path} && apic products publish ${prod_file_name} --org think --catalog sandbox --server platform.9.202.177.31.xip.io`,
-    //         (err,stdout)=>{
-    //             if (err) console.log("error in product publishing "+err);
-    //             console.log("product publish output: "+stdout);
-    //         });
-    //     }
-    // })
+            //for product
+            exec(`${prod_path} && apic products publish ${prod_file_name} --org think --catalog ${env} --server platform.9.202.177.31.xip.io`,
+            (err,stdout)=>{
+                if (err) console.log("error in product publishing "+err);
+                console.log("product publish output: "+stdout);
+            });
+        }
+    })
     res.json("Services published successfully");
 });
 
@@ -332,7 +324,8 @@ routes.route('/bcintegrated')
 })
 
 .post(urlencodedParser,(req,res)=>{
-
+    var sess = req.session;
+    
   adminmodel.findOneAndUpdate({email : sess.email},{bcintegrated: true },(err,doc)=>{
       if(err) console.log(err);
   });
@@ -487,7 +480,13 @@ function sendmail(email,ts,sub){
             to: `${email}`,
             subject: `${sub}`,
             text: 'That was easy!',
-            html : `<a href="${link}">Accept</a>`
+            html : `
+                <html>
+                    <body>  
+                    <h3> Click on ACCEPT to create your IDBP account! </h3> 
+                    <a href="${link}">Accept</a>
+                    </body>
+                </html>`
         };
 
         transporter.sendMail(mailOptions, function(error, info){

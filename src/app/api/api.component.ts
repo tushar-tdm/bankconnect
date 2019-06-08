@@ -29,6 +29,7 @@ export class ApiComponent implements OnInit {
   {
       this.apiservicesform = this.formBuilder.group({
         apis : this.addApisControls(),
+        environment : ['',[Validators.required, Validators]],
       });
   }
 
@@ -66,25 +67,10 @@ export class ApiComponent implements OnInit {
     console.log("api value: "+apivalue);
     var obj = {
       apis : newItem,
-      value : apivalue 
+      value : apivalue,
+      env : this.apiservicesform.controls.environment.value,
     }
-
-    // this.signservice.getEmail()
-    // .subscribe((data)=>{
-    //   console.log("email of user: "+data);
-
-    //   var newobj = {
-    //     apis : newItem,
-    //     email : data
-    //   }
-
-    //   this.signservice.postInClient(newobj)
-    //   .subscribe((data)=>{
-    //     console.log("data received: "+data);
-    //   },(err)=> console.log(err));
-    // })
-
-
+    
      this.signservice.postApis(obj)
      .subscribe((data)=>{
       this.router.navigateByUrl('/dashboard');

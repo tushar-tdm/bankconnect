@@ -10,9 +10,20 @@
           {{apilist[i] | uppercase}}
         </label>
       </div>
-      <!-- <div>
-        <small id="fnHelp" *ngIf="noapierror" class="form-text custom-invalid-feedback">At least choose one </small>
-      </div> -->
+      <div>
+          <label> <b>Choose the environment </b></label><br>
+          <mat-radio-group
+             aria-labelledby="env-radio-group-label"
+             class="env-radio-group"
+             formControlName="environment">
+             <mat-radio-button class="example-radio-button" value="sandbox">
+               Sandbox
+             </mat-radio-button>
+             <mat-radio-button class="example-radio-button" value="other">
+                Other
+              </mat-radio-button>
+           </mat-radio-group>
+      </div>
   </div>
 
     <!-- <div *ngIf="!apiservicesform.valid">At least one order must be selected</div> -->

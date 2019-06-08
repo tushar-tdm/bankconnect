@@ -64,12 +64,7 @@ export class PublishComponent implements OnInit {
       apivalue.push(lowerItem);
     }
 
-    // console.log("api value: "+apivalue);
-    // var obj = {
-    //   apis : newItem,
-    //   value : apivalue 
-    // }
-
+    // ====== PUBLISHING IN BANK CONNECT CLIENT ===============
     this.signservice.getEmail()
     .subscribe((data)=>{
       console.log("email of user: "+data);
@@ -84,6 +79,12 @@ export class PublishComponent implements OnInit {
       .subscribe((data)=>{
         console.log("data received: "+data);
       },(err)=> console.log(err));
+
+        // // ============= PUBLISHING IN API MANAGER ==================
+        // this.signservice.postInApiManager(newobj)
+        // .subscribe((data)=>{
+        //   console.log("data received: "+data);
+        // },(err)=> console.log(err));
     })
 
   }

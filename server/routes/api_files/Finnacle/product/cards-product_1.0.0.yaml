@@ -1,7 +1,7 @@
 info:
   version: 1.0.0
-  title: dummy-product
-  name: dummy-product
+  title: cards-product
+  name: cards-product
 gateways:
   - datapower-gateway
 plans:
@@ -14,7 +14,7 @@ plans:
     approval: false
 apis:
   dummy-api1.0.0:
-    $ref: ./cards-stub_1.0.0.yaml
+    $ref: ../stub/cards-stub_1.0.0.yaml
 visibility:
   view:
     type: public

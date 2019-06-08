@@ -160,6 +160,13 @@ export class SignupServiceService {
     });
   }
 
+  // postInApiManager(obj:any):Observable<any>{
+  //   return this.http.post('/route/apimanager',obj,{
+  //     headers :
+  //     new HttpHeaders({ 'Content-Type':'application/json'})
+  //   })
+  // }
+
   updateSecurity(obj:any):Observable<any>{
     return this.http.post<any>('/route/updateSecurity',obj,{
       headers :
