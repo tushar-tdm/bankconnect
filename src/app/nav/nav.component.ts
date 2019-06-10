@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SignupServiceService } from '../services/signup-service.service';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -13,7 +15,7 @@ export class NavComponent implements OnInit {
   login : Number = 0;
   username: string ='';
 
-  constructor( private signservice: SignupServiceService ) { }
+  constructor( private signservice: SignupServiceService, private router: Router, public  location: Location ) { }
 
   ngOnInit() {
     this.signservice.checkLogin()
@@ -24,6 +26,12 @@ export class NavComponent implements OnInit {
       } else {this.username = data;
               this.login = 1; }
     }, (err) => console.log(err));
+
+    // this.router.navigateByUrl('/refresh', {skipLocationChange: true}).then(() => {
+    //   console.log('navigation occured');
+    //   console.log([decodeURI(this.location.path())]);
+    //   this.router.navigate([decodeURI(this.location.path())]);
+    // });
   }
 
 }

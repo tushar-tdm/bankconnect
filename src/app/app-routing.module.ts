@@ -22,11 +22,13 @@ import { ApisecurityComponent } from './apisecurity/apisecurity.component';
 import { ApiSecurityResolverService } from './apisecurity/apisecurity-resolver.service';
 import { PublishComponent } from './publish/publish.component';
 import { PublishResolverService } from './publish/publish-resolver.service';
+import { RefreshComponent } from './refresh/refresh.component';
 
 
 const routes: Routes = [
   { path : '/:bankname' , component: HomeComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'refresh', component: RefreshComponent },
   { path: 'api', component: ApiComponent, resolve : { apiList : ApiResolverService}},
   { path: 'support', component: SupportComponent },
   { path: 'submit', component: SubmitComponent },

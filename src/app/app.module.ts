@@ -38,6 +38,7 @@ import { OverviewResolverService } from './overview/overview-resolver.service';
 import { ApisecurityComponent } from './apisecurity/apisecurity.component';
 import { PublishComponent } from './publish/publish.component';
 import { PublishResolverService } from './publish/publish-resolver.service';
+import { RefreshComponent } from './refresh/refresh.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { PublishResolverService } from './publish/publish-resolver.service';
     FooterComponent,
     OverviewComponent,
     ApisecurityComponent,
-    PublishComponent
+    PublishComponent,
+    RefreshComponent
   ],
   imports: [
     BrowserModule,
