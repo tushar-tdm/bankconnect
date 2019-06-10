@@ -11,14 +11,14 @@ var adminschema = mongoose.Schema({
     api_list : Array,
     sip : String,
     cred : String,
-    password: String,
     fname : String,
     lname: String,
     integrated: Boolean,
     pass : String,
     standard : String,
     bcintegrated : Boolean,
-    environment : String 
+    environment : String,
+    bank : String
 },{
     timestamp : true
 });

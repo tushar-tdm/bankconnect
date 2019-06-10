@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SignupServiceService } from '../services/signup-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,18 @@ export class HomeComponent implements OnInit {
   Image3: any = '../../assets/carosel4.jpg';
 
 
-  constructor(private signservice:SignupServiceService) { }
+  constructor(private signservice:SignupServiceService, private route: ActivatedRoute) {
+    this.route.params.subscribe( params => {
+      console.log(params);
+      var obj = {
+        bank : params['bankname']
+      }
+      this.signservice.setBank(obj)
+      .subscribe((data)=>{
+        console.log("data is :"+data);
+      },(err)=> console.log(err));
+    });
+   }
 
   ngOnInit() {
   }

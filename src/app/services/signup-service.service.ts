@@ -181,4 +181,10 @@ export class SignupServiceService {
     });
   }
   
+  setBank(bank:any):Observable<any>{
+    return this.http.post<any>('/route/setBank',bank,{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    })
+  }
 }
