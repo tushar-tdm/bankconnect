@@ -25,7 +25,7 @@ import { PublishResolverService } from './publish/publish-resolver.service';
 
 
 const routes: Routes = [
-  { path : '/:bankname' , redirectTo : 'home', pathMatch: 'full'},
+  { path : '/:bankname' , component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'api', component: ApiComponent, resolve : { apiList : ApiResolverService}},
   { path: 'support', component: SupportComponent },
