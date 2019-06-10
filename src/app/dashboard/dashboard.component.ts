@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SignupServiceService} from '../services/signup-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouteReuseStrategy } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({

@@ -22,6 +22,7 @@ var sess;
 routes.route('/sendmail')
 .post(urlencodedParser,(req,res)=>{
 
+    var sess = req.session;
     var pass = req.body.pass;
     var hashpwd = passwordHash.generate(pass);
     //if(passwordHash.verify(pass,hashpwd))
@@ -34,21 +35,23 @@ routes.route('/sendmail')
     //use the schema of the collection.
     var newuser = new adminmodel({
         username: req.body.username,
-        fname : req.body.fname,
-        lname : req.body.lname,
         ts : timestamp,
         email : req.body.email,
         confirmation : false,
-        version : "default",
-        api_list: null,
-        intopt : "default",
         cbs : "default",
+        version : "default",
+        intopt : "default",
+        api_list: null,
         sip : "default",
         cred : "default",
+        fname : req.body.fname,
+        lname : req.body.lname,
         integrated : false,
-        bcintegrated : false,
         pass : hashpwd,
-        standard: "default"
+        standard: "default",
+        bcintegrated : false,
+        environment : "default",
+        bank : sess.bank
     });
     newuser.save((err)=>{
         if(err)
@@ -60,7 +63,7 @@ routes.route('/sendmail')
     sess.email = req.body.email;
 
     var sub = "Email confirmation for Bank Connect";
-    sendmail(req.body.email,timestamp,sub);
+    sendmail(req.body.email,timestamp,sub,req.body.username);
     var msg = "Email sent.. Please check your email to continue the process'+ `<br>` + 'you can close this window";
     res.json(msg);
 });
@@ -189,7 +192,7 @@ routes.route('/api')
 
     api = req.body.apis;
     value = req.body.value;
-    //env = req.body.env;
+    env = req.body.env;
     console.log("api selected: "+api+" "+value+" "+env);
     var sess = req.session;
 
@@ -353,7 +356,6 @@ routes.route('/profile')
         username: doc[0].username,
         fname: doc[0].fname,
         lname: doc[0].lname,
-        admin: doc[0].admin,
         useremail: doc[0].email
       }
       res.json(myObj)
@@ -461,9 +463,22 @@ routes.route('/updateSecurity')
     res.send("security updated!");
 })
 
+routes.route('/setBank')
+.post((req,res)=>{
+    var bank = req.body.bank;
+    var sess = req.session;
+    sess.bank = bank;
+})
+
+routes.route('/logout')
+.get((req,res)=>{
+    var sess = req.session;
+    sess.admin  = 0;
+    sess.email = "null";
+})
 //==============================END OF ROUTING =======================================
 
-function sendmail(email,ts,sub){
+function sendmail(email,ts,sub,uname){
     var link = `http://localhost:3000/route/confirm/${ts}/${email}`;
     var transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -481,12 +496,39 @@ function sendmail(email,ts,sub){
             subject: `${sub}`,
             text: 'That was easy!',
             html : `
-                <html>
-                    <body>  
-                    <h3> Click on ACCEPT to create your IDBP account! </h3> 
-                    <a href="${link}">Accept</a>
-                    </body>
-                </html>`
+            <html>
+            <head>
+                <style>
+                    .maindiv{
+                        box-shadow: 5px 5px 10px grey;
+                        margin-left: 35%;
+                        border: solid 2px grey;
+                        width: 550px;
+                        margin-top: 20px;
+                        padding-left: 35px;
+                        padding-bottom: 20px;
+                        border-radius: 20px;
+                        padding-top: 10px;
+                    }
+                    h2{
+                        margin-left: 44%;
+                        color:rgb(91, 91, 204);
+                    }
+        
+                    a{
+                        text-decoration: none;
+                        color:rgb(83, 134, 6)
+                    }
+                </style>
+            </head>
+            <body>  
+                <div class="maindiv">
+                    <h2> IDBP </h2>
+                    <p> Hi ${uname}. This is in response to your request to create an account in IDBP</p> <br>
+                    <p> Click on <a href="${link}"><b>ACCEPT</b></a> to create your IDBP account! </p>    
+                </div> 
+            </body>
+        </html> `
         };
 
         transporter.sendMail(mailOptions, function(error, info){
