@@ -159,8 +159,14 @@ export class SignupServiceService {
     });
   }
 
+  getBank(){
+    return this.http.get<any>('/route/getBank',{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    });
+  }
+
   postInClient(obj:any):Observable<any>{
-    //console.log("in postInClient service "+obj);
     return this.http.post<any>('http://localhost:5000/route/publishApi',obj,{
       headers :
       new HttpHeaders({ 'Content-Type':'application/json'})
@@ -173,13 +179,6 @@ export class SignupServiceService {
       new HttpHeaders({ 'Content-Type':'application/json'})
     });
   }
-
-  // postInApiManager(obj:any):Observable<any>{
-  //   return this.http.post('/route/apimanager',obj,{
-  //     headers :
-  //     new HttpHeaders({ 'Content-Type':'application/json'})
-  //   })
-  // }
 
   updateSecurity(obj:any):Observable<any>{
     return this.http.post<any>('/route/updateSecurity',obj,{

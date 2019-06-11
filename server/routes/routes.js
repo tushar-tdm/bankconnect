@@ -237,6 +237,7 @@ routes.route('/api')
             });
         }
     })
+<<<<<<< HEAD
 
     //======================= DEPLOYING IN IDBP PARTNER PORTAL =====================
       var partnerObj = {
@@ -250,6 +251,9 @@ routes.route('/api')
         console.log("data received: "+data);
       },(err)=> console.log(err));
 
+=======
+      
+>>>>>>> a5f02216eb2ead6ab4dff02a408e17392b4b0651
     res.json("Services published successfully");
 });
 
@@ -456,6 +460,13 @@ routes.route('/getEmail')
     res.json(sess.email);
 })
 
+routes.route('/getBank')
+.get((req,res)=>{
+    var sess = req.session;
+    console.log("getting bank "+sess.bank);
+    res.json(sess.bank);
+})
+
 routes.route('/updateSecurity')
 .post((req,res)=>{
     //get the apis from seletedapimodel
@@ -482,7 +493,7 @@ routes.route('/setBank')
     var sess = req.session;
     sess.bank = bank;
 
-    res.send("bank successfully set");
+    res.json("bank successfully set");
 })
 
 routes.route('/logout')

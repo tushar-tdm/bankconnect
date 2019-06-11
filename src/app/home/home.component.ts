@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     config.wrap = true;
 
     this.route.params.subscribe( params => {
-      console.log(params);
+      console.log("here:->"+params['bankname']);
       var obj = {
         bank : params['bankname']
       }
