@@ -70,8 +70,24 @@ export class ApiComponent implements OnInit {
       value : apivalue,
       env : this.apiservicesform.controls.environment.value,
     }
-    
-     this.signservice.postApis(obj)
+
+    // ==================== POSTING IN PARTNER WEB APP ========================
+    this.signservice.getBank()
+    .subscribe((data)=>{
+      var partnerObj = {
+        apis : newItem,
+          value : apivalue,
+          bank : data
+      }
+      console.log("bank is: "+data);
+
+      this.signservice.postInPartner(partnerObj)
+      .subscribe((data)=>{
+        console.log(data);
+      },(err)=> console.log(err));
+    })
+
+    this.signservice.postApis(obj)
      .subscribe((data)=>{
       this.router.navigateByUrl('/dashboard');
     },(err)=>{ console.log(err); })
