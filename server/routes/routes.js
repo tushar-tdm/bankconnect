@@ -249,7 +249,7 @@ routes.route('/api')
       .subscribe((data)=>{
         console.log("data received: "+data);
       },(err)=> console.log(err));
-      
+
     res.json("Services published successfully");
 });
 
@@ -491,11 +491,7 @@ routes.route('/logout')
     sess.admin  = 0;
     sess.email = "null";
 
-<<<<<<< HEAD
     res.json("Logout Successful");
-=======
-    res.send("logged out!");
->>>>>>> f334717ae12305674a6c941aa2b40e35924256d5
 })
 //==============================END OF ROUTING =======================================
 
