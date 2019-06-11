@@ -145,6 +145,13 @@ export class SignupServiceService {
     });
   }
 
+  logout(){
+    return this.http.get<any>('/route/logout',{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    });
+  }
+
   getEmail(){
     return this.http.get<any>('/route/getEmail',{
       headers :
@@ -180,7 +187,7 @@ export class SignupServiceService {
       new HttpHeaders({ 'Content-Type':'application/json'})
     });
   }
-  
+
   setBank(bank:any):Observable<any>{
     return this.http.post<any>('/route/setBank',bank,{
       headers :

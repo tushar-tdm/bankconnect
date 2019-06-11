@@ -9,8 +9,8 @@ var adminmodel = require('../models/adminmodel');
 var cbsmodel = require('../models/cbsmodel');
 var apimodel = require('../models/apimodel');
 var usermodel = require('../models/usermodel');
-var selectedapimodel = require('../models/selectedapimodel'); 
-  
+var selectedapimodel = require('../models/selectedapimodel');
+
 var routes = express.Router();
 
 var urlencodedParser = bodyParser.urlencoded({extended: true});
@@ -328,7 +328,7 @@ routes.route('/bcintegrated')
 
 .post(urlencodedParser,(req,res)=>{
     var sess = req.session;
-    
+
   adminmodel.findOneAndUpdate({email : sess.email},{bcintegrated: true },(err,doc)=>{
       if(err) console.log(err);
   });
@@ -456,8 +456,8 @@ routes.route('/updateSecurity')
         for(i=0;i<apis.length;++i){
             var newsecurity = req.body.sec.apis[i].security;
             selectedapimodel.findOneAndUpdate({email:sess.email, name:apis[i]},{security: newsecurity},{new:true},(err,doc)=>{
-            })    
-        }        
+            })
+        }
     });
 
     res.send("security updated!");
@@ -475,6 +475,8 @@ routes.route('/logout')
     var sess = req.session;
     sess.admin  = 0;
     sess.email = "null";
+
+    res.json("Logout Successful");
 })
 //==============================END OF ROUTING =======================================
 
@@ -514,19 +516,19 @@ function sendmail(email,ts,sub,uname){
                         margin-left: 44%;
                         color:rgb(91, 91, 204);
                     }
-        
+
                     a{
                         text-decoration: none;
                         color:rgb(83, 134, 6)
                     }
                 </style>
             </head>
-            <body>  
+            <body>
                 <div class="maindiv">
                     <h2> IDBP </h2>
                     <p> Hi ${uname}. This is in response to your request to create an account in IDBP</p> <br>
-                    <p> Click on <a href="${link}"><b>ACCEPT</b></a> to create your IDBP account! </p>    
-                </div> 
+                    <p> Click on <a href="${link}"><b>ACCEPT</b></a> to create your IDBP account! </p>
+                </div>
             </body>
         </html> `
         };
