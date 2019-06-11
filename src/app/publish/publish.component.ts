@@ -79,12 +79,7 @@ export class PublishComponent implements OnInit {
       .subscribe((data)=>{
         console.log("data received: "+data);
       },(err)=> console.log(err));
-
-        // // ============= PUBLISHING IN API MANAGER ==================
-        // this.signservice.postInApiManager(newobj)
-        // .subscribe((data)=>{
-        //   console.log("data received: "+data);
-        // },(err)=> console.log(err));
+      
     })
 
   }

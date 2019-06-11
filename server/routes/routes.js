@@ -237,6 +237,19 @@ routes.route('/api')
             });
         }
     })
+
+    //======================= DEPLOYING IN IDBP PARTNER PORTAL =====================
+      var partnerObj = {
+        apis : api,
+        value : value,
+        bank : sess.bank
+      }
+
+      this.signservice.postInPartner(partnerObj)
+      .subscribe((data)=>{
+        console.log("data received: "+data);
+      },(err)=> console.log(err));
+      
     res.json("Services published successfully");
 });
 
@@ -468,6 +481,8 @@ routes.route('/setBank')
     var bank = req.body.bank;
     var sess = req.session;
     sess.bank = bank;
+
+    res.send("bank successfully set");
 })
 
 routes.route('/logout')
@@ -476,7 +491,11 @@ routes.route('/logout')
     sess.admin  = 0;
     sess.email = "null";
 
+<<<<<<< HEAD
     res.json("Logout Successful");
+=======
+    res.send("logged out!");
+>>>>>>> f334717ae12305674a6c941aa2b40e35924256d5
 })
 //==============================END OF ROUTING =======================================
 

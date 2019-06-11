@@ -26,7 +26,7 @@ import { RefreshComponent } from './refresh/refresh.component';
 
 
 const routes: Routes = [
-  // { path : ':bankname' , redirectTo : 'home', pathMatch: 'full'},
+  { path : '/:bankname' , component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'refresh', component: RefreshComponent },
   { path: 'api', component: ApiComponent, resolve : { apiList : ApiResolverService}},
