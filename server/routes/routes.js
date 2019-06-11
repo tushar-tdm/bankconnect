@@ -237,23 +237,7 @@ routes.route('/api')
             });
         }
     })
-<<<<<<< HEAD
 
-    //======================= DEPLOYING IN IDBP PARTNER PORTAL =====================
-      var partnerObj = {
-        apis : api,
-        value : value,
-        bank : sess.bank
-      }
-
-      this.signservice.postInPartner(partnerObj)
-      .subscribe((data)=>{
-        console.log("data received: "+data);
-      },(err)=> console.log(err));
-
-=======
-      
->>>>>>> a5f02216eb2ead6ab4dff02a408e17392b4b0651
     res.json("Services published successfully");
 });
 
