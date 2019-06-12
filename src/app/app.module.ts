@@ -10,6 +10,7 @@ import { HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MaterialModule } from './material';
 import { NavComponent } from './nav/nav.component';
@@ -75,12 +76,13 @@ import { GetBMUserProfileResolverService } from './bmprofile/bmprofile-resolver.
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [SignupServiceService,
     ApiResolverService,
     ApiListResolverService,
-    SelectedApiListResolverService, 
+    SelectedApiListResolverService,
     GetUserProfileResolverService,
     ApiserviceService,
     OverviewResolverService,

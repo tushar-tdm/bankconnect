@@ -40,4 +40,12 @@ export class NavComponent implements OnInit {
     // })
   }
 
+  onLogout(){
+    this.signservice.logout()
+    .subscribe((data) => {
+      console.log(data);
+    }, (err) => console.log(err));
+    return true;
+  }
+
 }

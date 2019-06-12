@@ -32,21 +32,30 @@ integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zF
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <li *ngIf="login; else dashboard"><a routerLink="/dashboard"><span><i class='fas fa-desktop'></i></span>My Dashboard</a></li>
+            <li *ngIf="login;"><a class="nav-link" routerLink="/dashboard"><span><i class='fas fa-desktop'></i></span>My Dashboard</a></li>
             <ng-template #dashboard>
               <div class="divider">.</div>
             </ng-template>
-            <!-- <li *ngIf="!login; else elseblock"><a routerLink="/signup">Create account</a></li>
-            <ng-template #elseblock>
-              <div class="divider">.</div>
-            </ng-template> -->
             <div class="seperateLi">
-                <li *ngIf="!login; else elseBlock"><a routerLink="/login"><span><i class='fas fa-user-alt'></i></span>Sign In</a></li>
+                <li *ngIf="!login; else elseBlock"><a class="nav-link" routerLink="/login"><span><i class='fas fa-user-alt'></i></span>Sign In</a></li>
                 <ng-template #elseBlock>
+<<<<<<< HEAD
                   <li><a [routerLink]="profileLink"><span><i class='fas fa-user-alt'></i></span>{{username}}</a></li>
+=======
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" aria-haspopup="true" data-toggle="dropdown">
+                          <span><i class='fas fa-user-alt'></i></span>{{username}}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" routerLink="/profile">My Account</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" routerLink="/home" (click)="onLogout()">Sign Out</a>
+                        </div>
+                    </li>
+>>>>>>> 2d9848ead1dcad9d84d2ba10822d8cdf7850e8f6
                 </ng-template>
             </div>
-        </ul>
+          </ul>
       </div>
     </nav>
 
