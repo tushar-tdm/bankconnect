@@ -58,9 +58,20 @@ routes.route('/sendmail')
         console.log("error while inserting user " + err);
     });
 
+    var newuser = new usermodel({
+        username: req.body.username,
+        email : req.body.email,
+        pass: hashpwd,
+        fname : req.body.fname,
+        lname : req.body.lname,
+        role : "admin"
+    });
+    newuser.save();
 
     sess = req.session;
     sess.email = req.body.email;
+    sess.admin = 1;
+    sess.role = "admin";
 
     var sub = "Email confirmation for Bank Connect";
     sendmail(req.body.email,timestamp,sub,req.body.username);
@@ -71,7 +82,7 @@ routes.route('/sendmail')
 routes.route('/loginconfirm')
 .post(urlencodedParser,(req,res)=>{
     var sess = req.session;
-    adminmodel.find({email: req.body.email},(err,doc)=>{
+    usermodel.find({email: req.body.email},(err,doc)=>{
         if(doc.length == 0){
             var msg = "Invalid email";
             var obj = {
@@ -85,6 +96,7 @@ routes.route('/loginconfirm')
             if(passwordHash.verify(req.body.pass,doc[0].pass)){
                 //login successful
                 sess.email = req.body.email;
+                sess.role = doc[0].role;
                 var obj = {
                     status: 1,
                     msg : "Login Successful"
@@ -116,6 +128,30 @@ routes.route('/confirm/:ts/:id')
             res.json('confirmation failed');
         }
      }).limit(1).sort({ ts : -1});
+});
+
+routes.route('/confirmRole/:id')
+.get((req,res)=>{
+    var sess = req.session;
+    usermodel.find({email : req.params.id},(err,doc)=>{
+        //to get the extra details
+        sess.role = doc[0].role;
+        sess.email = req.params.id;
+        console.log(sess.email +" will create an account now");
+        res.redirect('/roleSignup');
+    });
+});
+
+routes.route('/role')
+.post(urlencodedParser,(req,res)=>{
+    console.log("role route enetered");
+    var sess = req.session;
+    console.log("email of the user is :"+sess.email);
+    var hashpwd = passwordHash.generate(req.body.pass);
+    usermodel.findOneAndUpdate({email:sess.email},{username: req.body.username,fname: req.body.fname, lname: req.body.lname, pass : hashpwd},{new:true},(err,doc)=>{
+        //we updated the user.
+    });
+    res.json("updated successfully");
 });
 
 routes.route('/corebankservices/register')
@@ -237,7 +273,6 @@ routes.route('/api')
             });
         }
     })
-
     res.json("Services published successfully");
 });
 
@@ -247,14 +282,21 @@ routes.route('/api/selected')
     var sess = req.session;
     global.apis=[];
 
-    //get the apis based on the users cbs and version.
-    adminmodel.find({email : sess.email },(err,doc)=>{
-        //only 1 document will be returned.
-        //directly get the api_list
-        var selected_api = doc[0].api_list;
-
-        res.json(selected_api);
-    });
+    //send the apis only if he is an admin
+    usermodel.find({email:sess.email},(err,doc)=>{
+        if(doc[0].role == "admin"){
+            //get the apis based on the users cbs and version.
+            adminmodel.find({email : sess.email },(err,doc)=>{
+                //only 1 document will be returned.
+                //directly get the api_list
+                var selected_api = doc[0].api_list;
+                res.json(selected_api);
+            });
+        }else{
+            //send an empty list of apis
+            res.json(global.apis);
+        }
+    })
 });
 
 routes.route('/api/unselected')
@@ -296,35 +338,52 @@ routes.route('/api/unselected')
 routes.route('/confirmed')
 .get((req,res)=>{
     var sess = req.session;
-
-    adminmodel.find({email:sess.email},(err,doc)=>{
-        if(doc[0].confirmation && !doc[0].integrated && !doc[0].bcintegrated){
-          res.json(1);
-        }else{ res.json(0);}
-    })
-
+    usermodel.find({email: sess.email},(err,doc)=>{
+        if(doc[0].role == "admin"){
+            adminmodel.find({email:sess.email},(err,doc)=>{
+                if(doc[0].confirmation && !doc[0].integrated && !doc[0].bcintegrated){
+                  res.json(1);
+                }else{ res.json(0);}
+            })
+        }else{
+            res.json(0);
+        }
+    });
 })
 
 routes.route('/integrated')
 .get((req,res)=>{
     var sess = req.session;
 
-    adminmodel.find({email:sess.email},(err,doc)=>{
-        if(doc[0].integrated && doc[0].confirmation && !doc[0].bcintegrated){
-            res.json(1);
-        }else {res.json(0);}
-    })
+    usermodel.find({email: sess.email},(err,doc)=>{
+        if(doc[0].role == "admin"){
+            adminmodel.find({email:sess.email},(err,doc)=>{
+                if(doc[0].integrated && doc[0].confirmation && !doc[0].bcintegrated){
+                    res.json(1);
+                }else {res.json(0);}
+            })
+        }else{
+            res.json(0);
+        }
+    });
 })
 
 routes.route('/bcintegrated')
 .get((req,res)=>{
     var sess = req.session;
 
-    adminmodel.find({email:sess.email},(err,doc)=>{
-        if(doc[0].integrated && doc[0].confirmation && doc[0].bcintegrated)
-            res.json(1);
-        else res.json(0);
-    })
+    usermodel.find({email: sess.email},(err,doc)=>{
+        if(doc[0].role == "admin"){
+            adminmodel.find({email:sess.email},(err,doc)=>{
+                if(doc[0].integrated && doc[0].confirmation && doc[0].bcintegrated)
+                    res.json(1);
+                else res.json(0);
+            })
+        }else{
+            res.json(0);
+        }
+    });
+    
 })
 
 .post(urlencodedParser,(req,res)=>{
@@ -341,8 +400,9 @@ routes.route('/checklogin')
 .get((req,res)=>{
     var sess = req.session;
 
+    //change the adminmodel to usermodel.
     if(sess.email){
-      adminmodel.find({email: sess.email},(err,doc)=>{
+      usermodel.find({email: sess.email},(err,doc)=>{
         res.json(doc[0].username)
       });
     }else {res.json(0); }
@@ -352,46 +412,62 @@ routes.route('/profile')
 .get((req,res)=>{
     var sess = req.session;
 
-    adminmodel.find({email: sess.email},(err,doc)=>{
+    //check what kind of user he is..
+
+    usermodel.find({email: sess.email},(err,doc)=>{
       var myObj = {
         username: doc[0].username,
         fname: doc[0].fname,
         lname: doc[0].lname,
         useremail: doc[0].email
       }
-      res.json(myObj)
+      res.json(myObj);
     })
 });
 
-routes.route('/checkshell')
-.get((req,res)=>{
-    exec(`cd C:/Users/TusharMALCHAPURE/Desktop/api_connect && apic products publish dummy-product_1.0.0.yaml --org think --catalog sandbox --server platform.9.202.177.31.xip.io
-    `,(err,stdout)=>{
-        console.log("this executed");
-        if(err) throw err;
+// routes.route('/checkshell')
+// .get((req,res)=>{
+//     exec(`cd C:/Users/TusharMALCHAPURE/Desktop/api_connect && apic products publish dummy-product_1.0.0.yaml --org think --catalog sandbox --server platform.9.202.177.31.xip.io
+//     `,(err,stdout)=>{
+//         console.log("this executed");
+//         if(err) throw err;
 
-        console.log(stdout);
-    });
-})
+//         console.log(stdout);
+//     });
+// })
 
-routes.route('/role')
+routes.route('/sendRoleMail')
 .post((req,res)=>{
+    console.log("entered send role mail route");
+    console.log(req.body.role+" "+req.body.email);
 
     var sess = req.session;
-    //set the role here
-    var newuser = new usermodel({
-        role : req.body.role,
-        username : "default",
-        fname : "default",
-        lname : "default",
-        email : req.body.email
-    });
-    newuser.save();
+    //so check if req.body.email already exists.
+    usermodel.find({email:req.body.email},(err,doc)=>{
+        if(doc.length > 0){
+            console.log("existing user");
+            usermodel.findOneAndUpdate({email: req.body.email},{role: req.body.role},{new : true},(err,doc)=>{});
+        }else{
+            console.log("new user");
+            var newuser = new usermodel({
+                role : req.body.role,
+                username : "default",
+                fname : "default",
+                lname : "default",
+                email : req.body.email,
+                bank : sess.bank,
+                pass : "default"
+            });
+            newuser.save();
+        }
+    })
 
-    //send a mail
-    var sub = `${sess.email} has invited you to accept the role of ${req.body.role}. Please click on the link to accept the invitation`.
-    sendemail(req.body.email,ts,sess.email,sub);
-
+    usermodel.find({email: sess.email},(err,doc)=>{
+        var uname = doc[0].username;
+        var sub = `Invitation to Accept the role of ${req.body.role}`;
+        var msg = `${uname} has invited you to accept the role of ${req.body.role}. Please click on the link to accept the invitation`;
+        sendRoleMail(req.body.email,sub,msg);
+    })
     res.json("Mail has been sent.");
 })
 
@@ -401,12 +477,12 @@ routes.route('/password')
     var sess = req.session;
 
     //check if the passwords are correct
-    adminmodel.find({email : sess.email},(err,doc)=>{
+    usermodel.find({email : sess.email},(err,doc)=>{
         if(passwordHash.verify(req.body.old,doc[0].pass)){
             //check if the two passwords match
             if(req.body.new == req.body.renew){
                 var hashpwd = passwordHash.generate(pass);
-                adminmodel.findOneAndUpdate({email :  sess.email},{$set:{pass : hashpwd }},(err,doc)=>{
+                usermodel.findOneAndUpdate({email :  sess.email},{$set:{pass : hashpwd }},(err,doc)=>{
                     if(err) console.log(err);
                     res.json(1);
                 });
@@ -488,6 +564,16 @@ routes.route('/logout')
 
     res.json("Logout Successful");
 })
+
+routes.route('/getUserType')
+.get((req,res)=>{
+    var sess = req.session;
+    console.log("sess.email: "+sess.email);
+    usermodel.find({email: sess.email},(err,doc)=>{
+        res.json(doc[0].role);
+    })
+})
+
 //==============================END OF ROUTING =======================================
 
 function sendmail(email,ts,sub,uname){
@@ -539,6 +625,70 @@ function sendmail(email,ts,sub,uname){
                     <p> Hi ${uname}. This is in response to your request to create an account in IDBP</p> <br>
                     <p> Click on <a href="${link}"><b>ACCEPT</b></a> to create your IDBP account! </p>
                 </div>
+            </body>
+        </html> `
+        };
+
+        transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+        });
+}
+
+function sendRoleMail(email,sub,msg){
+    console.log("function send role mail called. the parameters passed are..");
+    console.log(email+" "+sub+" "+msg);
+    var link = `http://localhost:3000/route/confirmRole/${email}`;
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            // user: process.env.GMAIL_USER,
+            // pass: process.env.GMAIL_PASS
+            user : 'tushartdm117@gmail.com',
+            pass : 'fcb@rc@M$N321'
+        }
+        });
+
+        var mailOptions = {
+            from: 'tushartdm117@gmail.com',
+            to: `${email}`,
+            subject: `${sub}`,
+            text: 'That was easy!',
+            html : `
+            <html>
+            <head>
+                <style>
+                    .maindiv{
+                        box-shadow: 5px 5px 10px grey;
+                        margin-left: 35%;
+                        border: solid 2px grey;
+                        width: 550px;
+                        margin-top: 20px;
+                        padding-left: 35px;
+                        padding-bottom: 20px;
+                        border-radius: 20px;
+                        padding-top: 10px;
+                    }
+                    h2{
+                        margin-left: 44%;
+                        color:rgb(91, 91, 204);
+                    }
+        
+                    a{
+                        text-decoration: none;
+                        color:rgb(83, 134, 6)
+                    }
+                </style>
+            </head>
+            <body>  
+                <div class="maindiv">
+                    <h2> IDBP </h2>
+                    <p> ${msg}  </p> <br>
+                    <p> Click on <a href="${link}"><b>ACCEPT</b></a> to accept the role! </p>    
+                </div> 
             </body>
         </html> `
         };

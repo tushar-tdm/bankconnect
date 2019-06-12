@@ -6,7 +6,8 @@ var userschema = mongoose.Schema({
     lname : String,
     role : String,
     email : String,
-    bank : String
+    bank : String,
+    pass : String
 },{
     timestamp : true
 });

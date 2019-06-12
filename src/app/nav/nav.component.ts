@@ -14,7 +14,7 @@ export class NavComponent implements OnInit {
   appTitle = 'IDBP';
   login : Number = 0;
   username: string ='';
-
+  profileLink :string =  "/profile";
   constructor( private signservice: SignupServiceService, private router: Router, public  location: Location ) { }
 
   ngOnInit() {
@@ -27,11 +27,17 @@ export class NavComponent implements OnInit {
               this.login = 1; }
     }, (err) => console.log(err));
 
-    // this.router.navigateByUrl('/refresh', {skipLocationChange: true}).then(() => {
-    //   console.log('navigation occured');
-    //   console.log([decodeURI(this.location.path())]);
-    //   this.router.navigate([decodeURI(this.location.path())]);
-    // });
+    // this.signservice.getUserType()
+    // .subscribe((data)=>{
+    //   if(data == "admin")
+    //     this.profileLink = "/profile";
+    //   else if(data == "business")
+    //     this.profileLink = "/bmprofile";
+    //   else if(data == "product")
+    //     this.profileLink = "/pmprofile";
+    //   else
+    //     this.profileLink = "/amprofile";
+    // })
   }
 
   onLogout(){

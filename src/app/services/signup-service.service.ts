@@ -31,6 +31,14 @@ export class SignupServiceService {
     });
   }
 
+  sendRoleSignUpDetails(user:any):Observable<any>{
+    return this.http.post<any>('/route/role',user,{
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
+  }
+
   sendLoginDetails(user:any):Observable<any>{
     return this.http.post<any>('route/loginconfirm',user,{
       headers :
@@ -116,8 +124,8 @@ export class SignupServiceService {
     });
   }
 
-  sendRoleDetails(){
-    return this.http.post<any>('route/role',{
+  sendRoleDetails(obj:any):Observable<any>{
+    return this.http.post<any>('route/sendRoleMail',obj,{
       headers:
         new HttpHeaders({'Content-Type':'application/json'})
     });
@@ -196,6 +204,13 @@ export class SignupServiceService {
 
   setBank(bank:any):Observable<any>{
     return this.http.post<any>('/route/setBank',bank,{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    })
+  }
+
+  getUserType(){
+    return this.http.get<any>('/route/getUserType',{
       headers :
       new HttpHeaders({ 'Content-Type':'application/json'})
     })

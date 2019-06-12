@@ -85,7 +85,7 @@
           <div class="row">
             <form [formGroup]="roleForm" (ngSubmit)="onRoleSubmit()">
                 <label> Assign a Role</label>
-                  <select class="browser-default custom-select" formContorlName="role">
+                  <select class="browser-default custom-select" formControlName="role">
                     <option selected>Choose a Role</option>
                     <option value="product">Product Manager</option>
                     <option value="business">Business Manager</option>
@@ -106,7 +106,7 @@
                   </mat-radio-button>
                 </mat-radio-group>
                 <br><br>
-                <input class="form-control" type="email" placeholder="Enter the Email of user" formConrolName="email">
+                <input class="form-control" type="email" placeholder="Enter the Email of user" formControlName="email">
 
                 <button class="btn btn-primary" type="submit"> Invite </button>
             </form>

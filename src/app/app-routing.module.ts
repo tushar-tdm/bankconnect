@@ -13,6 +13,7 @@ import { CbsregisterComponent } from './cbsregister/cbsregister.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SelectedApiListResolverService } from './dashboard/select-apilist-resolver.service';
 import { GetUserProfileResolverService } from './profile/get-userprofile-resolver.service';
+import { GetBMUserProfileResolverService } from './bmprofile/bmprofile-resolver.service';
 import { LoginComponent } from './login/login.component';
 import { ApilistComponent } from './apilist/apilist.component';
 import { HomeComponent } from './home/home.component';
@@ -23,6 +24,8 @@ import { ApiSecurityResolverService } from './apisecurity/apisecurity-resolver.s
 import { PublishComponent } from './publish/publish.component';
 import { PublishResolverService } from './publish/publish-resolver.service';
 import { RefreshComponent } from './refresh/refresh.component';
+import { BmprofileComponent } from './bmprofile/bmprofile.component';
+import { RoleSignupComponent } from './role-signup/role-signup.component';
 
 
 const routes: Routes = [
@@ -31,6 +34,7 @@ const routes: Routes = [
   { path: 'api', component: ApiComponent, resolve : { apiList : ApiResolverService}},
   { path: 'support', component: SupportComponent },
   { path: 'submit', component: SubmitComponent },
+  { path: 'roleSignup', component: RoleSignupComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'corebankservices',
     component: CbsComponent,
@@ -46,7 +50,8 @@ const routes: Routes = [
   { path: 'apilist', component: ApilistComponent, resolve:{ apiList : ApiListResolverService}},
   { path: 'overview', component: OverviewComponent, resolve:{ apiDetails : OverviewResolverService} },
   { path: 'apisecurity', component: ApisecurityComponent, resolve:{ selectedApi : ApiSecurityResolverService}},
-  { path: 'publish', component: PublishComponent, resolve:{ apilist : PublishResolverService}}
+  { path: 'publish', component: PublishComponent, resolve:{ apilist : PublishResolverService}},
+  { path: 'bmprofile', component: BmprofileComponent, resolve:{bmuser_profile : GetBMUserProfileResolverService}}
 ];
 
 @NgModule({
