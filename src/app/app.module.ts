@@ -39,6 +39,9 @@ import { ApisecurityComponent } from './apisecurity/apisecurity.component';
 import { PublishComponent } from './publish/publish.component';
 import { PublishResolverService } from './publish/publish-resolver.service';
 import { RefreshComponent } from './refresh/refresh.component';
+import { BmprofileComponent } from './bmprofile/bmprofile.component';
+import { RoleSignupComponent } from './role-signup/role-signup.component';
+import { GetBMUserProfileResolverService } from './bmprofile/bmprofile-resolver.service';
 
 
 @NgModule({
@@ -61,7 +64,9 @@ import { RefreshComponent } from './refresh/refresh.component';
     OverviewComponent,
     ApisecurityComponent,
     PublishComponent,
-    RefreshComponent
+    RefreshComponent,
+    BmprofileComponent,
+    RoleSignupComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +85,8 @@ import { RefreshComponent } from './refresh/refresh.component';
     ApiserviceService,
     OverviewResolverService,
     ApiSecurityResolverService,
-    PublishResolverService
+    PublishResolverService,
+    GetBMUserProfileResolverService
   ],
   bootstrap: [AppComponent]
 })

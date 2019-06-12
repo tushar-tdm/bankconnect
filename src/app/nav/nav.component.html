@@ -43,7 +43,7 @@ integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zF
             <div class="seperateLi">
                 <li *ngIf="!login; else elseBlock"><a routerLink="/login"><span><i class='fas fa-user-alt'></i></span>Sign In</a></li>
                 <ng-template #elseBlock>
-                  <li><a routerLink="/profile"><span><i class='fas fa-user-alt'></i></span>{{username}}</a></li>
+                  <li><a [routerLink]="profileLink"><span><i class='fas fa-user-alt'></i></span>{{username}}</a></li>
                 </ng-template>
             </div>
         </ul>

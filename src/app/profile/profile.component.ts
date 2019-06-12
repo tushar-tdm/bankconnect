@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
 import { SignupServiceService} from '../services/signup-service.service';
 import { ActivatedRoute } from '@angular/router';
-import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 
@@ -56,17 +55,33 @@ export class ProfileComponent implements OnInit {
 
   show_user_profile: any ;
 
-  constructor(private signservice: SignupServiceService, private route: ActivatedRoute, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private signservice: SignupServiceService, private route: ActivatedRoute, private formBuilder: FormBuilder, private router: Router,
+    private zone : NgZone) {
     this.show_user_profile = this.route.snapshot.data['user_profile'];
     console.log(this.show_user_profile);
+
+    this.signservice.getUserType()
+    .subscribe((data)=>{
+      console.log("came to check the profile type: "+ data);
+      if(data == "admin")
+        this.router.navigateByUrl('/profile');
+      else if(data == "business"){
+        this.zone.run(() => this.router.navigateByUrl('/bmprofile'));        
+        console.log("navigation did not work");
+      }
+      else if(data == "product")
+        this.router.navigateByUrl('/pmprofile');
+      else
+        this.router.navigateByUrl('/amprofile');
+    },(err)=>console.log(err));
+
   }
 
   ngOnInit(){
-
     this.roleForm = this.formBuilder.group({
       role: ['', [Validators.required, Validators]],
       userType: ['',[Validators.required, Validators]],
-      email: ['',[Validators.required, Validators]],
+      email: ['',[Validators.required, Validators]]
     });
 
     this.passForm = this.formBuilder.group({
@@ -98,8 +113,8 @@ export class ProfileComponent implements OnInit {
       type : this.roleForm.controls.userType.value,
       email : this.roleForm.controls.email.value
     }
-    console.log("role details: "+myObj);
-    this.signservice.sendRoleDetails()
+    console.log("role details: "+JSON.stringify(myObj));
+    this.signservice.sendRoleDetails(myObj)
     .subscribe((data)=>{
       console.log(data + "from sendRoleDetails");
     },(err)=> console.log(err));
@@ -111,10 +126,10 @@ export class ProfileComponent implements OnInit {
       new : this.passForm.controls.userType.value,
       renew : this.passForm.controls.email.value
     }
-    console.log("role details: "+myObj);
+    console.log("pass details: "+myObj);
     this.signservice.sendPassDetails()
     .subscribe((data)=>{
-      console.log(data + "from sendRoleDetails");
+      console.log(data + "from sendpassDetails");
     },(err)=> console.log(err));
   }
 

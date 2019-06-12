@@ -1,5 +1,20 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
 
-.buttons{
+  .buttons{
     border-bottom: solid 2px black;
     border: solid 1px transparent;
     width : 180px;
@@ -31,22 +46,11 @@ label{
     margin-top: 15px;
 }
 
-.userrole{
-    display: none;
-    margin-left: 15px;
-}
-.registry{
-    display: none;
-}
 .changepass{
     display: none;
 }
 
-.bankconnect{
-  display: none;
-}
-
-.security{
+.pendingreq{
     display: none;
 }
 
@@ -79,7 +83,7 @@ mat-label{
 }
 
 h3{
-    margin-top: 20px; 
+    margin-top: 20px;
     border-bottom: solid 2px #047cc0;
 }
 
