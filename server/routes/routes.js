@@ -273,10 +273,6 @@ routes.route('/api')
             });
         }
     })
-<<<<<<< HEAD
-=======
-
->>>>>>> 2d9848ead1dcad9d84d2ba10822d8cdf7850e8f6
     res.json("Services published successfully");
 });
 
