@@ -3,6 +3,7 @@ var nodemailer = require('nodemailer');
 var bodyParser = require('body-parser');
 var passwordHash = require('password-hash');
 var exec = require('child_process').exec;
+var multer = require('multer');
 
 //models
 var adminmodel = require('../models/adminmodel');
@@ -603,6 +604,27 @@ routes.route('/pendingReq')
     request.findOneAndDelete({name : name});
 })
 
+routes.route('/sendInterest')
+.post(urlencodedParser,(req,res)=>{
+    var newreq = new request({
+        org : req.body.org,
+        email : req.body.email
+    });
+    newreq.save();
+})
+
+
+// var store = multer.diskStorage({
+//     destination:function(req,res,cb){
+//         cb(null,'./uploads');
+//     },
+//     filename:function(req,file,cb){
+//         cb(null,Date.now()+'.'+file.originalname);
+//     }
+// });
+
+// var upload = multer({storage:store}).single('file');
+
 routes.route('/partnerfile')
 .get((req,res)=>{
     res.redirect('/reginterest');
@@ -612,7 +634,14 @@ routes.route('/partnerfile')
     //get all the details.
     //now req.body.files has all the files in b64 format.
 
+    upload(req,res,(err)=>{
+        if(err)
+            return res.status(501).json({error:err});
+
+        return res.json({originalname:req.file.originalname, uploadname: req.file.filename});
+    })
 });
+
 //==============================END OF ROUTING =======================================
 
 function sendmail(email,ts,sub,uname){
