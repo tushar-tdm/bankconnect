@@ -51,10 +51,47 @@
                 </tr>
                   <tr *ngFor="let req of requests;let i = index">
                     <td>{{req}}</td>
-                    <td><button class="accept btn btn-success" (click)="accept(i)"> Accept </button></td>
-                    <td><button class="accept btn btn-danger" (click)="decline(i)"> Decline </button></td>
+                    <td><button class="accept btn btn-success" (click)="accept(i,req)"> Accept </button></td>
+                    <td><button class="accept btn btn-danger" (click)="decline(i,req)"> Decline </button></td>
                   </tr>                    
             </table>  
+          </div>
+
+          <!-- =============================== PARTNERS ================================ -->
+          <div class="partner">
+            <div *ngFor="partner of partners" class="part">
+              <div class="card">
+                <div class="card-header">{{partner.name}}</div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-6">
+                        Payment Amount:<input type="text" placeholder="{{partner.amnt}}">
+                    </div>
+                    <div class="col-lg-6">
+                        Payment Frequency:<input type="text" placeholder="{{partner.freq}}">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-lg-6">
+                          Account Number:<input type="text" placeholder="{{partner.accno}}">
+                      </div>
+                      <div class="col-lg-6">
+                          Maker ID:<input type="text" placeholder="{{partner.mid}}">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            Approver ID:<input type="text" placeholder="{{partner.appid}}">
+                        </div>
+                        <div class="col-lg-6">
+                            Checker ID:<input type="text" placeholder="{{partner.cid}}">
+                        </div>
+                      </div>
+                </div>
+              </div>
+            </div>
           </div>
       </div>
   </div>
