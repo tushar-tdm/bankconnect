@@ -15,6 +15,7 @@ export class NavComponent implements OnInit {
   login : Number = 0;
   username: string ='';
   profileLink :string =  "/profile";
+  bank: string = '';
   constructor( private signservice: SignupServiceService, private router: Router, public  location: Location ) { }
 
   ngOnInit() {
@@ -43,7 +44,8 @@ export class NavComponent implements OnInit {
   onLogout(){
     this.signservice.logout()
     .subscribe((data) => {
-      console.log(data);
+      console.log(data)
+      this.bank = data;
     }, (err) => console.log(err));
     return true;
   }

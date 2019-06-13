@@ -385,7 +385,7 @@ routes.route('/bcintegrated')
             res.json(0);
         }
     });
-    
+
 })
 
 .post(urlencodedParser,(req,res)=>{
@@ -553,7 +553,7 @@ routes.route('/logout')
     sess.admin  = 0;
     sess.email = "null";
 
-    res.json("Logout Successful");
+    res.json(sess.bank);
 })
 
 routes.route('/getUserType')
@@ -566,7 +566,7 @@ routes.route('/getUserType')
 })
 
 routes.route('/pendingReq')
-.post(urlencodedParser,(req,res)=>{    
+.post(urlencodedParser,(req,res)=>{
     var id = req.body.id;
     var state = req.body.state;
     var name = req.body.name;
@@ -611,7 +611,7 @@ routes.route('/partnerfile')
 .post(urlencodedParser,(req,res)=>{
     //get all the details.
     //now req.body.files has all the files in b64 format.
-    
+
 });
 //==============================END OF ROUTING =======================================
 
@@ -715,19 +715,19 @@ function sendRoleMail(email,sub,msg){
                         margin-left: 44%;
                         color:rgb(91, 91, 204);
                     }
-        
+
                     a{
                         text-decoration: none;
                         color:rgb(83, 134, 6)
                     }
                 </style>
             </head>
-            <body>  
+            <body>
                 <div class="maindiv">
                     <h2> IDBP </h2>
                     <p> ${msg}  </p> <br>
-                    <p> Click on <a href="${link}"><b>ACCEPT</b></a> to accept the role! </p>    
-                </div> 
+                    <p> Click on <a href="${link}"><b>ACCEPT</b></a> to accept the role! </p>
+                </div>
             </body>
         </html> `
         };

@@ -53,13 +53,13 @@
                     <td>{{req}}</td>
                     <td><button class="accept btn btn-success" (click)="accept(i,req)"> Accept </button></td>
                     <td><button class="accept btn btn-danger" (click)="decline(i,req)"> Decline </button></td>
-                  </tr>                    
-            </table>  
+                  </tr>
+            </table>
           </div>
 
           <!-- =============================== PARTNERS ================================ -->
           <div class="partner">
-            <div *ngFor="partner of partners" class="part">
+            <div *ngFor="let partner of partners" class="part">
               <div class="card">
                 <div class="card-header">{{partner.name}}</div>
                 <div class="card-body">
