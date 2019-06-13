@@ -10,6 +10,8 @@ var cbsmodel = require('../models/cbsmodel');
 var apimodel = require('../models/apimodel');
 var usermodel = require('../models/usermodel');
 var selectedapimodel = require('../models/selectedapimodel');
+var request = require('../models/requestmodel');
+var partner = require('../models/partnermodel');
 
 var routes = express.Router();
 
@@ -425,17 +427,6 @@ routes.route('/profile')
     })
 });
 
-// routes.route('/checkshell')
-// .get((req,res)=>{
-//     exec(`cd C:/Users/TusharMALCHAPURE/Desktop/api_connect && apic products publish dummy-product_1.0.0.yaml --org think --catalog sandbox --server platform.9.202.177.31.xip.io
-//     `,(err,stdout)=>{
-//         console.log("this executed");
-//         if(err) throw err;
-
-//         console.log(stdout);
-//     });
-// })
-
 routes.route('/sendRoleMail')
 .post((req,res)=>{
     console.log("entered send role mail route");
@@ -574,6 +565,54 @@ routes.route('/getUserType')
     })
 })
 
+routes.route('/pendingReq')
+.post(urlencodedParser,(req,res)=>{    
+    var id = req.body.id;
+    var state = req.body.state;
+    var name = req.body.name;
+
+    if(state){
+        //send mail saying that the req has been granted. and add him to partners
+        request.find({name: name},(err,doc)=>{
+            var partneremail = doc[0].email;
+            var newpartner = new partner({
+                name: req.body.name,
+                email : email
+            });
+            newpartner.save();
+
+        //send link,sub,msg,email,
+        var sub = "IDBP Partner Portal"
+        var msg = `<p> Hello partner! your request to register an interest for API's has been <b>ACCEPTED</b> by ${sess.bank}. Please click on the link below to continue with us.</p>`;
+        var link = `http://localhost:3000/route/partnerfile`;
+        var pemail = partneremail;
+        sendRequestMailAccept(pemail,sub,msg,link);
+        });
+    }else{
+        request.find({name: name},(err,doc)=>{
+            var partneremail = doc[0].email;
+            var sub = "IDBP Partner Portal"
+            var msg = `Hello partner! We are sorry to inform you that your request to register an interest for API's has been <b>DECLINED</b> by ${sess.bank}`;
+            var link = "";
+            var pemail = partneremail;
+            sendRequestMail(pemail,sub,msg,link);
+        });
+        sendRequestMailDecline(pemail,sub,msg);
+    }
+    //removing the request
+    request.findOneAndDelete({name : name});
+})
+
+routes.route('/partnerfile')
+.get((req,res)=>{
+    res.redirect('/reginterest');
+})
+
+.post(urlencodedParser,(req,res)=>{
+    //get all the details.
+    //now req.body.files has all the files in b64 format.
+    
+});
 //==============================END OF ROUTING =======================================
 
 function sendmail(email,ts,sub,uname){
@@ -703,3 +742,124 @@ function sendRoleMail(email,sub,msg){
 }
 
 module.exports = routes;
+
+function sendRequestMailAccept(email,sub,msg,link){
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            // user: process.env.GMAIL_USER,
+            // pass: process.env.GMAIL_PASS
+            user : 'tushartdm117@gmail.com',
+            pass : 'fcb@rc@M$N321'
+        }
+        });
+
+        var mailOptions = {
+            from: 'tushartdm117@gmail.com',
+            to: `${email}`,
+            subject: `${sub}`,
+            text: 'That was easy!',
+            html : `
+            <html>
+            <head>
+                <style>
+                    .maindiv{
+                        box-shadow: 5px 5px 10px grey;
+                        margin-left: 35%;
+                        border: solid 2px grey;
+                        width: 550px;
+                        margin-top: 20px;
+                        padding-left: 35px;
+                        padding-bottom: 20px;
+                        border-radius: 20px;
+                        padding-top: 10px;
+                    }
+                    h2{
+                        margin-left: 44%;
+                        color:rgb(91, 91, 204);
+                    }
+
+                    a{
+                        text-decoration: none;
+                        color:rgb(83, 134, 6)
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="maindiv">
+                    <h2> IDBP </h2>
+                    ${msg}
+                    <p> Click on <a href="${link}"><b>ACCEPT</b></a> to continue with us! </p>
+                </div>
+            </body>
+        </html> `
+        };
+
+        transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+        });
+}
+
+function sendRequestMailDecline(email,sub,msg){
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            // user: process.env.GMAIL_USER,
+            // pass: process.env.GMAIL_PASS
+            user : 'tushartdm117@gmail.com',
+            pass : 'fcb@rc@M$N321'
+        }
+        });
+
+        var mailOptions = {
+            from: 'tushartdm117@gmail.com',
+            to: `${email}`,
+            subject: `${sub}`,
+            text: 'That was easy!',
+            html : `
+            <html>
+            <head>
+                <style>
+                    .maindiv{
+                        box-shadow: 5px 5px 10px grey;
+                        margin-left: 35%;
+                        border: solid 2px grey;
+                        width: 550px;
+                        margin-top: 20px;
+                        padding-left: 35px;
+                        padding-bottom: 20px;
+                        border-radius: 20px;
+                        padding-top: 10px;
+                    }
+                    h2{
+                        margin-left: 44%;
+                        color:rgb(91, 91, 204);
+                    }
+
+                    a{
+                        text-decoration: none;
+                        color:rgb(83, 134, 6)
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="maindiv">
+                    <h2> IDBP </h2>
+                    ${msg}
+                </div>
+            </body>
+        </html> `
+        };
+
+        transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+        });
+}

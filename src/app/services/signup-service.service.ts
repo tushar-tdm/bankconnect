@@ -215,4 +215,11 @@ export class SignupServiceService {
       new HttpHeaders({ 'Content-Type':'application/json'})
     })
   }
+
+  pendingReq(obj:any):Observable<any>{
+    return this.http.post<any>('/route/pendingReq',obj,{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    })
+  }
 }
