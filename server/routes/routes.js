@@ -567,6 +567,15 @@ routes.route('/getUserType')
 })
 
 routes.route('/pendingReq')
+.get((req,res)=>{
+    request.find({},(err,doc)=>{
+        var req = [];
+        for(i=0;i<doc.length;++i){
+            req.push(doc[i].org);
+        }
+        res.json(req);
+    })
+})
 .post(urlencodedParser,(req,res)=>{
     var id = req.body.id;
     var state = req.body.state;
@@ -606,13 +615,15 @@ routes.route('/pendingReq')
 
 routes.route('/sendInterest')
 .post(urlencodedParser,(req,res)=>{
+    console.log("request recived:"+req.body.org+req.body.email);
     var newreq = new request({
         org : req.body.org,
         email : req.body.email
     });
     newreq.save();
-})
 
+    res.json("interest added");
+})
 
 // var store = multer.diskStorage({
 //     destination:function(req,res,cb){

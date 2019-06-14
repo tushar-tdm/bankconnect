@@ -15,11 +15,10 @@ mongoose.connect('mongodb://localhost:27017/idbp',{useNewUrlParser: true},(err,d
 });
 
 var app = express();
-app.use(express.static(path.join(__dirname,'..','dist','idbp')));
 
+app.use(express.static(path.join(__dirname,'..','dist','idbp')));
 app.use(session({secret : 'bankConnectSecret',saveUninitialized: true,resave: true}));
 
-//allowing cross origin requests.
 app.use((req,res,next)=>{
     res.header('Access-Control-Allow-Origin','*'); //(instead of *) == http://localhost:3000 if only this should have access.
     res.header(
@@ -33,13 +32,13 @@ app.use((req,res,next)=>{
     next();
 });
 
-
 app.use('/route',routes);
 app.use('/posts',posts);
 
 app.get('*',(req,res)=>{
     res.sendFile(path.join(__dirname,'../dist/idbp/index.html'));
 });
+
 
 // to remove all the expired links. checks every 2 minutes
 setInterval(() => {

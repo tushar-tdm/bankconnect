@@ -37,6 +37,7 @@ export class BmprofileComponent implements OnInit {
   };
 
   show_user_profile: any ;
+  requests: any;
 
   constructor(private signservice: SignupServiceService, private route: ActivatedRoute, private formBuilder: FormBuilder, private router: Router) {
     this.show_user_profile = this.route.snapshot.data['bmuser_profile'];
@@ -49,6 +50,12 @@ export class BmprofileComponent implements OnInit {
       new : ['',[Validators.required,Validators]],
       renew : ['',[Validators.required,Validators]]
     });
+
+    this.signservice.getRequests()
+    .subscribe((data)=>{
+      console.log(data);
+      this.requests = data;
+    },(err)=>console.log(err));
   }
 
   onPassSubmit(){
