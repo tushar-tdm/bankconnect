@@ -644,13 +644,7 @@ routes.route('/partnerfile')
 .post(urlencodedParser,(req,res)=>{
     //get all the details.
     //now req.body.files has all the files in b64 format.
-
-    upload(req,res,(err)=>{
-        if(err)
-            return res.status(501).json({error:err});
-
-        return res.json({originalname:req.file.originalname, uploadname: req.file.filename});
-    })
+    console.log("recieved the files: "+JSON.stringify(req.body));
 });
 
 //==============================END OF ROUTING =======================================
