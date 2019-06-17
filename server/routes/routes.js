@@ -89,6 +89,45 @@ routes.route('/sendmail')
     res.json(msg);
 });
 
+// =================Partner Payment rules details================================
+
+routes.route('/paymentrulesdetails')
+.get((req,res)=>{
+  partner.find({},(err,doc)=>{
+      var part = [];
+      for(i=0;i<doc.length;++i){
+          part.push(doc[i]);
+      }
+      res.json(part);
+  })
+})
+
+.post(urlencodedParser,(req,res)=>{
+
+    var sess = req.session;
+
+    //generate a code.
+    var date = new Date();
+    var timestamp = date.getTime();
+
+    console.log('partner email is'+req.body.email);
+    console.log('org name is '+req.body.org);
+    console.log('amount '+req.body.amnt);
+
+    partner.findOneAndUpdate({email:req.body.email},{amnt:req.body.amnt, freq:req.body.freq, accno:req.body.accno, mid:req.body.mid, appid:req.body.appid, cid:req.body.cid },{new:true},(err,doc)=>{
+      console.log(err);
+    });
+
+
+    //send mail to partner below here, with the payment rules
+    var sub = "Payment Rules from bank";
+    sendmail(req.body.email,timestamp,sub,req.body.username);
+    var msg = "Payment rules for partner is set successfully";
+    res.json(msg);
+});
+
+// ===================Its over here=====================================
+
 routes.route('/loginconfirm')
 .post(urlencodedParser,(req,res)=>{
     var sess = req.session;
@@ -618,7 +657,7 @@ routes.route('/pendingReq')
             var link = "";
             var pemail = partneremail;
             sendRequestMailDecline(pemail,sub,msg);
-            request.findOneAndDelete({org: name});
+            request.findOneAndDelete({org: name}, (err, doc)=> console.log(err));
         });
     }
     //removing the request

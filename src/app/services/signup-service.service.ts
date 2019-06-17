@@ -229,4 +229,20 @@ export class SignupServiceService {
       new HttpHeaders({ 'Content-Type':'application/json'})
     })
   }
+
+  sendPaymentRulesDetails(obj:any):Observable<any>{
+    return this.http.post<any>('route/paymentrulesdetails', obj,{
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
+  }
+
+  getPartnerPaymentRulesDetails(){
+    return this.http.get('/route/paymentrulesdetails',{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    });
+  }
+
 }

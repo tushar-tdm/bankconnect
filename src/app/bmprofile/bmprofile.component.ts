@@ -3,6 +3,8 @@ import { FormGroup,  FormBuilder,  Validators } from '@angular/forms';
 import { SignupServiceService} from '../services/signup-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-bmprofile',
@@ -12,18 +14,19 @@ import { Router } from '@angular/router';
 export class BmprofileComponent implements OnInit {
   roleForm: FormGroup;
   passForm : FormGroup;
+  rulesForm: FormGroup;
 
   title = "PROFILE";
-  profile=1;pass=0;pending=0;
+  profile=0;pass=0;pending=1;
 
   profileClass = {
     "buttons" : true,
-    "options" : true
+    "options" : false
   };
 
   pendingClass = {
     "buttons" : true,
-    "options" : false
+    "options" : true
   };
 
   passClass = {
@@ -38,8 +41,11 @@ export class BmprofileComponent implements OnInit {
 
   show_user_profile: any ;
   requests: any;
+  partners: any;
+  public submitted = false;
 
-  constructor(private signservice: SignupServiceService, private route: ActivatedRoute, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private signservice: SignupServiceService, private route: ActivatedRoute, private formBuilder: FormBuilder,
+              private router: Router, public location: Location) {
     this.show_user_profile = this.route.snapshot.data['bmuser_profile'];
     console.log(this.show_user_profile);
   }
@@ -56,6 +62,22 @@ export class BmprofileComponent implements OnInit {
       console.log(data);
       this.requests = data;
     },(err)=>console.log(err));
+
+    this.signservice.getPartnerPaymentRulesDetails()
+    .subscribe((data)=>{
+      console.log(data);
+      this.partners = data;
+    },(err)=>console.log(err));
+
+    this.rulesForm = this.formBuilder.group({
+      amnt : ['', [Validators.required, Validators]],
+      freq : ['', [Validators.required, Validators]],
+      accno : ['', [Validators.required, Validators]],
+      mid : ['', [Validators.required, Validators]],
+      appid : ['', [Validators.required, Validators]],
+      cid : ['', [Validators.required, Validators]],
+    });
+
   }
 
   onPassSubmit(){
@@ -123,7 +145,7 @@ export class BmprofileComponent implements OnInit {
     };
 
 
-    this.title = "PROFILE";
+    this.title = "CHANGE PASSWORD";
     //show this and hide other divisions
     (document.querySelector('.profile') as HTMLElement).style.display = 'none';
     (document.querySelector('.changepass') as HTMLElement).style.display = 'block';
@@ -154,7 +176,7 @@ export class BmprofileComponent implements OnInit {
     };
 
 
-    this.title = "PROFILE";
+    this.title = "Pending Requests";
     //show this and hide other divisions
     (document.querySelector('.profile') as HTMLElement).style.display = 'none';
     (document.querySelector('.changepass') as HTMLElement).style.display = 'none';
@@ -185,7 +207,7 @@ export class BmprofileComponent implements OnInit {
     }
 
 
-    this.title = "PARTNERS";
+    this.title = "OUR PARTNERS";
     //show this and hide other divisions
     (document.querySelector('.profile') as HTMLElement).style.display = 'none';
     (document.querySelector('.changepass') as HTMLElement).style.display = 'none';
@@ -205,7 +227,11 @@ export class BmprofileComponent implements OnInit {
     }
     this.signservice.pendingReq(myObj)
     .subscribe((data)=>{ console.log(data);}
-    ,(err)=> console.log(err))
+    ,(err)=> console.log(err));
+
+    this.router.navigateByUrl('/refresh', { skipLocationChange: true}).then(() => {
+      this.router.navigate([decodeURI(this.location.path())]);
+    });
   }
 
   decline(i,name,email){
@@ -217,6 +243,41 @@ export class BmprofileComponent implements OnInit {
     }
     this.signservice.pendingReq(myObj)
     .subscribe((data)=>{ console.log(data);}
-    ,(err)=> console.log(err))
+    ,(err)=> console.log(err));
+
+    this.router.navigateByUrl('/refresh', { skipLocationChange: true}).then(() => {
+      this.router.navigate([decodeURI(this.location.path())]);
+    });
   }
+
+  onRulesSubmit(email, org){
+    var myObj = {
+      amnt : this.rulesForm.controls.amnt.value,
+      freq : this.rulesForm.controls.freq.value,
+      accno : this.rulesForm.controls.accno.value,
+      mid : this.rulesForm.controls.mid.value,
+      appid : this.rulesForm.controls.appid.value,
+      cid : this.rulesForm.controls.cid.value,
+      email: email,
+      org: org
+    };
+
+    this.signservice.sendPaymentRulesDetails(myObj)
+    .subscribe(
+    (data : any) => {
+      console.log(data);
+    },
+    (error: any) => console.log('error'));
+
+    //to display submit action completed
+    this.submitted = true;
+   //wait 3 Seconds and hide
+    setTimeout(function() {
+       this.submitted = false;
+       console.log(this.submitted);
+    }.bind(this), 3000);
+
+  }
+
+
 }

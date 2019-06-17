@@ -3,13 +3,13 @@ table {
     border-collapse: collapse;
     width: 100%;
   }
-  
+
   td, th {
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
   }
-  
+
   tr:nth-child(even) {
     background-color: #dddddd;
   }
@@ -50,7 +50,7 @@ label{
     display: none;
 }
 
-.pendingreq{
+.profile{
     display: none;
 }
 
@@ -93,4 +93,22 @@ h3{
 
 .two{
     margin-left: 50px;
+}
+
+.partner .card-header{
+  font-weight: bold;
+  text-align: center;
+}
+
+.partner .card{
+  margin-bottom: 20px;
+}
+
+.partner button{
+  margin-left: 15px;
+}
+
+.partner label{
+  font-weight: normal !important;
+
 }

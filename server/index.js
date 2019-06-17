@@ -8,9 +8,10 @@ var posts = require('./routes/posts');
 var files = require('./routes/file');
 
 var mongoose = require('mongoose');
+mongoose.set('useFindAndModify', false);
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost:27017/idbp',{useNewUrlParser: true},(err,db)=>{
- 
+
     if(err) console.log(err);
     else console.log("connection to db success");
 });
@@ -54,7 +55,7 @@ setInterval(() => {
             //convert the variable to int .
             if(doc[i].ts != "expired"){
                 var ts = parseInt(doc[i].ts);
-                if(cts - ts >= 86400000){  
+                if(cts - ts >= 86400000){
                     if(!doc[i].confirmation){
                         //delete the user
                         usermodel.findOneAndRemove({ts:ts},(err,doc)=> console.log(err));
