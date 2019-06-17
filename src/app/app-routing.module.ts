@@ -26,6 +26,7 @@ import { PublishResolverService } from './publish/publish-resolver.service';
 import { RefreshComponent } from './refresh/refresh.component';
 import { BmprofileComponent } from './bmprofile/bmprofile.component';
 import { RoleSignupComponent } from './role-signup/role-signup.component';
+import { DocsComponent } from './docs/docs.component';
 
 
 const routes: Routes = [
@@ -51,7 +52,8 @@ const routes: Routes = [
   { path: 'overview', component: OverviewComponent, resolve:{ apiDetails : OverviewResolverService} },
   { path: 'apisecurity', component: ApisecurityComponent, resolve:{ selectedApi : ApiSecurityResolverService}},
   { path: 'publish', component: PublishComponent, resolve:{ apilist : PublishResolverService}},
-  { path: 'bmprofile', component: BmprofileComponent, resolve:{bmuser_profile : GetBMUserProfileResolverService}}
+  { path: 'bmprofile', component: BmprofileComponent, resolve:{bmuser_profile : GetBMUserProfileResolverService}},
+  { path: 'docs/:user', component: DocsComponent}
 ];
 
 @NgModule({

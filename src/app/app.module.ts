@@ -43,6 +43,7 @@ import { RefreshComponent } from './refresh/refresh.component';
 import { BmprofileComponent } from './bmprofile/bmprofile.component';
 import { RoleSignupComponent } from './role-signup/role-signup.component';
 import { GetBMUserProfileResolverService } from './bmprofile/bmprofile-resolver.service';
+import { DocsComponent } from './docs/docs.component';
 
 
 @NgModule({
@@ -67,7 +68,8 @@ import { GetBMUserProfileResolverService } from './bmprofile/bmprofile-resolver.
     PublishComponent,
     RefreshComponent,
     BmprofileComponent,
-    RoleSignupComponent
+    RoleSignupComponent,
+    DocsComponent
   ],
   imports: [
     BrowserModule,
