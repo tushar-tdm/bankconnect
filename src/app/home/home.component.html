@@ -1,51 +1,52 @@
-<ngb-carousel *ngIf="images">
-  <ng-template ngbSlide>
-    <img [src]="images[0]" alt="Random first slide">
-    <div class="carousel-caption">
-    </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <img [src]="images[1]" alt="Random second slide">
-    <div class="carousel-caption">
-    </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <img [src]="images[2]"  alt="Random third slide">
-    <div class="carousel-caption">
-    </div>
-  </ng-template>
-  <!-- <ng-template ngbSlide>
-    <img [src]="images[3]" alt="Random fourth slide">
-    <div class="carousel-caption">
-      <h3>And no wrap after last slide.</h3>
-      <p>This carousel uses customized default values.</p>
-    </div>
-  </ng-template> -->
-</ngb-carousel>
-<br>
-<br>
+<div *ngIf="initiation; else elseShowInitiation">
+  <ngb-carousel *ngIf="images">
+      <ng-template ngbSlide>
+        <img [src]="images[0]" alt="Random first slide">
+        <div class="carousel-caption">
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <img [src]="images[1]" alt="Random second slide">
+        <div class="carousel-caption">
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <img [src]="images[2]"  alt="Random third slide">
+        <div class="carousel-caption">
+        </div>
+      </ng-template>
+      <!-- <ng-template ngbSlide>
+        <img [src]="images[3]" alt="Random fourth slide">
+        <div class="carousel-caption">
+          <h3>And no wrap after last slide.</h3>
+          <p>This carousel uses customized default values.</p>
+        </div>
+      </ng-template> -->
+  </ngb-carousel>
+  <br>
+  <br>
 
-<!-- <div class="container"> -->
-    <div class="jumbotron">
-        <h2 class="display-4">Build yourself with a global finance API</h2>
-        <p class="lead">With over 200 million customers, IDBP connects you to a massive amount of data around the world.
-           Making products accessible anywhere and everywhere. Check out the many ways our partners leverage our platform
-            and APIs to create innovative experiences.</p>
-        <hr class="my-4">
-        <p>Explore the ways you can build with IBM Digital Banking Platform</p>
-        <p class="lead">
-          <a class="btn btn-primary btn-lg" routerLink="/signup" role="button">Get Started</a>
-        </p>
-    </div>
-<!-- </div> -->
+    <!-- <div class="container"> -->
+  <div class="jumbotron">
+      <h2 class="display-4">Build yourself with a global finance API</h2>
+      <p class="lead">With over 200 million customers, IDBP connects you to a massive amount of data around the world.
+          Making products accessible anywhere and everywhere. Check out the many ways our partners leverage our platform
+          and APIs to create innovative experiences.</p>
+      <hr class="my-4">
+      <p>Explore the ways you can build with IBM Digital Banking Platform</p>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" routerLink="/signup" role="button">Get Started</a>
+      </p>
+  </div>
+    <!-- </div> -->
 
-<div class="container">
-    <div class="card-deck">
+  <div class="container">
+      <div class="card-deck">
         <div class="card">
           <div class="card-header">Account Opening</div>
           <div class="card-body">
             <p class="card-text">IDBP Bank’s API for banking correspondence, facilitates account opening on behalf of the Bank. With services like Customer ID creation, savings account opening, duplication check etc., this API bundle offers necessary services to run a fully Digital Business Correspondence model. These APIs help in further enhancing and transforming
-               the existing Bank offerings, by increasing their appeal to the existing and prospective customers alike..</p>
+                the existing Bank offerings, by increasing their appeal to the existing and prospective customers alike..</p>
             <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
           </div>
         </div>
@@ -58,8 +59,8 @@
           </div>
         </div>
       </div>
-      <br><br>
-      <div class="card-deck">
+        <br><br>
+        <div class="card-deck">
           <div class="card">
             <div class="card-header">Digital Card</div>
             <div class="card-body">
@@ -72,18 +73,52 @@
             <div class="card-header">Fund Transfer</div>
             <div class="card-body">
               <p class="card-text">Federal Bank helps customers get gold loans in times of a financial need. As gold loans are the quickest mode of availing instant cash, the Bank provides loans with attractive interest rates and flexible repayment options.
-                 Bank’s Gold Loan API bundle enables fintech and service provider applications to get the details of loan accounts,.</p>
+                  Bank’s Gold Loan API bundle enables fintech and service provider applications to get the details of loan accounts,.</p>
               <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
             </div>
           </div>
       </div>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+      <div class="row" class="below">
+        <h3>Start working with us from today  <a class="btn btn-primary btn-lg" routerLink="/signup" role="button">Get Started</a></h3>
+      </div>
+    </div>
+    <br>
+    <br>
 </div>
-<br>
-<br>
-<div class="container">
-  <div class="row" class="below">
-    <h3>Start working with us from today  <a class="btn btn-primary btn-lg" routerLink="/signup" role="button">Get Started</a></h3>
+
+<!-- =============================================initial setup================================================ -->
+
+
+<ng-template #elseShowInitiation>
+  <br>
+  <br>
+  <div class="initiation-header">
+    <div class="shadow p-3 mb-5 bg-white rounded mx-auto" style="width: 52rem;">
+      <div class="heading">
+        <h2>IBM License and Agreement</h2>
+      </div>
+      <div class="initiation-content">
+          <p><b>This is completely a IBM product. Before you use this agree to the terms and conditions of IBM</b></p>
+          <ul>
+            <li>By accessing, or using this Web site, you acknowledge that you have read, understand, and agree to be bound by these terms
+                and to comply with all applicable laws
+                and regulations, including export and re-export control laws and regulations.</li>
+            <li>IBM may, without notice to you, at any time, revise these Terms of Use and any other information contained in this Web site..</li>
+            <li>IBM may also make improvements or changes in the products, services, or programs described in this site at any time without notice.</li>
+            <li>IBM grants you a non-exclusive, non-transferable, limited permission to access and display the Web pages within this site as a customer or potential customer
+                of IBM provided you comply with these Terms of Use, and all copyright, trademark, and other proprietary notices remain intact</li>
+          </ul>
+          <div class="checkbox">
+              <label><input type="checkbox" value="">Agree</label>
+          </div>
+          <div class="button">
+            <button type="button" (click)="onInitiationSubmit()" class="btn btn-primary btn-lg">Continue</button>
+          </div>
+        </div>
+    </div>
   </div>
-</div>
-<br>
-<br>
+</ng-template>

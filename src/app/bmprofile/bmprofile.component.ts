@@ -194,24 +194,26 @@ export class BmprofileComponent implements OnInit {
 
   }
 
-  accept(i,name){
+  accept(i,name,email){
     //i is the request number.
     //remove the request from pending and send a mail.
     var myObj = {
       id : i,
       state : true, //false if declined
-      name : name
+      name : name,
+      email: email
     }
     this.signservice.pendingReq(myObj)
     .subscribe((data)=>{ console.log(data);}
     ,(err)=> console.log(err))
   }
 
-  decline(i,name){
+  decline(i,name,email){
     var myObj = {
       id : i,
       state : false,
-      name : name
+      name : name,
+      email: email
     }
     this.signservice.pendingReq(myObj)
     .subscribe((data)=>{ console.log(data);}

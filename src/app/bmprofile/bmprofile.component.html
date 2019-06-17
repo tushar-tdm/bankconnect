@@ -50,9 +50,9 @@
                   <th>Decline</th>
                 </tr>
                   <tr *ngFor="let req of requests;let i = index">
-                    <td>{{req}}</td>
-                    <td><button class="accept btn btn-success" (click)="accept(i,req)"> Accept </button></td>
-                    <td><button class="accept btn btn-danger" (click)="decline(i,req)"> Decline </button></td>
+                    <td>{{req.org}}</td>
+                    <td><button class="accept btn btn-success" (click)="accept(i,req.org,req.email)"> Accept </button></td>
+                    <td><button class="accept btn btn-danger" (click)="decline(i,req.org,req.email)"> Decline </button></td>
                   </tr>
             </table>
           </div>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SignupServiceService } from '../services/signup-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -16,10 +18,13 @@ export class HomeComponent implements OnInit {
   Image2: any = '../../assets/ibm.jpg';
   Image3: any = '../../assets/carosel4.jpg';
 
+  initiation: Number = 0;
+
   images: Array<any> = [this.Image1, this.Image2, this.Image3];
 
 
-  constructor(private signservice: SignupServiceService, private route: ActivatedRoute, config: NgbCarouselConfig) {
+  constructor(private signservice: SignupServiceService, private route: ActivatedRoute, config: NgbCarouselConfig, public router: Router,
+              public location: Location ) {
 
     config.interval = 3000;
     config.wrap = false;
@@ -40,6 +45,17 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit() {
+  }
+
+  onInitiationSubmit(){
+    this.initiation = 1;
+    // window.location.reload();
+
+
+    // this.router.navigateByUrl("/refresh", { skipLocationChange: true}).then(() => {
+    //   this.router.navigate([decodeURI(this.location.path())]);
+    // });
+
   }
 
 }

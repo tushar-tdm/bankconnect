@@ -571,7 +571,7 @@ routes.route('/pendingReq')
     request.find({},(err,doc)=>{
         var req = [];
         for(i=0;i<doc.length;++i){
-            req.push(doc[i].org);
+            req.push(doc[i]);
         }
         res.json(req);
     })
@@ -580,37 +580,42 @@ routes.route('/pendingReq')
     var id = req.body.id;
     var state = req.body.state;
     var name = req.body.name;
+    var partneremail = req.body.email;
+    var sess =req.session;
 
     if(state){
         //send mail saying that the req has been granted. and add him to partners
-        request.find({name: name},(err,doc)=>{
-            var partneremail = doc[0].email;
+        request.find({org: name},(err,doc)=>{
+          if(doc[0]){
+            console.log('partner email is '+ partneremail);
             var newpartner = new partner({
-                name: req.body.name,
-                email : email
+                name : name,
+                email : partneremail
             });
             newpartner.save();
 
-        //send link,sub,msg,email,
-        var sub = "IDBP Partner Portal"
-        var msg = `<p> Hello partner! your request to register an interest for API's has been <b>ACCEPTED</b> by ${sess.bank}. Please click on the link below to continue with us.</p>`;
-        var link = `http://localhost:3000/route/partnerfile`;
-        var pemail = partneremail;
-        sendRequestMailAccept(pemail,sub,msg,link);
-        });
+            //send link,sub,msg,email,
+            var sub = "IDBP Partner Portal"
+            var msg = `<p> Hello partner! your request to register an interest for API's has been <b>ACCEPTED</b> by ${sess.bank}. Please click on the link below to continue with us.</p>`;
+            var link = `http://localhost:3000/route/reginterest`;
+            var pemail = partneremail;
+            sendRequestMailAccept(pemail,sub,msg,link);
+            request.findOneAndDelete({org: name}, (err, doc)=> console.log(err));
+
+            }else{console.log('not deleted')}
+          });
     }else{
-        request.find({name: name},(err,doc)=>{
-            var partneremail = doc[0].email;
+        request.find({org: name},(err,doc)=>{
             var sub = "IDBP Partner Portal"
             var msg = `Hello partner! We are sorry to inform you that your request to register an interest for API's has been <b>DECLINED</b> by ${sess.bank}`;
             var link = "";
             var pemail = partneremail;
-            sendRequestMail(pemail,sub,msg,link);
+            sendRequestMailDecline(pemail,sub,msg);
+            request.findOneAndDelete({org: name});
         });
-        sendRequestMailDecline(pemail,sub,msg);
     }
     //removing the request
-    request.findOneAndDelete({name : name});
+
 })
 
 routes.route('/sendInterest')

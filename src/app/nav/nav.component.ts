@@ -46,6 +46,7 @@ export class NavComponent implements OnInit {
     .subscribe((data) => {
       console.log(data)
       this.bank = data;
+      this.login = 0;
     }, (err) => console.log(err));
     return true;
   }
