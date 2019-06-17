@@ -229,4 +229,18 @@ export class SignupServiceService {
       new HttpHeaders({ 'Content-Type':'application/json'})
     })
   }
+
+  setDocs(obj):Observable<any>{
+    return this.http.post<any>('/route/setDocs',obj,{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    })
+  }
+  
+  setPartner(obj):Observable<any>{
+    return this.http.post<any>('/route/setPartner',obj,{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    })
+  }
 }

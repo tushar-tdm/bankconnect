@@ -7,6 +7,7 @@ var multer = require('multer');
 var path = require('path');
 var multipart  = require('connect-multiparty');
 var multipartMiddleware = multipart({uploadDir:path.join(__dirname,'uploads')});
+//var fs = require('fs');
 
 //models
 var adminmodel = require('../models/adminmodel');
@@ -16,6 +17,7 @@ var usermodel = require('../models/usermodel');
 var selectedapimodel = require('../models/selectedapimodel');
 var request = require('../models/requestmodel');
 var partner = require('../models/partnermodel');
+var file = require('../models/filemodel');
 
 var routes = express.Router();
 
@@ -595,16 +597,11 @@ routes.route('/pendingReq')
         request.find({org: name},(err,doc)=>{
           if(doc[0]){
             console.log('partner email is '+ partneremail);
-            var newpartner = new partner({
-                name : name,
-                email : partneremail
-            });
-            newpartner.save();
 
             //send link,sub,msg,email,
             var sub = "IDBP Partner Portal"
             var msg = `<p> Hello partner! your request to register an interest for API's has been <b>ACCEPTED</b> by ${sess.bank}. Please click on the link below to continue with us.</p>`;
-            var link = `http://localhost:3000/route/reginterest`;
+            var link = `http://localhost:7000/home/${partneremail}/${name}`;
             var pemail = partneremail;
             sendRequestMailAccept(pemail,sub,msg,link);
             request.findOneAndDelete({org: name}, (err, doc)=> console.log(err));
@@ -623,6 +620,24 @@ routes.route('/pendingReq')
     }
     //removing the request
 
+})
+
+routes.route('/setPartner')
+.post(urlencodedParser,(req,res)=>{
+    if(req.body.status){
+        var newpatrtner = new partner({
+            email : req.body.email,
+            name : req.body.org,
+            amnt : null,
+            freq : null,
+            accno: null,
+            mid : "default",
+            appid : "default",
+            cid : "default"
+        });
+
+        newpatrtner.save();
+    }
 })
 
 routes.route('/sendInterest')
@@ -658,6 +673,23 @@ routes.route('/partnerfile')
     console.log("recieved the files: "+req);
     res.json("reply from server");
 });
+
+routes.route('/setDocs')
+.post(urlencodedParser,(req,res)=>{
+    var fs = require('fs');
+    var user = req.body.user;
+    console.log("user is :"+user);
+
+    file.find({user: user},(err,doc)=>{
+        var file = doc[0].file;
+        console.log("document of :"+doc[0].user);
+        //put this in the image.
+        var fpath = path.join(__dirname,'..','..','src','assets','demo.jpg');
+        console.log("the path is :"+fpath);
+
+        fs.writeFile(fpath,new Buffer(doc[0].file,"base64"),(err)=>{});
+    });
+})
 
 //==============================END OF ROUTING =======================================
 

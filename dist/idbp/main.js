@@ -549,6 +549,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _refresh_refresh_component__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./refresh/refresh.component */ "./src/app/refresh/refresh.component.ts");
 /* harmony import */ var _bmprofile_bmprofile_component__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./bmprofile/bmprofile.component */ "./src/app/bmprofile/bmprofile.component.ts");
 /* harmony import */ var _role_signup_role_signup_component__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./role-signup/role-signup.component */ "./src/app/role-signup/role-signup.component.ts");
+/* harmony import */ var _docs_docs_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./docs/docs.component */ "./src/app/docs/docs.component.ts");
+
 
 
 
@@ -601,7 +603,8 @@ var routes = [
     { path: 'overview', component: _overview_overview_component__WEBPACK_IMPORTED_MODULE_20__["OverviewComponent"], resolve: { apiDetails: _overview_overview_resolver_service__WEBPACK_IMPORTED_MODULE_21__["OverviewResolverService"] } },
     { path: 'apisecurity', component: _apisecurity_apisecurity_component__WEBPACK_IMPORTED_MODULE_22__["ApisecurityComponent"], resolve: { selectedApi: _apisecurity_apisecurity_resolver_service__WEBPACK_IMPORTED_MODULE_23__["ApiSecurityResolverService"] } },
     { path: 'publish', component: _publish_publish_component__WEBPACK_IMPORTED_MODULE_24__["PublishComponent"], resolve: { apilist: _publish_publish_resolver_service__WEBPACK_IMPORTED_MODULE_25__["PublishResolverService"] } },
-    { path: 'bmprofile', component: _bmprofile_bmprofile_component__WEBPACK_IMPORTED_MODULE_27__["BmprofileComponent"], resolve: { bmuser_profile: _bmprofile_bmprofile_resolver_service__WEBPACK_IMPORTED_MODULE_16__["GetBMUserProfileResolverService"] } }
+    { path: 'bmprofile', component: _bmprofile_bmprofile_component__WEBPACK_IMPORTED_MODULE_27__["BmprofileComponent"], resolve: { bmuser_profile: _bmprofile_bmprofile_resolver_service__WEBPACK_IMPORTED_MODULE_16__["GetBMUserProfileResolverService"] } },
+    { path: 'docs/:user', component: _docs_docs_component__WEBPACK_IMPORTED_MODULE_29__["DocsComponent"] }
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -723,6 +726,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bmprofile_bmprofile_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./bmprofile/bmprofile.component */ "./src/app/bmprofile/bmprofile.component.ts");
 /* harmony import */ var _role_signup_role_signup_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./role-signup/role-signup.component */ "./src/app/role-signup/role-signup.component.ts");
 /* harmony import */ var _bmprofile_bmprofile_resolver_service__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./bmprofile/bmprofile-resolver.service */ "./src/app/bmprofile/bmprofile-resolver.service.ts");
+/* harmony import */ var _docs_docs_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./docs/docs.component */ "./src/app/docs/docs.component.ts");
+
 
 
 
@@ -790,7 +795,8 @@ var AppModule = /** @class */ (function () {
                 _publish_publish_component__WEBPACK_IMPORTED_MODULE_34__["PublishComponent"],
                 _refresh_refresh_component__WEBPACK_IMPORTED_MODULE_36__["RefreshComponent"],
                 _bmprofile_bmprofile_component__WEBPACK_IMPORTED_MODULE_37__["BmprofileComponent"],
-                _role_signup_role_signup_component__WEBPACK_IMPORTED_MODULE_38__["RoleSignupComponent"]
+                _role_signup_role_signup_component__WEBPACK_IMPORTED_MODULE_38__["RoleSignupComponent"],
+                _docs_docs_component__WEBPACK_IMPORTED_MODULE_40__["DocsComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -864,7 +870,7 @@ var GetBMUserProfileResolverService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<head>\r\n  <link href=\"https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap\" rel=\"stylesheet\">\r\n</head>\r\n<h3><b>{{title}}</b></h3>\r\n<br>\r\n<div class=\"container\">\r\n  <div class=\"row\">\r\n    <div class=\"col-lg-3 choice\">\r\n      <!-- options -->\r\n      <button [ngClass]=\"profileClass\" (click)=\"show_profile()\"> My Details</button>\r\n      <button [ngClass]=\"passClass\" (click)=\"show_pass()\"> Change Password</button>\r\n      <button [ngClass]=\"pendingClass\" (click)=\"show_pending()\"> Pending Requests </button>\r\n\r\n    </div>\r\n    <div class=\"col-lg-9 content\">\r\n          <!-- ==================== PROFILE ============================ -->\r\n\r\n          <div class=\"profile\">\r\n              <ul>\r\n                  <li><b>User Name: </b>{{show_user_profile.username}}</li>\r\n                  <li><b>First Name: </b>{{show_user_profile.fname}}</li>\r\n                  <li><b>Last Name: </b>{{show_user_profile.lname}}</li>\r\n                  <li><b>Email: </b>{{show_user_profile.useremail}}</li>\r\n              </ul>\r\n          </div>\r\n\r\n          <!-- ==================== PASSWORD ============================ -->\r\n\r\n          <div class=\"changepass\">\r\n          <form [formGroup]=\"passForm\" (ngSubmit)=\"onPassSubmit()\">\r\n            <label> Current Password</label>\r\n            <input class=\"form-control\" type=\"password\" placeholder=\"Enter Current Password\" formControlName=\"old\">\r\n\r\n            <label> New Password</label>\r\n            <input class=\"form-control\" type=\"password\" placeholder=\"Enter New Password\" formControlName=\"new\">\r\n\r\n            <label> Re-Type New Password</label>\r\n            <input class=\"form-control\" type=\"password\" placeholder=\"Re-Type New Password\" formControlName=\"renew\">\r\n\r\n            <button class=\"btn btn-primary\" style=\"margin-top: 15px;\"> Change Password</button>\r\n          </form>\r\n          </div>\r\n\r\n          <!-- ==================== PENDING REQUESTS ============================ -->\r\n          <div class=\"pendingreq\">\r\n            <table>\r\n                <tr>\r\n                  <th>Partner</th>\r\n                  <th>Accept</th>\r\n                  <th>Decline</th>\r\n                </tr>\r\n                  <tr *ngFor=\"let req of requests;let i = index\">\r\n                    <td>{{req}}</td>\r\n                    <td><button class=\"accept btn btn-success\" (click)=\"accept(i,req)\"> Accept </button></td>\r\n                    <td><button class=\"accept btn btn-danger\" (click)=\"decline(i,req)\"> Decline </button></td>\r\n                  </tr>\r\n            </table>\r\n          </div>\r\n\r\n          <!-- =============================== PARTNERS ================================ -->\r\n          <div class=\"partner\">\r\n            <div *ngFor=\"let partner of partners\" class=\"part\">\r\n              <div class=\"card\">\r\n                <div class=\"card-header\">{{partner.name}}</div>\r\n                <div class=\"card-body\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-lg-6\">\r\n                        Payment Amount:<input type=\"text\" placeholder=\"{{partner.amnt}}\">\r\n                    </div>\r\n                    <div class=\"col-lg-6\">\r\n                        Payment Frequency:<input type=\"text\" placeholder=\"{{partner.freq}}\">\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div class=\"row\">\r\n                      <div class=\"col-lg-6\">\r\n                          Account Number:<input type=\"text\" placeholder=\"{{partner.accno}}\">\r\n                      </div>\r\n                      <div class=\"col-lg-6\">\r\n                          Maker ID:<input type=\"text\" placeholder=\"{{partner.mid}}\">\r\n                      </div>\r\n                    </div>\r\n\r\n                    <div class=\"row\">\r\n                        <div class=\"col-lg-6\">\r\n                            Approver ID:<input type=\"text\" placeholder=\"{{partner.appid}}\">\r\n                        </div>\r\n                        <div class=\"col-lg-6\">\r\n                            Checker ID:<input type=\"text\" placeholder=\"{{partner.cid}}\">\r\n                        </div>\r\n                      </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n<!-- *ngFor=\"let req of requests;let i = index\" -->\r\n"
+module.exports = "<head>\r\n  <link href=\"https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap\" rel=\"stylesheet\">\r\n</head>\r\n<h3><b>{{title}}</b></h3>\r\n<br>\r\n<div class=\"container\">\r\n  <div class=\"row\">\r\n    <div class=\"col-lg-3 choice\">\r\n      <!-- options -->\r\n      <button [ngClass]=\"profileClass\" (click)=\"show_profile()\"> My Details</button>\r\n      <button [ngClass]=\"passClass\" (click)=\"show_pass()\"> Change Password</button>\r\n      <button [ngClass]=\"pendingClass\" (click)=\"show_pending()\"> Pending Requests </button>\r\n\r\n    </div>\r\n    <div class=\"col-lg-9 content\">\r\n          <!-- ==================== PROFILE ============================ -->\r\n\r\n          <div class=\"profile\">\r\n              <ul>\r\n                  <li><b>User Name: </b>{{show_user_profile.username}}</li>\r\n                  <li><b>First Name: </b>{{show_user_profile.fname}}</li>\r\n                  <li><b>Last Name: </b>{{show_user_profile.lname}}</li>\r\n                  <li><b>Email: </b>{{show_user_profile.useremail}}</li>\r\n              </ul>\r\n          </div>\r\n\r\n          <!-- ==================== PASSWORD ============================ -->\r\n\r\n          <div class=\"changepass\">\r\n          <form [formGroup]=\"passForm\" (ngSubmit)=\"onPassSubmit()\">\r\n            <label> Current Password</label>\r\n            <input class=\"form-control\" type=\"password\" placeholder=\"Enter Current Password\" formControlName=\"old\">\r\n\r\n            <label> New Password</label>\r\n            <input class=\"form-control\" type=\"password\" placeholder=\"Enter New Password\" formControlName=\"new\">\r\n\r\n            <label> Re-Type New Password</label>\r\n            <input class=\"form-control\" type=\"password\" placeholder=\"Re-Type New Password\" formControlName=\"renew\">\r\n\r\n            <button class=\"btn btn-primary\" style=\"margin-top: 15px;\"> Change Password</button>\r\n          </form>\r\n          </div>\r\n\r\n          <!-- ==================== PENDING REQUESTS ============================ -->\r\n          <div class=\"pendingreq\">\r\n            <table>\r\n                <tr>\r\n                  <th>Partner</th>\r\n                  <th>Accept</th>\r\n                  <th>Decline</th>\r\n                </tr>\r\n                  <tr *ngFor=\"let req of requests;let i = index\">\r\n                    <td>{{req.org}}</td>\r\n                    <td><button class=\"accept btn btn-success\" (click)=\"accept(i,req.org,req.email)\"> Accept </button></td>\r\n                    <td><button class=\"accept btn btn-danger\" (click)=\"decline(i,req.org,req.email)\"> Decline </button></td>\r\n                  </tr>\r\n            </table>\r\n          </div>\r\n\r\n          <!-- =============================== PARTNERS ================================ -->\r\n          <div class=\"partner\">\r\n            <div *ngFor=\"let partner of partners\" class=\"part\">\r\n              <div class=\"card\">\r\n                <div class=\"card-header\">{{partner.name}}</div>\r\n                <div class=\"card-body\">\r\n                  <div class=\"row\">\r\n                    <div class=\"col-lg-6\">\r\n                        Payment Amount:<input type=\"text\" placeholder=\"{{partner.amnt}}\">\r\n                    </div>\r\n                    <div class=\"col-lg-6\">\r\n                        Payment Frequency:<input type=\"text\" placeholder=\"{{partner.freq}}\">\r\n                    </div>\r\n                  </div>\r\n\r\n                  <div class=\"row\">\r\n                      <div class=\"col-lg-6\">\r\n                          Account Number:<input type=\"text\" placeholder=\"{{partner.accno}}\">\r\n                      </div>\r\n                      <div class=\"col-lg-6\">\r\n                          Maker ID:<input type=\"text\" placeholder=\"{{partner.mid}}\">\r\n                      </div>\r\n                    </div>\r\n\r\n                    <div class=\"row\">\r\n                        <div class=\"col-lg-6\">\r\n                            Approver ID:<input type=\"text\" placeholder=\"{{partner.appid}}\">\r\n                        </div>\r\n                        <div class=\"col-lg-6\">\r\n                            Checker ID:<input type=\"text\" placeholder=\"{{partner.cid}}\">\r\n                        </div>\r\n                      </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n      </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n<!-- *ngFor=\"let req of requests;let i = index\" -->\r\n"
 
 /***/ }),
 
@@ -1050,22 +1056,24 @@ var BmprofileComponent = /** @class */ (function () {
         document.querySelector('.pendingreq').style.display = 'none';
         document.querySelector('.partner').style.display = 'block';
     };
-    BmprofileComponent.prototype.accept = function (i, name) {
+    BmprofileComponent.prototype.accept = function (i, name, email) {
         //i is the request number.
         //remove the request from pending and send a mail.
         var myObj = {
             id: i,
             state: true,
-            name: name
+            name: name,
+            email: email
         };
         this.signservice.pendingReq(myObj)
             .subscribe(function (data) { console.log(data); }, function (err) { return console.log(err); });
     };
-    BmprofileComponent.prototype.decline = function (i, name) {
+    BmprofileComponent.prototype.decline = function (i, name, email) {
         var myObj = {
             id: i,
             state: false,
-            name: name
+            name: name,
+            email: email
         };
         this.signservice.pendingReq(myObj)
             .subscribe(function (data) { console.log(data); }, function (err) { return console.log(err); });
@@ -1482,6 +1490,99 @@ var SelectedApiListResolverService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/docs/docs.component.html":
+/*!******************************************!*\
+  !*** ./src/app/docs/docs.component.html ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!-- show the two images -->\nThe document uploaded is..<br><br>\n<img [src]=\"Image\" width=\"500px;\" height=\"350px;\">\n\n<!-- this button should add the partner into the partner db -->\n<button (click)=\"accept()\" class=\"btn btn-success\">Accept</button>\n<button (click)=\"decline()\" class=\"btn btn-danger\"> Decline</button>"
+
+/***/ }),
+
+/***/ "./src/app/docs/docs.component.scss":
+/*!******************************************!*\
+  !*** ./src/app/docs/docs.component.scss ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuLi9zcmMvYXBwL2RvY3MvZG9jcy5jb21wb25lbnQuc2NzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/docs/docs.component.ts":
+/*!****************************************!*\
+  !*** ./src/app/docs/docs.component.ts ***!
+  \****************************************/
+/*! exports provided: DocsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DocsComponent", function() { return DocsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_signup_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/signup-service.service */ "./src/app/services/signup-service.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+var DocsComponent = /** @class */ (function () {
+    function DocsComponent(signservice, route) {
+        var _this = this;
+        this.signservice = signservice;
+        this.route = route;
+        this.Image = '../../assets/demo.jpg';
+        this.route.params.subscribe(function (params) {
+            console.log("here:->" + params['user']);
+            var obj = {
+                user: params['user']
+            };
+            _this.User = params['user'];
+            _this.Org = params['org'];
+            _this.signservice.setDocs(obj)
+                .subscribe(function (data) { return console.log(data); }, function (err) { return console.log(err); });
+        });
+    }
+    DocsComponent.prototype.ngOnInit = function () {
+    };
+    DocsComponent.prototype.accept = function () {
+        //this.User is the email
+        var myObj = {
+            email: this.User,
+            status: true,
+            org: this.Org
+        };
+        this.signservice.setPartner(myObj)
+            .subscribe(function (data) { return console.log(data); }, function (err) { return console.log(err); });
+    };
+    DocsComponent.prototype.decline = function () {
+        var myObj = {
+            user: this.User,
+            status: false,
+            org: this.Org
+        };
+        this.signservice.setPartner(myObj)
+            .subscribe(function (data) { return console.log(data); }, function (err) { return console.log(err); });
+    };
+    DocsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-docs',
+            template: __webpack_require__(/*! ./docs.component.html */ "./src/app/docs/docs.component.html"),
+            styles: [__webpack_require__(/*! ./docs.component.scss */ "./src/app/docs/docs.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_signup_service_service__WEBPACK_IMPORTED_MODULE_2__["SignupServiceService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
+    ], DocsComponent);
+    return DocsComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/domain/banks.ts":
 /*!*********************************!*\
   !*** ./src/app/domain/banks.ts ***!
@@ -1566,7 +1667,7 @@ var FooterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ngb-carousel *ngIf=\"images\">\r\n  <ng-template ngbSlide>\r\n    <img [src]=\"images[0]\" alt=\"Random first slide\">\r\n    <div class=\"carousel-caption\">\r\n    </div>\r\n  </ng-template>\r\n  <ng-template ngbSlide>\r\n    <img [src]=\"images[1]\" alt=\"Random second slide\">\r\n    <div class=\"carousel-caption\">\r\n    </div>\r\n  </ng-template>\r\n  <ng-template ngbSlide>\r\n    <img [src]=\"images[2]\"  alt=\"Random third slide\">\r\n    <div class=\"carousel-caption\">\r\n    </div>\r\n  </ng-template>\r\n  <!-- <ng-template ngbSlide>\r\n    <img [src]=\"images[3]\" alt=\"Random fourth slide\">\r\n    <div class=\"carousel-caption\">\r\n      <h3>And no wrap after last slide.</h3>\r\n      <p>This carousel uses customized default values.</p>\r\n    </div>\r\n  </ng-template> -->\r\n</ngb-carousel>\r\n<br>\r\n<br>\r\n\r\n<!-- <div class=\"container\"> -->\r\n    <div class=\"jumbotron\">\r\n        <h2 class=\"display-4\">Build yourself with a global finance API</h2>\r\n        <p class=\"lead\">With over 200 million customers, IDBP connects you to a massive amount of data around the world.\r\n           Making products accessible anywhere and everywhere. Check out the many ways our partners leverage our platform\r\n            and APIs to create innovative experiences.</p>\r\n        <hr class=\"my-4\">\r\n        <p>Explore the ways you can build with IBM Digital Banking Platform</p>\r\n        <p class=\"lead\">\r\n          <a class=\"btn btn-primary btn-lg\" routerLink=\"/signup\" role=\"button\">Get Started</a>\r\n        </p>\r\n    </div>\r\n<!-- </div> -->\r\n\r\n<div class=\"container\">\r\n    <div class=\"card-deck\">\r\n        <div class=\"card\">\r\n          <div class=\"card-header\">Account Opening</div>\r\n          <div class=\"card-body\">\r\n            <p class=\"card-text\">IDBP Bank’s API for banking correspondence, facilitates account opening on behalf of the Bank. With services like Customer ID creation, savings account opening, duplication check etc., this API bundle offers necessary services to run a fully Digital Business Correspondence model. These APIs help in further enhancing and transforming\r\n               the existing Bank offerings, by increasing their appeal to the existing and prospective customers alike..</p>\r\n            <!-- <p class=\"card-text\"><small class=\"text-muted\">Last updated 3 mins ago</small></p> -->\r\n          </div>\r\n        </div>\r\n        <div class=\"card\">\r\n          <div class=\"card-header\">UPI</div>\r\n          <div class=\"card-body\">\r\n            <p class=\"card-text\">The Unified Payments Interface (UPI) is an instant, real-time payment system developed by National Payments Corporation of India (NPCI) facilitating inter-bank transactions. It is a unique solution that can\r\n              be used to transfer money and make payments using the Immediate Payments Service (IMPS)</p>\r\n            <!-- <p class=\"card-text\"><small class=\"text-muted\">Last updated 3 mins ago</small></p> -->\r\n          </div>\r\n        </div>\r\n      </div>\r\n      <br><br>\r\n      <div class=\"card-deck\">\r\n          <div class=\"card\">\r\n            <div class=\"card-header\">Digital Card</div>\r\n            <div class=\"card-body\">\r\n              <p class=\"card-text\">When a Customer checks out through a Merchant’s Point of Sale (POS) terminal, if a Bank can offer convenient EMI option for the payment, it would be a unique business opportunity for Card Issuers, Merchants\r\n                and Brands to connect with Customers and provide them additional convenience..</p>\r\n              <!-- <p class=\"card-text\"><small class=\"text-muted\">Last updated 3 mins ago</small></p> -->\r\n            </div>\r\n          </div>\r\n          <div class=\"card\">\r\n            <div class=\"card-header\">Fund Transfer</div>\r\n            <div class=\"card-body\">\r\n              <p class=\"card-text\">Federal Bank helps customers get gold loans in times of a financial need. As gold loans are the quickest mode of availing instant cash, the Bank provides loans with attractive interest rates and flexible repayment options.\r\n                 Bank’s Gold Loan API bundle enables fintech and service provider applications to get the details of loan accounts,.</p>\r\n              <!-- <p class=\"card-text\"><small class=\"text-muted\">Last updated 3 mins ago</small></p> -->\r\n            </div>\r\n          </div>\r\n      </div>\r\n</div>\r\n<br>\r\n<br>\r\n<div class=\"container\">\r\n  <div class=\"row\" class=\"below\">\r\n    <h3>Start working with us from today  <a class=\"btn btn-primary btn-lg\" routerLink=\"/signup\" role=\"button\">Get Started</a></h3>\r\n  </div>\r\n</div>\r\n<br>\r\n<br>\r\n"
+module.exports = "<div *ngIf=\"initiation; else elseShowInitiation\">\r\n  <ngb-carousel *ngIf=\"images\">\r\n      <ng-template ngbSlide>\r\n        <img [src]=\"images[0]\" alt=\"Random first slide\">\r\n        <div class=\"carousel-caption\">\r\n        </div>\r\n      </ng-template>\r\n      <ng-template ngbSlide>\r\n        <img [src]=\"images[1]\" alt=\"Random second slide\">\r\n        <div class=\"carousel-caption\">\r\n        </div>\r\n      </ng-template>\r\n      <ng-template ngbSlide>\r\n        <img [src]=\"images[2]\"  alt=\"Random third slide\">\r\n        <div class=\"carousel-caption\">\r\n        </div>\r\n      </ng-template>\r\n      <!-- <ng-template ngbSlide>\r\n        <img [src]=\"images[3]\" alt=\"Random fourth slide\">\r\n        <div class=\"carousel-caption\">\r\n          <h3>And no wrap after last slide.</h3>\r\n          <p>This carousel uses customized default values.</p>\r\n        </div>\r\n      </ng-template> -->\r\n  </ngb-carousel>\r\n  <br>\r\n  <br>\r\n\r\n    <!-- <div class=\"container\"> -->\r\n  <div class=\"jumbotron\">\r\n      <h2 class=\"display-4\">Build yourself with a global finance API</h2>\r\n      <p class=\"lead\">With over 200 million customers, IDBP connects you to a massive amount of data around the world.\r\n          Making products accessible anywhere and everywhere. Check out the many ways our partners leverage our platform\r\n          and APIs to create innovative experiences.</p>\r\n      <hr class=\"my-4\">\r\n      <p>Explore the ways you can build with IBM Digital Banking Platform</p>\r\n      <p class=\"lead\">\r\n        <a class=\"btn btn-primary btn-lg\" routerLink=\"/signup\" role=\"button\">Get Started</a>\r\n      </p>\r\n  </div>\r\n    <!-- </div> -->\r\n\r\n  <div class=\"container\">\r\n      <div class=\"card-deck\">\r\n        <div class=\"card\">\r\n          <div class=\"card-header\">Account Opening</div>\r\n          <div class=\"card-body\">\r\n            <p class=\"card-text\">IDBP Bank’s API for banking correspondence, facilitates account opening on behalf of the Bank. With services like Customer ID creation, savings account opening, duplication check etc., this API bundle offers necessary services to run a fully Digital Business Correspondence model. These APIs help in further enhancing and transforming\r\n                the existing Bank offerings, by increasing their appeal to the existing and prospective customers alike..</p>\r\n            <!-- <p class=\"card-text\"><small class=\"text-muted\">Last updated 3 mins ago</small></p> -->\r\n          </div>\r\n        </div>\r\n        <div class=\"card\">\r\n          <div class=\"card-header\">UPI</div>\r\n          <div class=\"card-body\">\r\n            <p class=\"card-text\">The Unified Payments Interface (UPI) is an instant, real-time payment system developed by National Payments Corporation of India (NPCI) facilitating inter-bank transactions. It is a unique solution that can\r\n              be used to transfer money and make payments using the Immediate Payments Service (IMPS)</p>\r\n            <!-- <p class=\"card-text\"><small class=\"text-muted\">Last updated 3 mins ago</small></p> -->\r\n          </div>\r\n        </div>\r\n      </div>\r\n        <br><br>\r\n        <div class=\"card-deck\">\r\n          <div class=\"card\">\r\n            <div class=\"card-header\">Digital Card</div>\r\n            <div class=\"card-body\">\r\n              <p class=\"card-text\">When a Customer checks out through a Merchant’s Point of Sale (POS) terminal, if a Bank can offer convenient EMI option for the payment, it would be a unique business opportunity for Card Issuers, Merchants\r\n                and Brands to connect with Customers and provide them additional convenience..</p>\r\n              <!-- <p class=\"card-text\"><small class=\"text-muted\">Last updated 3 mins ago</small></p> -->\r\n            </div>\r\n          </div>\r\n          <div class=\"card\">\r\n            <div class=\"card-header\">Fund Transfer</div>\r\n            <div class=\"card-body\">\r\n              <p class=\"card-text\">Federal Bank helps customers get gold loans in times of a financial need. As gold loans are the quickest mode of availing instant cash, the Bank provides loans with attractive interest rates and flexible repayment options.\r\n                  Bank’s Gold Loan API bundle enables fintech and service provider applications to get the details of loan accounts,.</p>\r\n              <!-- <p class=\"card-text\"><small class=\"text-muted\">Last updated 3 mins ago</small></p> -->\r\n            </div>\r\n          </div>\r\n      </div>\r\n    </div>\r\n    <br>\r\n    <br>\r\n    <div class=\"container\">\r\n      <div class=\"row\" class=\"below\">\r\n        <h3>Start working with us from today  <a class=\"btn btn-primary btn-lg\" routerLink=\"/signup\" role=\"button\">Get Started</a></h3>\r\n      </div>\r\n    </div>\r\n    <br>\r\n    <br>\r\n</div>\r\n\r\n<!-- =============================================initial setup================================================ -->\r\n\r\n\r\n<ng-template #elseShowInitiation>\r\n  <br>\r\n  <br>\r\n  <div class=\"initiation-header\">\r\n    <div class=\"shadow p-3 mb-5 bg-white rounded mx-auto\" style=\"width: 52rem;\">\r\n      <div class=\"heading\">\r\n        <h2>IBM License and Agreement</h2>\r\n      </div>\r\n      <div class=\"initiation-content\">\r\n          <p><b>This is completely a IBM product. Before you use this agree to the terms and conditions of IBM</b></p>\r\n          <ul>\r\n            <li>By accessing, or using this Web site, you acknowledge that you have read, understand, and agree to be bound by these terms\r\n                and to comply with all applicable laws\r\n                and regulations, including export and re-export control laws and regulations.</li>\r\n            <li>IBM may, without notice to you, at any time, revise these Terms of Use and any other information contained in this Web site..</li>\r\n            <li>IBM may also make improvements or changes in the products, services, or programs described in this site at any time without notice.</li>\r\n            <li>IBM grants you a non-exclusive, non-transferable, limited permission to access and display the Web pages within this site as a customer or potential customer\r\n                of IBM provided you comply with these Terms of Use, and all copyright, trademark, and other proprietary notices remain intact</li>\r\n          </ul>\r\n          <div class=\"checkbox\">\r\n              <label><input type=\"checkbox\" value=\"\">Agree</label>\r\n          </div>\r\n          <div class=\"button\">\r\n            <button type=\"button\" (click)=\"onInitiationSubmit()\" class=\"btn btn-primary btn-lg\">Continue</button>\r\n          </div>\r\n        </div>\r\n    </div>\r\n  </div>\r\n</ng-template>\r\n"
 
 /***/ }),
 
@@ -1577,7 +1678,7 @@ module.exports = "<ngb-carousel *ngIf=\"images\">\r\n  <ng-template ngbSlide>\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "img {\n  height: 400px;\n  width: 100%; }\n\n.below {\n  text-align: center;\n  font-weight: bold;\n  margin-left: 17%; }\n\n.card {\n  text-align: center; }\n\n.card-header {\n  font-weight: bold; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9hcHAvaG9tZS9DOlxcVXNlcnNcXFR1c2hhck1BTENIQVBVUkVcXERlc2t0b3BcXEdpdGh1YlxcYmFua2Nvbm5lY3RcXHNlcnZlci8uLlxcc3JjXFxhcHBcXGhvbWVcXGhvbWUuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxhQUFhO0VBQ2IsV0FBVyxFQUFBOztBQUdiO0VBQ0Usa0JBQWtCO0VBQ2xCLGlCQUFpQjtFQUNqQixnQkFBZ0IsRUFBQTs7QUFHbEI7RUFDRSxrQkFBa0IsRUFBQTs7QUFHcEI7RUFDRSxpQkFBaUIsRUFBQSIsImZpbGUiOiIuLi9zcmMvYXBwL2hvbWUvaG9tZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImltZ3tcclxuICBoZWlnaHQ6IDQwMHB4O1xyXG4gIHdpZHRoOiAxMDAlO1xyXG59XHJcblxyXG4uYmVsb3d7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIG1hcmdpbi1sZWZ0OiAxNyU7XHJcbn1cclxuXHJcbi5jYXJke1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuLmNhcmQtaGVhZGVye1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG59XHJcbiJdfQ== */"
+module.exports = "img {\n  height: 400px;\n  width: 100%; }\n\n.below {\n  text-align: center;\n  font-weight: bold;\n  margin-left: 17%; }\n\n.card {\n  text-align: center; }\n\n.card-header {\n  font-weight: bold; }\n\n.initiation-header {\n  margin: 24px 48px;\n  padding: 0px 15px; }\n\n.heading h2 {\n  border-bottom: solid 2px #5a60b8;\n  padding-bottom: 11px; }\n\n.initiation-content {\n  margin: 24px 48px;\n  padding: 0px 15px; }\n\n.initiation-content li {\n  padding: 5px 0px 5px 0px; }\n\n.button {\n  text-align: center; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9hcHAvaG9tZS9DOlxcVXNlcnNcXFR1c2hhck1BTENIQVBVUkVcXERlc2t0b3BcXEdpdGh1YlxcYmFua2Nvbm5lY3RcXHNlcnZlci8uLlxcc3JjXFxhcHBcXGhvbWVcXGhvbWUuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxhQUFhO0VBQ2IsV0FBVyxFQUFBOztBQUdiO0VBQ0Usa0JBQWtCO0VBQ2xCLGlCQUFpQjtFQUNqQixnQkFBZ0IsRUFBQTs7QUFHbEI7RUFDRSxrQkFBa0IsRUFBQTs7QUFHcEI7RUFDRSxpQkFBaUIsRUFBQTs7QUFHbkI7RUFDRSxpQkFBaUI7RUFDakIsaUJBQWlCLEVBQUE7O0FBR25CO0VBQ0UsZ0NBQWdDO0VBQ2hDLG9CQUFvQixFQUFBOztBQUd0QjtFQUNFLGlCQUFpQjtFQUNqQixpQkFBaUIsRUFBQTs7QUFHbkI7RUFDRSx3QkFBd0IsRUFBQTs7QUFHMUI7RUFDRSxrQkFBa0IsRUFBQSIsImZpbGUiOiIuLi9zcmMvYXBwL2hvbWUvaG9tZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImltZ3tcclxuICBoZWlnaHQ6IDQwMHB4O1xyXG4gIHdpZHRoOiAxMDAlO1xyXG59XHJcblxyXG4uYmVsb3d7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIG1hcmdpbi1sZWZ0OiAxNyU7XHJcbn1cclxuXHJcbi5jYXJke1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuLmNhcmQtaGVhZGVye1xyXG4gIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG59XHJcblxyXG4uaW5pdGlhdGlvbi1oZWFkZXJ7XHJcbiAgbWFyZ2luOiAyNHB4IDQ4cHg7XHJcbiAgcGFkZGluZzogMHB4IDE1cHg7XHJcbn1cclxuXHJcbi5oZWFkaW5nIGgye1xyXG4gIGJvcmRlci1ib3R0b206IHNvbGlkIDJweCAjNWE2MGI4O1xyXG4gIHBhZGRpbmctYm90dG9tOiAxMXB4O1xyXG59XHJcblxyXG4uaW5pdGlhdGlvbi1jb250ZW50e1xyXG4gIG1hcmdpbjogMjRweCA0OHB4O1xyXG4gIHBhZGRpbmc6IDBweCAxNXB4O1xyXG59XHJcblxyXG4uaW5pdGlhdGlvbi1jb250ZW50IGxpe1xyXG4gIHBhZGRpbmc6IDVweCAwcHggNXB4IDBweDtcclxufVxyXG5cclxuLmJ1dHRvbntcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -1596,19 +1697,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_signup_service_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/signup-service.service */ "./src/app/services/signup-service.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ng-bootstrap/ng-bootstrap */ "./node_modules/@ng-bootstrap/ng-bootstrap/fesm5/ng-bootstrap.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+
+
 
 
 
 
 
 var HomeComponent = /** @class */ (function () {
-    function HomeComponent(signservice, route, config) {
+    function HomeComponent(signservice, route, config, router, location) {
         var _this = this;
         this.signservice = signservice;
         this.route = route;
+        this.router = router;
+        this.location = location;
         this.Image1 = '../../assets/ibm1.jpg';
         this.Image2 = '../../assets/ibm.jpg';
         this.Image3 = '../../assets/carosel4.jpg';
+        this.initiation = 0;
         this.images = [this.Image1, this.Image2, this.Image3];
         config.interval = 3000;
         config.wrap = false;
@@ -1628,6 +1735,13 @@ var HomeComponent = /** @class */ (function () {
     }
     HomeComponent.prototype.ngOnInit = function () {
     };
+    HomeComponent.prototype.onInitiationSubmit = function () {
+        this.initiation = 1;
+        // window.location.reload();
+        // this.router.navigateByUrl("/refresh", { skipLocationChange: true}).then(() => {
+        //   this.router.navigate([decodeURI(this.location.path())]);
+        // });
+    };
     HomeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-home',
@@ -1635,7 +1749,8 @@ var HomeComponent = /** @class */ (function () {
             providers: [_ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbCarouselConfig"]],
             styles: [__webpack_require__(/*! ./home.component.scss */ "./src/app/home/home.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_signup_service_service__WEBPACK_IMPORTED_MODULE_2__["SignupServiceService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbCarouselConfig"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_signup_service_service__WEBPACK_IMPORTED_MODULE_2__["SignupServiceService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_4__["NgbCarouselConfig"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_5__["Location"]])
     ], HomeComponent);
     return HomeComponent;
 }());
@@ -1825,7 +1940,7 @@ var MaterialModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'\r\nintegrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>\r\n\r\n\r\n <nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\r\n      <div class=\"logo\">\r\n        <a class=\"navbar-brand\" routerLink=\"/home\">IBM IDBP</a>\r\n      </div>\r\n      <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n        <span class=\"navbar-toggler-icon\"></span>\r\n      </button>\r\n\r\n      <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n        <ul class=\"navbar-nav mr-auto\">\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" routerLink=\"/apilist\">API Products</a>\r\n          </li>\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" routerLink=\"/home\">Docs</a>\r\n          </li>\r\n          <li class=\"nav-item dropdown dmenu\">\r\n            <a class=\"nav-link dropdown-toggle\" id=\"navbarDropdown\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n              Support\r\n            </a>\r\n            <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">\r\n                <a class=\"dropdown-item\" routerLink=\"/support\">Contact Us</a>\r\n                <div class=\"dropdown-divider\"></div>\r\n                <a class=\"dropdown-item\" routerLink=\"/support\">FAQs</a>\r\n                <div class=\"dropdown-divider\"></div>\r\n                <a class=\"dropdown-item\" routerLink=\"/support\">Support</a>\r\n            </div>\r\n          </li>\r\n        </ul>\r\n        <ul class=\"navbar-nav ml-auto\">\r\n            <li *ngIf=\"login;\"><a class=\"nav-link\" routerLink=\"/dashboard\"><span><i class='fas fa-desktop'></i></span>My Dashboard</a></li>\r\n            <ng-template #dashboard>\r\n              <div class=\"divider\">.</div>\r\n            </ng-template>\r\n            <div class=\"seperateLi\">\r\n                <li *ngIf=\"!login; else elseBlock\"><a class=\"nav-link\" routerLink=\"/login\"><span><i class='fas fa-user-alt'></i></span>Sign In</a></li>\r\n                <ng-template #elseBlock>\r\n                    <li class=\"nav-item dropdown dmenu\">\r\n                        <a class=\"nav-link dropdown-toggle\" href=\"javascript:void(0);\" id=\"navbarDropdown\" role=\"button\" aria-haspopup=\"true\" data-toggle=\"dropdown\">\r\n                          <span><i class='fas fa-user-alt'></i></span>{{username}}\r\n                        </a>\r\n                        <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdown\">\r\n                            <a class=\"dropdown-item\" routerLink=\"/profile\">My Account</a>\r\n                            <div class=\"dropdown-divider\"></div>\r\n                            <a class=\"dropdown-item\" routerLink=\"/home/hdfc\" (click)=\"onLogout()\">Sign Out</a>\r\n                        </div>\r\n                    </li>\r\n                </ng-template>\r\n            </div>\r\n          </ul>\r\n      </div>\r\n    </nav>\r\n\r\n\r\n"
+module.exports = "<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css'\r\nintegrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>\r\n\r\n\r\n <nav class=\"navbar navbar-expand-lg navbar-dark bg-dark\">\r\n      <div class=\"logo\">\r\n        <a class=\"navbar-brand\" routerLink=\"/home/hdfc\">IBM IDBP</a>\r\n      </div>\r\n      <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n        <span class=\"navbar-toggler-icon\"></span>\r\n      </button>\r\n\r\n      <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\r\n        <ul class=\"navbar-nav mr-auto\">\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" routerLink=\"/apilist\">API Products</a>\r\n          </li>\r\n          <li class=\"nav-item\">\r\n            <a class=\"nav-link\" routerLink=\"/home\">Docs</a>\r\n          </li>\r\n          <li class=\"nav-item dropdown dmenu\">\r\n            <a class=\"nav-link dropdown-toggle\" id=\"navbarDropdown\" role=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\r\n              Support\r\n            </a>\r\n            <div class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">\r\n                <a class=\"dropdown-item\" routerLink=\"/support\">Contact Us</a>\r\n                <div class=\"dropdown-divider\"></div>\r\n                <a class=\"dropdown-item\" routerLink=\"/support\">FAQs</a>\r\n                <div class=\"dropdown-divider\"></div>\r\n                <a class=\"dropdown-item\" routerLink=\"/support\">Support</a>\r\n            </div>\r\n          </li>\r\n        </ul>\r\n        <ul class=\"navbar-nav ml-auto\">\r\n            <li *ngIf=\"login;\"><a class=\"nav-link\" routerLink=\"/dashboard\"><span><i class='fas fa-desktop'></i></span>My Dashboard</a></li>\r\n            <ng-template #dashboard>\r\n              <div class=\"divider\">.</div>\r\n            </ng-template>\r\n            <div class=\"seperateLi\">\r\n                <li *ngIf=\"!login; else elseBlock\"><a class=\"nav-link\" routerLink=\"/login\"><span><i class='fas fa-user-alt'></i></span>Sign In</a></li>\r\n                <ng-template #elseBlock>\r\n                    <li class=\"nav-item dropdown dmenu\">\r\n                        <a class=\"nav-link dropdown-toggle\" href=\"javascript:void(0);\" id=\"navbarDropdown\" role=\"button\" aria-haspopup=\"true\" data-toggle=\"dropdown\">\r\n                          <span><i class='fas fa-user-alt'></i></span>{{username}}\r\n                        </a>\r\n                        <div class=\"dropdown-menu dropdown-menu-right\" aria-labelledby=\"navbarDropdown\">\r\n                            <a class=\"dropdown-item\" routerLink=\"/profile\">My Account</a>\r\n                            <div class=\"dropdown-divider\"></div>\r\n                            <a class=\"dropdown-item\" routerLink=\"/home/hdfc\" (click)=\"onLogout()\">Sign Out</a>\r\n                        </div>\r\n                    </li>\r\n                </ng-template>\r\n            </div>\r\n          </ul>\r\n      </div>\r\n    </nav>\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -1902,6 +2017,7 @@ var NavComponent = /** @class */ (function () {
             .subscribe(function (data) {
             console.log(data);
             _this.bank = data;
+            _this.login = 0;
         }, function (err) { return console.log(err); });
         return true;
     };
@@ -2955,6 +3071,16 @@ var SignupServiceService = /** @class */ (function () {
     };
     SignupServiceService.prototype.getRequests = function () {
         return this.http.get('/route/pendingReq', {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' })
+        });
+    };
+    SignupServiceService.prototype.setDocs = function (obj) {
+        return this.http.post('/route/setDocs', obj, {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' })
+        });
+    };
+    SignupServiceService.prototype.setPartner = function (obj) {
+        return this.http.post('/route/setPartner', obj, {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({ 'Content-Type': 'application/json' })
         });
     };
