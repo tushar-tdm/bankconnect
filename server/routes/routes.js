@@ -4,6 +4,9 @@ var bodyParser = require('body-parser');
 var passwordHash = require('password-hash');
 var exec = require('child_process').exec;
 var multer = require('multer');
+var path = require('path');
+var multipart  = require('connect-multiparty');
+var multipartMiddleware = multipart({uploadDir:path.join(__dirname,'uploads')});
 
 //models
 var adminmodel = require('../models/adminmodel');
@@ -16,9 +19,13 @@ var partner = require('../models/partnermodel');
 
 var routes = express.Router();
 
-var urlencodedParser = bodyParser.urlencoded({extended: true});
-routes.use(bodyParser.json());
+var urlencodedParser = bodyParser.urlencoded({limit:'50mb',extended: true});
+routes.use(bodyParser.json({limit : '50mb', extended:true}));
 
+// bodyParser = {
+//     json:{limit:'50mb',extended:true},
+//     urlencoded : {limit:'50mb',extended: true}
+// };
 var sess;
 
 //YOU SHOULD USE 'urlencodedParser' TO GET THE POST DATA
@@ -625,26 +632,26 @@ routes.route('/sendInterest')
     res.json("interest added");
 })
 
-// var store = multer.diskStorage({
-//     destination:function(req,res,cb){
-//         cb(null,'./uploads');
-//     },
-//     filename:function(req,file,cb){
-//         cb(null,Date.now()+'.'+file.originalname);
-//     }
-// });
+var store = multer.diskStorage({
+    destination:function(req,res,cb){
+        cb(null,'./uploads');
+    },
+    filename:function(req,res,cb){
+        cb(null,Date.now()+'.'+file.originalname)
+    }
+});
 
-// var upload = multer({storage:store}).single('file');
-
+var upload = multer({storage:store}).single('file');
 routes.route('/partnerfile')
 .get((req,res)=>{
     res.redirect('/reginterest');
 })
 
-.post(urlencodedParser,(req,res)=>{
+.post(upload,(req,res)=>{
     //get all the details.
     //now req.body.files has all the files in b64 format.
-    console.log("recieved the files: "+JSON.stringify(req.body));
+    console.log("recieved the files: "+req);
+    res.json("reply from server");
 });
 
 //==============================END OF ROUTING =======================================
