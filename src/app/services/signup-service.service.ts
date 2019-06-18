@@ -245,6 +245,13 @@ export class SignupServiceService {
     });
   }
 
+  sendPaymentRulesDetailstoPartner(obj:any):Observable<any>{
+    return this.http.post('http://localhost:9000/route/paymentrulesdetails',obj,{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    });
+  }
+
   setDocs(obj):Observable<any>{
     return this.http.post<any>('/route/setDocs',obj,{
       headers :

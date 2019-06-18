@@ -638,6 +638,14 @@ routes.route('/pendingReq')
           if(doc[0]){
             console.log('partner email is '+ partneremail);
 
+            // ===============This is for saikumar==============
+            // var newpartner = new partner({
+            //   name : name,
+            //   email : partneremail
+            // });
+            // newpartner.save();
+            // ==============It ends here=======================
+
             //send link,sub,msg,email,
             var sub = "IDBP Partner Portal"
             var msg = `<p> Hello partner! your request to register an interest for API's has been <b>ACCEPTED</b> by ${sess.bank}. Please click on the link below to continue with us.</p>`;
