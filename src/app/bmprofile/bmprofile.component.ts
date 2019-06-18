@@ -262,7 +262,16 @@ export class BmprofileComponent implements OnInit {
       org: org
     };
 
+    // to backend
     this.signservice.sendPaymentRulesDetails(myObj)
+    .subscribe(
+    (data : any) => {
+      console.log(data);
+    },
+    (error: any) => console.log('error'));
+
+    //to partner
+    this.signservice.sendPaymentRulesDetailstoPartner(myObj)
     .subscribe(
     (data : any) => {
       console.log(data);
