@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SignupServiceService } from '../services/signup-service.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-docs',
@@ -13,7 +13,7 @@ export class DocsComponent implements OnInit {
   User:any;
   Org:any;
 
-  constructor(private signservice: SignupServiceService, private route: ActivatedRoute) {
+  constructor(private signservice: SignupServiceService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe( params => {
       console.log("here:->"+params['user']);
       var obj = {
@@ -28,12 +28,9 @@ export class DocsComponent implements OnInit {
    }
 
   ngOnInit() {
-    
   }
 
   accept(){
-    //this.User is the email
-
     var myObj = {
       email: this.User,
       status: true,
@@ -41,6 +38,8 @@ export class DocsComponent implements OnInit {
     }
     this.signservice.setPartner(myObj)
     .subscribe((data)=>console.log(data),(err)=>console.log(err));
+
+    this.router.navigateByUrl('/bmprofile');
   }
 
   decline(){

@@ -71,8 +71,10 @@ export class ProfileComponent implements OnInit {
       }
       else if(data == "product")
         this.router.navigateByUrl('/pmprofile');
-      else
+      else if(data == "api")
         this.router.navigateByUrl('/amprofile');
+      else
+        this.router.navigateByUrl('/login');
     },(err)=>console.log(err));
 
   }

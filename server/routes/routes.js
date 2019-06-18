@@ -102,6 +102,7 @@ routes.route('/paymentrulesdetails')
       }
       res.json(part);
   })
+
 })
 
 .post(urlencodedParser,(req,res)=>{
@@ -737,8 +738,6 @@ function sendmail(email,ts,sub,uname){
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            // user: process.env.GMAIL_USER,
-            // pass: process.env.GMAIL_PASS
             user : 'tushartdm117@gmail.com',
             pass : 'fcb@rc@M$N321'
         }
