@@ -16,6 +16,8 @@ export class NavComponent implements OnInit {
   username: string ='';
   profileLink :string =  "/profile";
   bank: string = '';
+  logo: any = '../../assets/Yes_Bank_logo.png';
+
   constructor( private signservice: SignupServiceService, private router: Router, public  location: Location ) { }
 
   ngOnInit() {

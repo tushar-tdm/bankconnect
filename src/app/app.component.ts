@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'idbp';
+  logo: any = '../assets/ibm-logo-white.png';
 }
