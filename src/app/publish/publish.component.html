@@ -1,5 +1,10 @@
 <h1>Browse  Services</h1>
 
+<!-- =================show msg , that it is published================= -->
+<div *ngIf="afterclickpublish" class="alert alert-success box-msg" role="alert">
+  <strong>Publish Successful!</strong> Your changes have been updated to Bank connect.
+</div>
+
 <form [formGroup]="apiservicesform" (ngSubmit)="OnSubmit()" >
   <div class="form-group">
       <div class="form-check" *ngFor="let control of apilistArray.controls; let i = index">

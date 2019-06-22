@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   Image2: any = '../../assets/yesbank_carosel_2.png';
   Image3: any = '../../assets/yesbank_carosel_3.png';
 
-  initiation: Number = 0;
+  initiation: Number = 1;
 
   images: Array<any> = [this.Image1, this.Image2, this.Image3];
 

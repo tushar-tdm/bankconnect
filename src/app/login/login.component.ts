@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     .subscribe(
     (data : any) => {
       if(data.status){
-        window.location.href = 'http://localhost:3000/dashboard';
+        window.location.href = 'http://idbpportal.bank.com:3000/dashboard';
         // this.router.navigateByUrl('/dashboard');
       }else{
         alert(data.msg);

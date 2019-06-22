@@ -81,10 +81,10 @@ export class ApiComponent implements OnInit {
       }
       console.log("bank is: "+data);
 
-      this.signservice.postInPartner(partnerObj)
-      .subscribe((data)=>{
-        console.log(data);
-      },(err)=> console.log(err));
+      // this.signservice.postInPartner(partnerObj)
+      // .subscribe((data)=>{
+      //   console.log(data);
+      // },(err)=> console.log(err));
     })
 
     this.signservice.postApis(obj)
