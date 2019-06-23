@@ -33,13 +33,13 @@ export class RoleSignupComponent implements OnInit {
       fname : this.signupForm.controls.fname.value,
       lname : this.signupForm.controls.lname.value,
     }
-    
+
     this.signservice.sendRoleSignUpDetails(myObj)
   .subscribe(
     (data : any) => {
       console.log("data recieved after role signup: "+data);
       this.sent = 0;
-      this.route.navigateByUrl('/login');
+      this.route.navigateByUrl('/profile');
     },
     (error: any) => console.log(error)
   );

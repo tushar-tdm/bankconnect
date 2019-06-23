@@ -2,8 +2,11 @@ var mongoose = require('mongoose');
 
 
 var fileschema = mongoose.Schema({
-    user : String,
-    file : String
+    email : String,
+    file : String,
+    org : String,
+    bank : String,
+    filename : String
 },{
     timestamp : true
 });

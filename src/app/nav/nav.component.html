@@ -39,7 +39,7 @@ integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zF
                 <ng-template #elseBlock>
                     <li class="nav-item dropdown dmenu">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" aria-haspopup="true" data-toggle="dropdown">
-                          <span><i class='fas fa-user-alt'></i></span>{{username}}
+                          <span><i class='fas fa-user-alt'></i></span>{{username | uppercase}}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" routerLink="/profile">My Account</a>

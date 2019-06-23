@@ -669,7 +669,7 @@ routes.route('/pendingReq')
             //send link,sub,msg,email,
             var sub = "IDBP Partner Portal"
             var msg = `<p> Hello partner! your request to register an interest for API's has been <b>ACCEPTED</b> by ${sess.bank}. Please click on the link below to continue with us.</p>`;
-            var link = `http://localhost:7000/home/${partneremail}/${name}`;
+            var link = `http://localhost:9000/route/setDocs/${partneremail}/${name}/${sess.bank}`;
             var pemail = partneremail;
             sendRequestMailAccept(pemail,sub,msg,link);
             request.findOneAndDelete({org: name}, (err, doc)=> console.log(err));
@@ -742,7 +742,7 @@ routes.route('/partnerfile')
     res.json("reply from server");
 });
 
-routes.route('/setDocs')
+routes.route('/setDocs/:email/:org/:bank')
 .post(urlencodedParser,(req,res)=>{
     var fs = require('fs');
     var user = req.body.user;
