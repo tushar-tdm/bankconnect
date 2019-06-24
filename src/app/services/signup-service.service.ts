@@ -265,4 +265,18 @@ export class SignupServiceService {
       new HttpHeaders({ 'Content-Type':'application/json'})
     })
   }
+
+  getFilesClient(obj:any):Observable<any>{  
+    return this.http.post<any>('https://localhost:5000/route/getFilesClient',obj,{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    })
+  }
+
+  storeFilesClient(obj:any):Observable<any>{
+    return this.http.post<any>('/route/storeFilesClient',obj,{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    })
+  }
 }

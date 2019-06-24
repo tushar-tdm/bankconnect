@@ -98,11 +98,11 @@ routes.route('/paymentrulesdetails')
   partner.find({},(err,doc)=>{
       var part = [];
       for(i=0;i<doc.length;++i){
-          part.push(doc[i]);
+          if(doc[i].active)
+              part.push(doc[i]);
       }
       res.json(part);
   })
-
 })
 
 .post(urlencodedParser,(req,res)=>{
@@ -543,7 +543,7 @@ routes.route('/getapiDetails/:name')
     apimodel.find({name:req.params.name},(err,doc)=>{
         var keys = []; var uses = [];
 
-        var myObj ={
+        var myObj = {
             name : req.params.name,
             desc : doc[0].desc,
             key_features : doc[0].key_features,
@@ -625,6 +625,7 @@ routes.route('/pendingReq')
         res.json(req);
     })
 })
+
 .post(urlencodedParser,(req,res)=>{
     var id = req.body.id;
     var state = req.body.state;
@@ -649,7 +650,7 @@ routes.route('/pendingReq')
             //send link,sub,msg,email,
             var sub = "IDBP Partner Portal"
             var msg = `<p> Hello partner! your request to register an interest for API's has been <b>ACCEPTED</b> by ${sess.bank}. Please click on the link below to continue with us.</p>`;
-            var link = `http://localhost:7000/home/${partneremail}/${name}`;
+            var link = `http://localhost:3000/setDocs/${partneremail}/${name}/${sess.bank}`;
             var pemail = partneremail;
             sendRequestMailAccept(pemail,sub,msg,link);
             request.findOneAndDelete({org: name}, (err, doc)=> console.log(err));
@@ -666,8 +667,18 @@ routes.route('/pendingReq')
             request.findOneAndDelete({org: name}, (err, doc)=> console.log(err));
         });
     }
-    //removing the request
+})
 
+routes.route('/pendingReqClient')
+.post(urlencodedParser,(req,res)=>{
+    var newreq = new request({
+        org : req.body.org,
+        email : req.body.email,
+        via : "client"
+    });
+
+    newreq.save();
+    res.json("request recieved");
 })
 
 routes.route('/setPartner')
@@ -681,7 +692,8 @@ routes.route('/setPartner')
             accno: null,
             mid : "default",
             appid : "default",
-            cid : "default"
+            cid : "default",
+            active : true
         });
 
         newpatrtner.save();
@@ -693,7 +705,8 @@ routes.route('/sendInterest')
     console.log("request recived:"+req.body.org+req.body.email);
     var newreq = new request({
         org : req.body.org,
-        email : req.body.email
+        email : req.body.email,
+        via : "partner"
     });
     newreq.save();
 
@@ -722,7 +735,17 @@ routes.route('/partnerfile')
     res.json("reply from server");
 });
 
-routes.route('/setDocs')
+routes.route('/setDocs/:email/:org/:bank')
+.get((req,res)=>{
+    //send a file with form for file upload 
+    var sess = req.session;
+
+    sess.partneremail = req.params.email;
+    sess.partnerbank = req.params.bank;
+    
+    res.sendFile(path.join(__dirname,'fileupload.html'));
+})
+
 .post(urlencodedParser,(req,res)=>{
     var fs = require('fs');
     var user = req.body.user;
@@ -739,7 +762,34 @@ routes.route('/setDocs')
     });
 })
 
+routes.route('/revoke')
+.post(urlencodedParser,(req,res)=>{
+    partner.findOneAndUpdate({org:req.body.org},{active:false},{new:true},(err,doc)=>{})
+    res.json("partner revoked from idbp");
+})
+
+routes.route('/storeFilesClient')
+.post(urlencodedParser,(req,res)=>{
+    var files = req.body.files;
+    var pemail = req.body.email;
+
+    console.log("no of files: "+file.length);
+    for(var i=0;i<files.length;++i){
+        var newfile = new file({
+            email : pemail,
+            file : files[0]
+        })
+        newfile.save();
+    }
+
+    res.json("files stored");
+})
+
+// ***********************************************************************************
+
 //==============================END OF ROUTING =======================================
+
+// ***********************************************************************************
 
 function sendmail(email,ts,sub,uname){
     var link = `http://localhost:3000/route/confirm/${ts}/${email}`;

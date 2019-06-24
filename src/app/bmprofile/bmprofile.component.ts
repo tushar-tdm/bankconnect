@@ -216,7 +216,7 @@ export class BmprofileComponent implements OnInit {
 
   }
 
-  accept(i,name,email){
+  accept(i,name,email,via){
     //i is the request number.
     //remove the request from pending and send a mail.
     var myObj = {
@@ -225,13 +225,36 @@ export class BmprofileComponent implements OnInit {
       name : name,
       email: email
     }
-    this.signservice.pendingReq(myObj)
-    .subscribe((data)=>{ console.log(data);}
-    ,(err)=> console.log(err));
+    if(via == "client"){
+      //get the images from the db
+      this.signservice.getFilesClient(myObj)
+      .subscribe((data)=>{
+        //the data has an array of files in 'data.files'
+        //get the length of the array and store it in db.
+        this.signservice.storeFilesClient(data)
+        .subscribe((data)=>{
+          console.log(data);
+          
+          //he should be able to see the docs. or he should be added to the pending docs.
+          this.signservice.addPendingDocs(data.email)
+          .subscribe((data)=>{
+            console.log(data);
+          },(err)=>console.log(err)); 
+          
+        },(err)=>console.log(err)); 
+      },(err)=>console.log(err));
 
-    this.router.navigateByUrl('/refresh', { skipLocationChange: true}).then(() => {
-      this.router.navigate([decodeURI(this.location.path())]);
-    });
+    }else if(via == "partner"){
+      //know the type of the request
+      this.signservice.pendingReq(myObj)
+      .subscribe((data)=>{ console.log(data);}
+      ,(err)=> console.log(err));
+
+      this.router.navigateByUrl('/refresh', { skipLocationChange: true}).then(() => {
+        this.router.navigate([decodeURI(this.location.path())]);
+      });
+    }
+    
   }
 
   decline(i,name,email){

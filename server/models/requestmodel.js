@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 
 var requests = mongoose.Schema({
     org : String,
-    email : String
+    email : String,
+    via : String
 },{
     timestamp : true
 });
