@@ -354,20 +354,38 @@ routes.route('/api/selected')
 
     //send the apis only if he is an admin
     console.log("338: "+sess.email);
-    usermodel.find({email:sess.email},(err,doc)=>{
+    if(sess.email){
+      usermodel.find({email:sess.email},(err,doc)=>{
+
         if(doc[0].role == "admin"){
             //get the apis based on the users cbs and version.
             adminmodel.find({email : sess.email },(err,doc)=>{
                 //only 1 document will be returned.
                 //directly get the api_list
                 var selected_api = doc[0].api_list;
-                res.json(selected_api);
+                var myObj = {
+                  apis : selected_api,
+                  valid : 1
+                }
+                res.json(myObj);
             });
         }else{
             //send an empty list of apis
+            var myObj = {
+              apis : '',
+              valid : 1
+            }
             res.json(global.apis);
         }
     })
+    }else{
+      var myObj = {
+        apis : '',
+        valid : 0
+      }
+      res.json(0);
+    }
+
 });
 
 routes.route('/api/unselected')

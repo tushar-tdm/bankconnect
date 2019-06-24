@@ -9,10 +9,18 @@ import { ApiserviceService } from '../apiservice.service';
 })
 export class ApilistComponent implements OnInit {
 
+  response : any;
   apilist: Array<String> = [];
+  showlist : Number;
 
-  constructor(private router: Router,private route: ActivatedRoute,private apiservice : ApiserviceService) { 
-    this.apilist = this.route.snapshot.data['apiList'];
+  constructor(private router: Router,private route: ActivatedRoute,private apiservice : ApiserviceService) {
+    this.response = this.route.snapshot.data['apiList'];
+    if(this.response.valid == 1){
+      this.apilist = this.response.apis;
+      this.showlist = 1;
+    }else{
+      this.showlist = 0;
+    }
     console.log("this is the apilist: "+this.apilist);
   }
 
