@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
-  title: b2bvirtualaccountpaymentmethod-api
-  x-ibm-name: b2bvirtualaccountpaymentmethod-api
+  title: payments-api
+  x-ibm-name: payments-api
   version: 1.0.0
 x-ibm-configuration:
   cors:

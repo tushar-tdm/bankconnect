@@ -1,7 +1,7 @@
 info:
   version: 1.0.0
-  title: b2bvirtualaccountpaymentmethod-product
-  name: b2bvirtualaccountpaymentmethod-product
+  title: payments-product
+  name: payments-product
 gateways:
   - datapower-gateway
 plans:
@@ -14,7 +14,7 @@ plans:
     approval: false
 apis:
   dummy-api1.0.0:
-    $ref: ../stub/b2bvirtualaccountpaymentmethod-stub_1.0.0.yaml
+    $ref: ../stub/payments-stub_1.0.0.yaml
 visibility:
   view:
     type: public

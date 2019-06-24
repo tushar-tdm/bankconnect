@@ -230,6 +230,13 @@ export class SignupServiceService {
     })
   }
 
+  getPendingDocs(){
+    return this.http.get<any>('/route/getPendingDocs',{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    })
+  }
+
   sendPaymentRulesDetails(obj:any):Observable<any>{
     return this.http.post<any>('route/paymentrulesdetails', obj,{
       headers: new HttpHeaders({
