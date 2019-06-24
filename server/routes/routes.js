@@ -7,8 +7,21 @@ var multer = require('multer');
 var path = require('path');
 var multipart  = require('connect-multiparty');
 var multipartMiddleware = multipart({uploadDir:path.join(__dirname,'uploads')});
-//var fs = require('fs');
+var handlebars = require('handlebars');
+var fs = require('fs');
 
+// to read html file
+var readHTMLFile = function(path, callback) {
+  fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
+      if (err) {
+          throw err;
+          callback(err);
+      }
+      else {
+          callback(null, html);
+      }
+  });
+};
 //models
 var adminmodel = require('../models/adminmodel');
 var cbsmodel = require('../models/cbsmodel');
@@ -18,6 +31,7 @@ var selectedapimodel = require('../models/selectedapimodel');
 var request = require('../models/requestmodel');
 var partner = require('../models/partnermodel');
 var file = require('../models/filemodel');
+var pendingDoc = require('../models/docs');
 
 var routes = express.Router();
 
@@ -82,12 +96,13 @@ routes.route('/sendmail')
 
     sess = req.session;
     sess.email = req.body.email;
+    console.log(sess.email);
     sess.admin = 1;
     sess.role = "admin";
 
-    var sub = "Email confirmation for Bank Connect";
+    var sub = "Email confirmation for IDBP";
     sendmail(req.body.email,timestamp,sub,req.body.username);
-    var msg = "Email sent.. Please check your email to continue the process'+ `<br>` + 'you can close this window";
+    var msg = "Email sent.. Please confirm your email to continue the process'+ `<br>` + 'you can close this window";
     res.json(msg);
 });
 
@@ -124,7 +139,7 @@ routes.route('/paymentrulesdetails')
 
     //send mail to partner below here, with the payment rules
     var sub = "Payment Rules from bank";
-    sendmail(req.body.email,timestamp,sub,req.body.username);
+    //sendmail(req.body.email,timestamp,sub,req.body.username);
     var msg = "Payment rules for partner is set successfully";
     res.json(msg);
 });
@@ -241,6 +256,8 @@ routes.route('/corebankservices/register')
     var cred = req.body.cred;
 
     var sess = req.session;
+
+    console.log("email at 246: "+sess.email);
     console.log("standard at routes.js "+standard);
     // use $set to update a single field
     adminmodel.findOneAndUpdate({ email : sess.email }, {cbs : cbs, version : version, standard: standard, intopt : intopt, sip: sip, cred:cred},{new : true},(err,doc)=>{
@@ -254,6 +271,7 @@ routes.route('/api')
 .get((req,res)=>{
 
     var sess = req.session;
+    console.log("email at 260: "+sess.email);
     global.apis=[];
 
     //get the apis based on the users cbs and version.
@@ -335,20 +353,39 @@ routes.route('/api/selected')
     global.apis=[];
 
     //send the apis only if he is an admin
-    usermodel.find({email:sess.email},(err,doc)=>{
+    console.log("338: "+sess.email);
+    if(sess.email){
+      usermodel.find({email:sess.email},(err,doc)=>{
+
         if(doc[0].role == "admin"){
             //get the apis based on the users cbs and version.
             adminmodel.find({email : sess.email },(err,doc)=>{
                 //only 1 document will be returned.
                 //directly get the api_list
                 var selected_api = doc[0].api_list;
-                res.json(selected_api);
+                var myObj = {
+                  apis : selected_api,
+                  valid : 1
+                }
+                res.json(myObj);
             });
         }else{
             //send an empty list of apis
+            var myObj = {
+              apis : '',
+              valid : 1
+            }
             res.json(global.apis);
         }
     })
+    }else{
+      var myObj = {
+        apis : '',
+        valid : 0
+      }
+      res.json(0);
+    }
+
 });
 
 routes.route('/api/unselected')
@@ -465,6 +502,8 @@ routes.route('/profile')
     var sess = req.session;
 
     //check what kind of user he is..
+
+    console.log('session email Bank A '+ sess.email)
 
     usermodel.find({email: sess.email},(err,doc)=>{
       var myObj = {
@@ -615,6 +654,17 @@ routes.route('/getUserType')
     })
 })
 
+routes.route('/getPendingDocs')
+.get((req,res)=>{
+  pendingDoc.find({},(err,doc)=>{
+    var docs = [];
+    for(i=0;i<doc.length;++i){
+      docs.push(doc[i]);
+    }
+    res.json(docs);
+  })
+})
+
 routes.route('/pendingReq')
 .get((req,res)=>{
     request.find({},(err,doc)=>{
@@ -648,11 +698,12 @@ routes.route('/pendingReq')
             // ==============It ends here=======================
 
             //send link,sub,msg,email,
-            var sub = "IDBP Partner Portal"
-            var msg = `<p> Hello partner! your request to register an interest for API's has been <b>ACCEPTED</b> by ${sess.bank}. Please click on the link below to continue with us.</p>`;
-            var link = `http://localhost:3000/setDocs/${partneremail}/${name}/${sess.bank}`;
+            var sub = "IDBP Partner Portal";
+            var bankname = `${sess.bank}`
+            var msg = `<p> Hello partner! your request to register an interest for API's has been <b>ACCEPTED</b> by ${sess.bank}. Please click on the link below to upload documents and continue with us.</p>`;
+            var link = `http://idbppartner.bank.com:9000/route/setDocs/${partneremail}/${name}/${sess.bank}`;
             var pemail = partneremail;
-            sendRequestMailAccept(pemail,sub,msg,link);
+            sendRequestMailAccept(pemail,sub,bankname,link);
             request.findOneAndDelete({org: name}, (err, doc)=> console.log(err));
 
             }else{console.log('not deleted')}
@@ -698,6 +749,14 @@ routes.route('/setPartner')
 
         newpatrtner.save();
     }
+    //remove the docs from pending.. 2 files sp delete it two times;
+    pendingDoc.findOneAndDelete({email: req.body.email}, (err, doc)=> console.log(err));
+    pendingDoc.findOneAndDelete({email: req.body.email}, (err, doc)=> console.log(err));
+
+    sendMailPartnerOnboarding(req.body.email);
+
+    res.json("partner onboarded ");
+
 })
 
 routes.route('/sendInterest')
@@ -748,17 +807,23 @@ routes.route('/setDocs/:email/:org/:bank')
 
 .post(urlencodedParser,(req,res)=>{
     var fs = require('fs');
-    var user = req.body.user;
-    console.log("user is :"+user);
+    var email = req.body.email;
+    console.log("user is :"+email);
 
-    file.find({user: user},(err,doc)=>{
-        var file = doc[0].file;
-        console.log("document of :"+doc[0].user);
-        //put this in the image.
-        var fpath = path.join(__dirname,'..','..','src','assets','demo.jpg');
+    file.find({email: email},(err,doc)=>{
+      for(i=0;i<doc.length;++i){
+        var file = doc[i].file;
+        //console.log("document of :"+doc[i].email);
+
+        if(i == 0)
+          var fpath = path.join(__dirname,'..','..','src','assets','docs','aadhaar.jpg');
+        if(i == 1)
+          var fpath = path.join(__dirname,'..','..','src','assets','docs','pan.jpg');
+
         console.log("the path is :"+fpath);
 
-        fs.writeFile(fpath,new Buffer(doc[0].file,"base64"),(err)=>{});
+        fs.writeFile(fpath,new Buffer(doc[i].file,"base64"),(err)=>{});
+      }
     });
 })
 
@@ -792,81 +857,55 @@ routes.route('/storeFilesClient')
 // ***********************************************************************************
 
 function sendmail(email,ts,sub,uname){
-    var link = `http://localhost:3000/route/confirm/${ts}/${email}`;
+    var link = `http://idbpportal.bank.com:3000/route/confirm/${ts}/${email}`;
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user : 'tushartdm117@gmail.com',
-            pass : 'fcb@rc@M$N321'
+            user : 'ibm.idbp@gmail.com',
+            pass : 'Modified@2017'
         }
         });
 
-        var mailOptions = {
-            from: 'tushartdm117@gmail.com',
+        readHTMLFile(path.join(__dirname, '../views/idbp-email-confirmation.html'), function(err, html) {
+          var template = handlebars.compile(html);
+          var replacements = {
+               username: `${uname}`,
+               link: `${link}`
+          }
+          var htmlToSend = template(replacements);
+          var mailOptions = {
+            from: 'ibm.idbp@gmail.com',
             to: `${email}`,
             subject: `${sub}`,
             text: 'That was easy!',
-            html : `
-            <html>
-            <head>
-                <style>
-                    .maindiv{
-                        box-shadow: 5px 5px 10px grey;
-                        margin-left: 35%;
-                        border: solid 2px grey;
-                        width: 550px;
-                        margin-top: 20px;
-                        padding-left: 35px;
-                        padding-bottom: 20px;
-                        border-radius: 20px;
-                        padding-top: 10px;
-                    }
-                    h2{
-                        margin-left: 44%;
-                        color:rgb(91, 91, 204);
-                    }
-
-                    a{
-                        text-decoration: none;
-                        color:rgb(83, 134, 6)
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="maindiv">
-                    <h2> IDBP </h2>
-                    <p> Hi ${uname}. This is in response to your request to create an account in IDBP</p> <br>
-                    <p> Click on <a href="${link}"><b>ACCEPT</b></a> to create your IDBP account! </p>
-                </div>
-            </body>
-        </html> `
-        };
-
-        transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
+            html : htmlToSend
+          };
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+            });
         });
 }
 
 function sendRoleMail(email,sub,msg){
     console.log("function send role mail called. the parameters passed are..");
     console.log(email+" "+sub+" "+msg);
-    var link = `http://localhost:3000/route/confirmRole/${email}`;
+    var link = `http://idbpportal.bank.com:3000/route/confirmRole/${email}`;
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
             // user: process.env.GMAIL_USER,
             // pass: process.env.GMAIL_PASS
-            user : 'tushartdm117@gmail.com',
-            pass : 'fcb@rc@M$N321'
+            user : 'ibm.idbp@gmail.com',
+            pass : 'Modified@2017'
         }
         });
 
         var mailOptions = {
-            from: 'tushartdm117@gmail.com',
+            from: 'ibm.idbp@gmail.com',
             to: `${email}`,
             subject: `${sub}`,
             text: 'That was easy!',
@@ -917,19 +956,55 @@ function sendRoleMail(email,sub,msg){
 
 module.exports = routes;
 
-function sendRequestMailAccept(email,sub,msg,link){
+function sendRequestMailAccept(email,sub,bankname,link){
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
             // user: process.env.GMAIL_USER,
             // pass: process.env.GMAIL_PASS
-            user : 'tushartdm117@gmail.com',
-            pass : 'fcb@rc@M$N321'
+            user : 'ibm.idbp@gmail.com',
+            pass : 'Modified@2017'
+        }
+        });
+
+        readHTMLFile(path.join(__dirname, '../views/register-interest-request-accept.html'), function(err, html) {
+          var template = handlebars.compile(html);
+          var replacements = {
+               bankname: `${bankname}`,
+               link: `${link}`
+          }
+          var htmlToSend = template(replacements);
+          var mailOptions = {
+            from: 'ibm.idbp@gmail.com',
+            to: `${email}`,
+            subject: `${sub}`,
+            text: 'That was easy!',
+            html : htmlToSend
+          };
+
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+          });
+
+        });
+
+}
+
+function sendRequestMailDecline(email,sub,msg){
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user : 'ibm.idbp@gmail.com',
+            pass : 'Modified@2017'
         }
         });
 
         var mailOptions = {
-            from: 'tushartdm117@gmail.com',
+            from: 'ibm.idbp@gmail.com',
             to: `${email}`,
             subject: `${sub}`,
             text: 'That was easy!',
@@ -963,7 +1038,6 @@ function sendRequestMailAccept(email,sub,msg,link){
                 <div class="maindiv">
                     <h2> IDBP </h2>
                     ${msg}
-                    <p> Click on <a href="${link}"><b>ACCEPT</b></a> to continue with us! </p>
                 </div>
             </body>
         </html> `
@@ -978,62 +1052,34 @@ function sendRequestMailAccept(email,sub,msg,link){
         });
 }
 
-function sendRequestMailDecline(email,sub,msg){
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            // user: process.env.GMAIL_USER,
-            // pass: process.env.GMAIL_PASS
-            user : 'tushartdm117@gmail.com',
-            pass : 'fcb@rc@M$N321'
-        }
-        });
+function sendMailPartnerOnboarding(email){
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user : 'ibm.idbp@gmail.com',
+        pass : 'Modified@2017'
+    }
+    });
 
-        var mailOptions = {
-            from: 'tushartdm117@gmail.com',
-            to: `${email}`,
-            subject: `${sub}`,
-            text: 'That was easy!',
-            html : `
-            <html>
-            <head>
-                <style>
-                    .maindiv{
-                        box-shadow: 5px 5px 10px grey;
-                        margin-left: 35%;
-                        border: solid 2px grey;
-                        width: 550px;
-                        margin-top: 20px;
-                        padding-left: 35px;
-                        padding-bottom: 20px;
-                        border-radius: 20px;
-                        padding-top: 10px;
-                    }
-                    h2{
-                        margin-left: 44%;
-                        color:rgb(91, 91, 204);
-                    }
+    readHTMLFile(path.join(__dirname, '../views/idbppartner-final-onboard-msg.html'), function(err, html) {
+      var template = handlebars.compile(html);
+      var replacements = { }
+      var htmlToSend = template(replacements);
+      var mailOptions = {
+        from: 'ibm.idbp@gmail.com',
+        to: `${email}`,
+        subject: 'Partner Onboarding Complete!',
+        text: 'That was easy!',
+        html : htmlToSend
+      };
 
-                    a{
-                        text-decoration: none;
-                        color:rgb(83, 134, 6)
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="maindiv">
-                    <h2> IDBP </h2>
-                    ${msg}
-                </div>
-            </body>
-        </html> `
-        };
-
-        transporter.sendMail(mailOptions, function(error, info){
+      transporter.sendMail(mailOptions, function(error, info){
         if (error) {
             console.log(error);
         } else {
             console.log('Email sent: ' + info.response);
         }
-        });
+      });
+
+    });
 }

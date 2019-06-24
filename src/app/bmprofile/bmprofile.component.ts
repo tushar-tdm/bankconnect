@@ -29,6 +29,11 @@ export class BmprofileComponent implements OnInit {
     "options" : true
   };
 
+  pendingDocs = {
+    "buttons" : true,
+    "options" : false
+  }
+
   passClass = {
     "buttons" : true,
     "options" : false
@@ -42,6 +47,7 @@ export class BmprofileComponent implements OnInit {
   show_user_profile: any ;
   requests: any;
   partners: any;
+  docs: any;
   public submitted = false;
 
   constructor(private signservice: SignupServiceService, private route: ActivatedRoute, private formBuilder: FormBuilder,
@@ -67,6 +73,12 @@ export class BmprofileComponent implements OnInit {
     .subscribe((data)=>{
       console.log(data);
       this.partners = data;
+    },(err)=>console.log(err));
+
+    this.signservice.getPendingDocs()
+    .subscribe((data)=>{
+      console.log(data);
+      this.docs = data;
     },(err)=>console.log(err));
 
     this.rulesForm = this.formBuilder.group({
@@ -114,6 +126,11 @@ export class BmprofileComponent implements OnInit {
       "options" : false
     };
 
+    this.pendingDocs = {
+      "buttons" : true,
+      "options" : false
+    }
+
 
     this.title = "PROFILE";
     //show this and hide other divisions
@@ -121,6 +138,7 @@ export class BmprofileComponent implements OnInit {
     (document.querySelector('.changepass') as HTMLElement).style.display = 'none';
     (document.querySelector('.pendingreq') as HTMLElement).style.display = 'none';
     (document.querySelector('.partner') as HTMLElement).style.display = 'none';
+    (document.querySelector('.docs') as HTMLElement).style.display = 'none';
   }
 
   show_pass(){
@@ -144,6 +162,10 @@ export class BmprofileComponent implements OnInit {
       "options" : false
     };
 
+    this.pendingDocs = {
+      "buttons" : true,
+      "options" : false
+    }
 
     this.title = "CHANGE PASSWORD";
     //show this and hide other divisions
@@ -151,7 +173,7 @@ export class BmprofileComponent implements OnInit {
     (document.querySelector('.changepass') as HTMLElement).style.display = 'block';
     (document.querySelector('.pendingreq') as HTMLElement).style.display = 'none';
     (document.querySelector('.partner') as HTMLElement).style.display = 'none';
-
+    (document.querySelector('.docs') as HTMLElement).style.display = 'none';
   }
 
   show_pending(){
@@ -175,6 +197,10 @@ export class BmprofileComponent implements OnInit {
       "options" : false
     };
 
+    this.pendingDocs = {
+      "buttons" : true,
+      "options" : false
+    }
 
     this.title = "Pending Requests";
     //show this and hide other divisions
@@ -182,7 +208,7 @@ export class BmprofileComponent implements OnInit {
     (document.querySelector('.changepass') as HTMLElement).style.display = 'none';
     (document.querySelector('.pendingreq') as HTMLElement).style.display = 'block';
     (document.querySelector('.partner') as HTMLElement).style.display = 'none';
-
+    (document.querySelector('.docs') as HTMLElement).style.display = 'none';
   }
 
   show_partner(){
@@ -206,6 +232,10 @@ export class BmprofileComponent implements OnInit {
       "options" : true
     }
 
+    this.pendingDocs = {
+      "buttons" : true,
+      "options" : false
+    }
 
     this.title = "OUR PARTNERS";
     //show this and hide other divisions
@@ -213,7 +243,42 @@ export class BmprofileComponent implements OnInit {
     (document.querySelector('.changepass') as HTMLElement).style.display = 'none';
     (document.querySelector('.pendingreq') as HTMLElement).style.display = 'none';
     (document.querySelector('.partner') as HTMLElement).style.display = 'block';
+    (document.querySelector('.docs') as HTMLElement).style.display = 'none';
+  }
 
+  show_docs(){
+    this.profileClass = {
+      "buttons" : true,
+      "options" : false
+    };
+
+    this.passClass = {
+      "buttons" : true,
+      "options" :false
+    };
+
+    this.pendingClass = {
+      "buttons" : true,
+      "options" :false
+    };
+
+    this.partnerClass = {
+      "buttons" : true,
+      "options" : false
+    }
+
+    this.pendingDocs = {
+      "buttons" : true,
+      "options" : true
+    }
+
+    this.title = "PENDING DOCUMENTS";
+    //show this and hide other divisions
+    (document.querySelector('.profile') as HTMLElement).style.display = 'none';
+    (document.querySelector('.changepass') as HTMLElement).style.display = 'none';
+    (document.querySelector('.pendingreq') as HTMLElement).style.display = 'none';
+    (document.querySelector('.partner') as HTMLElement).style.display = 'none';
+    (document.querySelector('.docs') as HTMLElement).style.display = 'block';
   }
 
   accept(i,name,email,via){
@@ -273,7 +338,11 @@ export class BmprofileComponent implements OnInit {
     });
   }
 
-  onRulesSubmit(email, org){
+  view_docs(email,org){
+    this.router.navigateByUrl(`/docs/${email}/${org}`);
+  }
+
+  onRulesSubmit(email, org) {
     var myObj = {
       amnt : this.rulesForm.controls.amnt.value,
       freq : this.rulesForm.controls.freq.value,

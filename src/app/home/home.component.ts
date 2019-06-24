@@ -14,11 +14,11 @@ import { Location } from '@angular/common';
 })
 export class HomeComponent implements OnInit {
 
-  Image1: any = '../../assets/ibm1.jpg';
-  Image2: any = '../../assets/ibm.jpg';
-  Image3: any = '../../assets/carosel4.jpg';
+  Image1: any = '../../assets/yesbank_carosel_1.png';
+  Image2: any = '../../assets/yesbank_carosel_2.png';
+  Image3: any = '../../assets/yesbank_carosel_3.png';
 
-  initiation: Number = 0;
+  initiation: Number = 1;
 
   images: Array<any> = [this.Image1, this.Image2, this.Image3];
 

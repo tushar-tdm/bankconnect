@@ -20,11 +20,15 @@
   margin-right: 5px;
 }
 
-.logo{
-  padding-left: 30px;
-  padding-right: 50px;
-  background-color: #047cc0;
+.navbar-brand{
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #ffffff;
   border-radius: 2px;
+}
+
+a.navbar-brand{
+  padding: 0px 0px !important;
 }
 
 a{

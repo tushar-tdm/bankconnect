@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
-  title: payment-api
-  x-ibm-name: payment-api
+  title: suppliermatchingservice-api
+  x-ibm-name: suppliermatchingservice-api
   version: 1.0.0
 x-ibm-configuration:
   cors:
@@ -22,7 +22,7 @@ x-ibm-configuration:
                     Status : {
                         code : "GW200",
                         msg :  "SUCCESS",
-                        desc : "this is a stub response from Finnacle"
+                        desc : "this is a stub response"
                     }
                 }
             }

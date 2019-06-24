@@ -8,6 +8,7 @@
     <div class="col-lg-3 choice">
       <!-- options -->
       <button [ngClass]="pendingClass" (click)="show_pending()"> Pending Requests </button>
+      <button [ngClass]="pendingDocs" (click)="show_docs()"> Pending Documents</button>
       <button [ngClass]="partnerClass" (click)="show_partner()"> Partners </button>
       <button [ngClass]="profileClass" (click)="show_profile()"> My Details</button>
       <button [ngClass]="passClass" (click)="show_pass()"> Change Password</button>
@@ -54,6 +55,20 @@
                     <td>{{req.org}}</td>
                     <td><button class="accept btn btn-success" (click)="accept(i,req.org,req.email,req.via)"> Accept </button></td>
                     <td><button class="accept btn btn-danger" (click)="decline(i,req.org,req.email,req.via)"> Decline </button></td>
+                  </tr>
+            </table>
+          </div>
+
+          <!-- ==================== PENDING DOCS ============================ -->
+          <div class="docs">
+            <table>
+                <tr>
+                  <th>Partner</th>
+                  <th>Documents</th>
+                </tr>
+                  <tr *ngFor="let doc of docs;let i = index">
+                    <td>{{doc.org}}</td>
+                    <td><button class="accept btn btn-success" (click)="view_docs(doc.email,doc.org)"> View Documents </button></td>
                   </tr>
             </table>
           </div>

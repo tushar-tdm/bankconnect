@@ -54,6 +54,8 @@ export class ProfileComponent implements OnInit {
 
 
   show_user_profile: any ;
+  public tokenintegratebutton = false;
+
 
   constructor(private signservice: SignupServiceService, private route: ActivatedRoute, private formBuilder: FormBuilder, private router: Router,
     private zone : NgZone) {
@@ -66,7 +68,7 @@ export class ProfileComponent implements OnInit {
       if(data == "admin")
         this.router.navigateByUrl('/profile');
       else if(data == "business"){
-        this.zone.run(() => this.router.navigateByUrl('/bmprofile'));        
+        this.zone.run(() => this.router.navigateByUrl('/bmprofile'));
         console.log("navigation did not work");
       }
       else if(data == "product")
@@ -148,19 +150,24 @@ export class ProfileComponent implements OnInit {
 
   check(){
     //BCIntegraton
-    var token = this.BCIntegration.controls.secureToken.value;
-    console.log(token);
-    if('weijd67wuyfiyi84fo4d39rdewdo0ur3' == token){
-      (document.querySelector('.bankconnecttoken') as HTMLElement).style.display='none';
-      (document.querySelector('.bankconnectmessage') as HTMLElement).style.display='block';
-    }else{
-      alert("Wrong Secure Token!");
-    }
+    // show box message
+    this.tokenintegratebutton = true;
+    setTimeout(function() {
+      this.tokenintegratebutton = false;
+      var token = this.BCIntegration.controls.secureToken.value;
+      console.log(token);
+      if('weijd67wuyfiyi84fo4d39rdewdo0ur3' == token){
+        (document.querySelector('.bankconnecttoken') as HTMLElement).style.display='none';
+        (document.querySelector('.bankconnectmessage') as HTMLElement).style.display='block';
+      }else{
+        alert("Wrong Secure Token!");
+      }
+      this.signservice.confirmbcintegrated()
+      .subscribe((data) =>{
+        console.log(data);
+      }, (err) => console.log(err));
 
-    this.signservice.confirmbcintegrated()
-    .subscribe((data) =>{
-      console.log(data);
-    }, (err) => console.log(err));
+    }.bind(this), 3000);
 
   }
 

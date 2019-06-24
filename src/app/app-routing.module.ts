@@ -53,7 +53,7 @@ const routes: Routes = [
   { path: 'apisecurity', component: ApisecurityComponent, resolve:{ selectedApi : ApiSecurityResolverService}},
   { path: 'publish', component: PublishComponent, resolve:{ apilist : PublishResolverService}},
   { path: 'bmprofile', component: BmprofileComponent, resolve:{bmuser_profile : GetBMUserProfileResolverService}},
-  { path: 'docs/:user/:org', component: DocsComponent}
+  { path: 'docs/:email/:org', component: DocsComponent}
 ];
 
 @NgModule({

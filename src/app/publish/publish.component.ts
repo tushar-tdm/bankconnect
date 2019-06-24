@@ -20,6 +20,7 @@ export class PublishComponent implements OnInit {
   apilist: Array<String> = [];
   apiselected = [];
   noapierror: boolean = true;
+  public afterclickpublish = false;
 
   constructor(private formBuilder: FormBuilder, private signservice : SignupServiceService, private router: Router,private route: ActivatedRoute) {
     this.apilist = this.route.snapshot.data['apilist'];
@@ -72,15 +73,22 @@ export class PublishComponent implements OnInit {
       var newobj = {
         apis : newItem,
         email : data,
-        value : apivalue 
+        value : apivalue
       }
 
       this.signservice.postInClient(newobj)
       .subscribe((data)=>{
         console.log("data received: "+data);
       },(err)=> console.log(err));
-      
+
     })
+
+    // show box message and navigate to dashboard
+    this.afterclickpublish = true;
+    setTimeout(function() {
+       this.afterclickpublish = false;
+       this.router.navigateByUrl('/dashboard');
+    }.bind(this), 4000);
 
   }
 

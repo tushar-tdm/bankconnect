@@ -175,14 +175,14 @@ export class SignupServiceService {
   }
 
   postInClient(obj:any):Observable<any>{
-    return this.http.post<any>('http://localhost:5000/route/publishApi',obj,{
+    return this.http.post<any>('http://ibm.bankconnect:5000/route/publishApi',obj,{
       headers :
       new HttpHeaders({ 'Content-Type':'application/json'})
     });
   }
 
   postInPartner(obj:any):Observable<any>{
-    return this.http.post('http://localhost:9000/route/publishApi',obj,{
+    return this.http.post('http://idbppartner.bank.com:9000/route/publishApi',obj,{
       headers :
       new HttpHeaders({ 'Content-Type':'application/json'})
     });
@@ -230,6 +230,13 @@ export class SignupServiceService {
     })
   }
 
+  getPendingDocs(){
+    return this.http.get<any>('/route/getPendingDocs',{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    })
+  }
+
   sendPaymentRulesDetails(obj:any):Observable<any>{
     return this.http.post<any>('route/paymentrulesdetails', obj,{
       headers: new HttpHeaders({
@@ -246,7 +253,7 @@ export class SignupServiceService {
   }
 
   sendPaymentRulesDetailstoPartner(obj:any):Observable<any>{
-    return this.http.post('http://localhost:9000/route/paymentrulesdetails',obj,{
+    return this.http.post('http://idbppartner.bank.com:9000/route/paymentrulesdetails',obj,{
       headers :
       new HttpHeaders({ 'Content-Type':'application/json'})
     });

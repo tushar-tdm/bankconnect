@@ -6,7 +6,7 @@ h2,p{
 }
 
 button[type="submit"]{
-  background-color: rgb(106, 39, 182);
+  // background-color: rgb(106, 39, 182);
   color: white;
   font-weight: bold;
   padding: 12px 45x;
@@ -14,4 +14,27 @@ button[type="submit"]{
 }
 button:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+// loader css
+.loader {
+  margin-top: 20px;
+  margin-left: 48%;
+  margin-bottom: 5px;
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid #007bff;
+  width: 41px;
+  height: 41px;
+  -webkit-animation: spin 0.6s linear infinite; /* Safari */
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-msg{
+  text-align: center;
 }
