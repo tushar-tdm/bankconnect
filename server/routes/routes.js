@@ -5,8 +5,6 @@ var passwordHash = require('password-hash');
 var exec = require('child_process').exec;
 var multer = require('multer');
 var path = require('path');
-var multipart  = require('connect-multiparty');
-var multipartMiddleware = multipart({uploadDir:path.join(__dirname,'uploads')});
 var handlebars = require('handlebars');
 var fs = require('fs');
 
@@ -848,6 +846,20 @@ routes.route('/storeFilesClient')
     }
 
     res.json("files stored");
+})
+
+routes.route('/addPendingDocs')
+.post(urlencodedParser, (req,res)=>{
+    var email = req.body.email;
+    var org = req.body.name;
+
+    var newdoc = new pendingDoc({
+        org : org,
+        email : email
+    })
+    newdoc.save();
+
+    res.json("doc added");
 })
 
 // ***********************************************************************************

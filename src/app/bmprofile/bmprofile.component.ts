@@ -300,8 +300,9 @@ export class BmprofileComponent implements OnInit {
         .subscribe((data)=>{
           console.log(data);
           
+          
           //he should be able to see the docs. or he should be added to the pending docs.
-          this.signservice.addPendingDocs(data.email)
+          this.signservice.addPendingDocs(myObj)
           .subscribe((data)=>{
             console.log(data);
           },(err)=>console.log(err)); 

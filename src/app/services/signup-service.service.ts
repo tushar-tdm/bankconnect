@@ -286,4 +286,12 @@ export class SignupServiceService {
       new HttpHeaders({ 'Content-Type':'application/json'})
     })
   }
+
+  addPendingDocs(obj:any):Observable<any>{
+    return this.http.post<any>('/route/addPendingDocs',obj,{
+      headers :
+      new HttpHeaders({ 'Content-Type':'application/json'})
+    })
+  }
+  
 }
