@@ -792,17 +792,7 @@ routes.route('/partnerfile')
     res.json("reply from server");
 });
 
-routes.route('/setDocs/:email/:org/:bank')
-.get((req,res)=>{
-    //send a file with form for file upload 
-    var sess = req.session;
-
-    sess.partneremail = req.params.email;
-    sess.partnerbank = req.params.bank;
-    
-    res.sendFile(path.join(__dirname,'fileupload.html'));
-})
-
+routes.route('/setDocs')
 .post(urlencodedParser,(req,res)=>{
     var fs = require('fs');
     var email = req.body.email;
@@ -814,15 +804,21 @@ routes.route('/setDocs/:email/:org/:bank')
         //console.log("document of :"+doc[i].email);
 
         if(i == 0)
-          var fpath = path.join(__dirname,'..','..','src','assets','docs','aadhaar.jpg');
-        if(i == 1)
           var fpath = path.join(__dirname,'..','..','src','assets','docs','pan.jpg');
+        if(i == 1)
+          var fpath = path.join(__dirname,'..','..','src','assets','docs','aadhaar.jpg');
 
         console.log("the path is :"+fpath);
 
         fs.writeFile(fpath,new Buffer(doc[i].file,"base64"),(err)=>{});
       }
     });
+
+    var myObj = {
+        path1 : '../../assets/docs/aadhaar.jpg',
+        path2 : '../../assets/docs/pan.jpg'
+    }
+    res.json(myObj);
 })
 
 routes.route('/revoke')
@@ -836,15 +832,19 @@ routes.route('/storeFilesClient')
     var files = req.body.files;
     var pemail = req.body.email;
 
-    console.log("no of files: "+file.length);
+    console.log("no of files: "+files.length);
     for(var i=0;i<files.length;++i){
         var newfile = new file({
             email : pemail,
-            file : files[0]
+            file : files[i]
         })
         newfile.save();
     }
 
+    //remove the request of the user.
+    request.findOneAndDelete({email: pemail},(err,doc)=>{
+        if(err) console.log(err);
+    });
     res.json("files stored");
 })
 

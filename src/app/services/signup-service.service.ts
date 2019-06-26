@@ -274,7 +274,7 @@ export class SignupServiceService {
   }
 
   getFilesClient(obj:any):Observable<any>{  
-    return this.http.post<any>('https://localhost:5000/route/getFilesClient',obj,{
+    return this.http.post<any>('http://idbppartner.bank.com:5000/route/getFilesClient',obj,{
       headers :
       new HttpHeaders({ 'Content-Type':'application/json'})
     })

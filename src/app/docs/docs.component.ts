@@ -9,8 +9,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class DocsComponent implements OnInit {
 
-  Image1:any;
-  Image2:any;
   Email:any;
   Org:any;
 
@@ -18,21 +16,16 @@ export class DocsComponent implements OnInit {
     this.route.params.subscribe( params => {
       console.log("here:->"+params['email']);
       var obj = {
-        email : params['email']
+        email : params['email'],
+        org : params['org']
       }
       this.Email = params['email'];
       this.Org = params['org'];
 
-      this.signservice.setDocs(obj)
-      .subscribe((data)=>{
-        console.log(data)
-        this.Image1 = '../../assets/docs/aadhaar.jpg';
-        this.Image2 = '../../assets/docs/pan.jpg'
-      },(err)=>console.log(err));
     });
   }
 
-  ngOnInit() {
+  ngOnInit() {   
   }
 
   accept(){
