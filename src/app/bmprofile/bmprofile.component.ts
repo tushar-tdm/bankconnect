@@ -316,7 +316,18 @@ export class BmprofileComponent implements OnInit {
   }
 
   view_docs(email,org){
-    this.router.navigateByUrl(`/docs/${email}/${org}`);
+    var setdocobj = {
+      email : email
+    }
+
+    this.signservice.setDocs(setdocobj)
+      .subscribe((data)=>{
+        console.log("hey: "+data);
+        // this.Image1 = '../../assets/docs/aadhaar.jpg';
+        // this.Image2 = '../../assets/docs/pan.jpg';
+
+        this.router.navigateByUrl(`/docs/${email}/${org}`);
+      },(err)=>console.log(err));
   }
 
   onRulesSubmit(email, org) {

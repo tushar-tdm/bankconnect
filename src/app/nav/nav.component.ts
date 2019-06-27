@@ -49,6 +49,7 @@ export class NavComponent implements OnInit {
       console.log(data)
       this.bank = data;
       this.login = 0;
+      window.location.href = 'http://idbpportal.bank.com:3000/login';
     }, (err) => console.log(err));
     return true;
   }

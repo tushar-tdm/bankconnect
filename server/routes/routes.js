@@ -639,10 +639,9 @@ routes.route('/setBank')
 routes.route('/logout')
 .get((req,res)=>{
     var sess = req.session;
-    sess.admin  = 0;
-    sess.email = "null";
-
-    res.json(sess.bank);
+    var bank = sess.bank;
+    req.session.destroy();
+    res.json(bank);
 })
 
 routes.route('/getUserType')
@@ -802,6 +801,8 @@ routes.route('/setDocs')
         fs.writeFile(fpath,new Buffer(doc[i].file,"base64"),(err)=>{});
       }
     });
+
+    res.json("files updated");
 })
 
 //==============================END OF ROUTING =======================================

@@ -9,8 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class DocsComponent implements OnInit {
 
-  Image1:any;
-  Image2:any;
+  Image1:any = '../../assets/docs/aadhaar.jpg';
+  Image2:any = '../../assets/docs/pan.jpg';
   Email:any;
   Org:any;
 
@@ -23,12 +23,7 @@ export class DocsComponent implements OnInit {
       this.Email = params['email'];
       this.Org = params['org'];
 
-      this.signservice.setDocs(obj)
-      .subscribe((data)=>{
-        console.log(data)
-        this.Image1 = '../../assets/docs/aadhaar.jpg';
-        this.Image2 = '../../assets/docs/pan.jpg'
-      },(err)=>console.log(err));
+
     });
   }
 
