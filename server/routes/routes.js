@@ -5,8 +5,6 @@ var passwordHash = require('password-hash');
 var exec = require('child_process').exec;
 var multer = require('multer');
 var path = require('path');
-var multipart  = require('connect-multiparty');
-var multipartMiddleware = multipart({uploadDir:path.join(__dirname,'uploads')});
 var handlebars = require('handlebars');
 var fs = require('fs');
 
@@ -113,11 +111,11 @@ routes.route('/paymentrulesdetails')
   partner.find({},(err,doc)=>{
       var part = [];
       for(i=0;i<doc.length;++i){
-          part.push(doc[i]);
+          if(doc[i].active)
+              part.push(doc[i]);
       }
       res.json(part);
   })
-
 })
 
 .post(urlencodedParser,(req,res)=>{
@@ -582,7 +580,7 @@ routes.route('/getapiDetails/:name')
     apimodel.find({name:req.params.name},(err,doc)=>{
         var keys = []; var uses = [];
 
-        var myObj ={
+        var myObj = {
             name : req.params.name,
             desc : doc[0].desc,
             key_features : doc[0].key_features,
@@ -668,12 +666,13 @@ routes.route('/pendingReq')
 .get((req,res)=>{
     request.find({},(err,doc)=>{
         var req = [];
-        for(i=0;i<doc.length;++i){
+        for(var i=0;i<doc.length;++i){
             req.push(doc[i]);
         }
         res.json(req);
     })
 })
+
 .post(urlencodedParser,(req,res)=>{
     var id = req.body.id;
     var state = req.body.state;
@@ -716,8 +715,19 @@ routes.route('/pendingReq')
             request.findOneAndDelete({org: name}, (err, doc)=> console.log(err));
         });
     }
-    //removing the request
+})
 
+routes.route('/pendingReqClient')
+.post(urlencodedParser,(req,res)=>{
+    console.log("client has sent a request");
+    var newreq = new request({
+        org : req.body.org,
+        email : req.body.email,
+        via : "client"
+    });
+
+    newreq.save();
+    res.json("request recieved");
 })
 
 routes.route('/setPartner')
@@ -732,6 +742,7 @@ routes.route('/setPartner')
             mid : "default",
             appid : "default",
             cid : "default",
+            active : true
         });
 
         newpatrtner.save();
@@ -744,18 +755,6 @@ routes.route('/setPartner')
 
     res.json("partner onboarded ");
 
-})
-
-routes.route('/sendInterest')
-.post(urlencodedParser,(req,res)=>{
-    console.log("request recived:"+req.body.org+req.body.email);
-    var newreq = new request({
-        org : req.body.org,
-        email : req.body.email
-    });
-    newreq.save();
-
-    res.json("interest added");
 })
 
 var store = multer.diskStorage({
@@ -786,15 +785,16 @@ routes.route('/setDocs')
     var email = req.body.email;
     console.log("user is :"+email);
 
-    file.find({email: email},(err,doc)=>{
-      for(i=0;i<doc.length;++i){
-        var file = doc[i].file;
-        //console.log("document of :"+doc[i].email);
+    var date = new Date();
+    var cts = date.getTime();
 
+    file.find({email: email},(err,doc)=>{
+      console.log(doc.length);
+      for(var i=0;i<doc.length;++i){
         if(i == 0)
-          var fpath = path.join(__dirname,'..','..','src','assets','docs','aadhaar.jpg');
+          var fpath = path.join(__dirname,'docs',`pan.jpg`);
         if(i == 1)
-          var fpath = path.join(__dirname,'..','..','src','assets','docs','pan.jpg');
+          var fpath = path.join(__dirname,'docs',`aadhaar.jpg`);
 
         console.log("the path is :"+fpath);
 
@@ -802,10 +802,64 @@ routes.route('/setDocs')
       }
     });
 
-    res.json("files updated");
+
+    res.json("files set");
 })
 
+routes.route('/showDocs/:email/:org')
+.get((req,res)=>{
+    var sess  = req.session;
+    sess.docemail = req.params.email;
+    sess.docorg = req.params.org;
+    res.sendFile(path.join(__dirname,'docs','docs.html'));
+})
+
+routes.route('/revoke')
+.post(urlencodedParser,(req,res)=>{
+    partner.findOneAndUpdate({org:req.body.org},{active:false},{new:true},(err,doc)=>{})
+    res.json("partner revoked from idbp");
+})
+
+routes.route('/storeFilesClient')
+.post(urlencodedParser,(req,res)=>{
+    var files = req.body.files;
+    var pemail = req.body.email;
+
+    console.log("no of files: "+files.length);
+    for(var i=0;i<files.length;++i){
+        var newfile = new file({
+            email : pemail,
+            file : files[i]
+        })
+        newfile.save();
+    }
+
+    //remove the request of the user.
+    request.findOneAndDelete({email: pemail},(err,doc)=>{
+        if(err) console.log(err);
+    });
+    res.json("files stored");
+})
+
+routes.route('/addPendingDocs')
+.post(urlencodedParser, (req,res)=>{
+    var email = req.body.email;
+    var org = req.body.name;
+
+    var newdoc = new pendingDoc({
+        org : org,
+        email : email
+    })
+    newdoc.save();
+
+    res.json("doc added");
+})
+
+// ***********************************************************************************
+
 //==============================END OF ROUTING =======================================
+
+// ***********************************************************************************
 
 function sendmail(email,ts,sub,uname){
     var link = `http://idbpportal.bank.com:3000/route/confirm/${ts}/${email}`;

@@ -8,7 +8,8 @@ var partner = mongoose.Schema({
     accno: Number,
     mid : String,
     appid : String,
-    cid : String
+    cid : String,
+    active: Boolean
 },{
     timestamp : true
 });

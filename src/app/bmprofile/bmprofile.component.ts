@@ -281,7 +281,7 @@ export class BmprofileComponent implements OnInit {
     (document.querySelector('.docs') as HTMLElement).style.display = 'block';
   }
 
-  accept(i,name,email){
+  accept(i,name,email,via){
     //i is the request number.
     //remove the request from pending and send a mail.
     var myObj = {
@@ -290,13 +290,37 @@ export class BmprofileComponent implements OnInit {
       name : name,
       email: email
     }
-    this.signservice.pendingReq(myObj)
-    .subscribe((data)=>{ console.log(data);}
-    ,(err)=> console.log(err));
+    if(via == "client"){
+      //get the images from the db
+      this.signservice.getFilesClient(myObj)
+      .subscribe((data)=>{
+        //the data has an array of files in 'data.files'
+        //get the length of the array and store it in db.
+        this.signservice.storeFilesClient(data)
+        .subscribe((data)=>{
+          console.log(data);
+
+
+          //he should be able to see the docs. or he should be added to the pending docs.
+          this.signservice.addPendingDocs(myObj)
+          .subscribe((data)=>{
+            console.log(data);
+          },(err)=>console.log(err));
+
+        },(err)=>console.log(err));
+      },(err)=>console.log(err));
+
+    }else if(via == "partner"){
+      //know the type of the request
+      this.signservice.pendingReq(myObj)
+      .subscribe((data)=>{ console.log(data);}
+      ,(err)=> console.log(err));
+    }
 
     this.router.navigateByUrl('/refresh', { skipLocationChange: true}).then(() => {
       this.router.navigate([decodeURI(this.location.path())]);
     });
+
   }
 
   decline(i,name,email){
@@ -316,18 +340,17 @@ export class BmprofileComponent implements OnInit {
   }
 
   view_docs(email,org){
-    var setdocobj = {
-      email : email
+    //this.router.navigateByUrl(`/docs/${email}/${org}`);
+    var myObj = {
+      email : email,
+      org : org
     }
+    this.signservice.setDocs(myObj)
+    .subscribe((data)=>{
+      console.log(data);
+    },(err)=>console.log(err));
 
-    this.signservice.setDocs(setdocobj)
-      .subscribe((data)=>{
-        console.log("hey: "+data);
-        // this.Image1 = '../../assets/docs/aadhaar.jpg';
-        // this.Image2 = '../../assets/docs/pan.jpg';
-
-        this.router.navigateByUrl(`/docs/${email}/${org}`);
-      },(err)=>console.log(err));
+    window.location.href=`http://idbpportal.bank.com:3000/route/showDocs/${email}/${org}`;
   }
 
   onRulesSubmit(email, org) {

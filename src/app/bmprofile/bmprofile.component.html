@@ -53,8 +53,8 @@
                 </tr>
                   <tr *ngFor="let req of requests;let i = index">
                     <td>{{req.org}}</td>
-                    <td><button class="accept btn btn-success" (click)="accept(i,req.org,req.email)"> Accept </button></td>
-                    <td><button class="accept btn btn-danger" (click)="decline(i,req.org,req.email)"> Decline </button></td>
+                    <td><button class="accept btn btn-success" (click)="accept(i,req.org,req.email,req.via)"> Accept </button></td>
+                    <td><button class="accept btn btn-danger" (click)="decline(i,req.org,req.email,req.via)"> Decline </button></td>
                   </tr>
             </table>
           </div>
@@ -81,18 +81,20 @@
                 </div>
               <form [formGroup]="rulesForm" (ngSubmit)="onRulesSubmit(partner.email,partner.name)">
                   <div class="card">
-                      <div class="card-header">Organization : {{partner.name}}</div>
+                      <div class="card-header">Organization : {{partner.name}} 
+                        <!-- <span *ngIf="!partner.active" style="color:red;margin-left:10px;"> (<b>REVOKED!</b>) </span> -->
+                      </div>
                       <div class="card-body">
                         <div class="row">
                           <div class="col-lg-6">
-                                <div class="form-group">
-                                    <div class="col-lg-6">
-                                      <label>Payment Amount:</label>
-                                    </div>
-                                    <div class="col-lg-6">
-                                      <input type="text" placeholder="{{partner.amnt}}" formControlName="amnt">
-                                    </div>
+                            <div class="form-group">
+                                <div class="col-lg-6">
+                                  <label>Payment Amount:</label>
                                 </div>
+                                <div class="col-lg-6">
+                                  <input type="text" placeholder="{{partner.amnt}}" formControlName="amnt">
+                                </div>
+                            </div>
                           </div>
                           <div class="col-lg-6">
                             <div class="form-group">
