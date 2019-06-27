@@ -19,6 +19,7 @@ mongoose.connect('mongodb://localhost:27017/idbp',{useNewUrlParser: true},(err,d
 var app = express();
 
 app.use(express.static(path.join(__dirname,'..','dist','idbp')));
+app.use(express.static(path.join(__dirname,'routes','docs')));
 app.use(session({secret : 'bankConnectSecret',saveUninitialized: true,resave: true}));
 
 app.use((req,res,next)=>{

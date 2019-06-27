@@ -340,17 +340,17 @@ export class BmprofileComponent implements OnInit {
   }
 
   view_docs(email,org){
-    var setdocobj = {
-      email : email
+    //this.router.navigateByUrl(`/docs/${email}/${org}`);
+    var myObj = {
+      email : email,
+      org : org
     }
+    this.signservice.setDocs(myObj)
+    .subscribe((data)=>{
+      console.log(data);
+    },(err)=>console.log(err));
 
-    this.signservice.setDocs(setdocobj)
-      .subscribe((data)=>{
-        console.log(data);
-        this.router.navigateByUrl(`/docs/${email}/${org}`);
-      },(err)=>console.log(err));
-
-    this.router.navigateByUrl(`/docs/${email}/${org}`);
+    window.location.href=`http://idbpportal.bank.com:3000/route/showDocs/${email}/${org}`;
   }
 
   onRulesSubmit(email, org) {

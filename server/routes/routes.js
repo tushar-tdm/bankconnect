@@ -798,15 +798,16 @@ routes.route('/setDocs')
     var email = req.body.email;
     console.log("user is :"+email);
 
-    file.find({email: email},(err,doc)=>{
-      for(i=0;i<doc.length;++i){
-        var file = doc[i].file;
-        //console.log("document of :"+doc[i].email);
+    var date = new Date();
+    var cts = date.getTime();
 
+    file.find({email: email},(err,doc)=>{
+      
+      for(i=0;i<doc.length;++i){
         if(i == 0)
-          var fpath = path.join(__dirname,'..','..','src','assets','docs','pan.jpg');
+          var fpath = path.join(__dirname,'docs',`pan.jpg`);
         if(i == 1)
-          var fpath = path.join(__dirname,'..','..','src','assets','docs','aadhaar.jpg');
+          var fpath = path.join(__dirname,'docs',`aadhaar.jpg`);
 
         console.log("the path is :"+fpath);
 
@@ -814,11 +815,16 @@ routes.route('/setDocs')
       }
     });
 
-    var myObj = {
-        path1 : '../../assets/docs/aadhaar.jpg',
-        path2 : '../../assets/docs/pan.jpg'
-    }
-    res.json(myObj);
+
+    res.json("files set");
+})
+
+routes.route('/showDocs/:email/:org')
+.get((req,res)=>{
+    var sess  = req.session;
+    sess.docemail = req.params.email;
+    sess.docorg = req.params.org;
+    res.sendFile(path.join(__dirname,'docs','docs.html'));  
 })
 
 routes.route('/revoke')
