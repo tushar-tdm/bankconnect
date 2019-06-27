@@ -315,11 +315,11 @@ export class BmprofileComponent implements OnInit {
       this.signservice.pendingReq(myObj)
       .subscribe((data)=>{ console.log(data);}
       ,(err)=> console.log(err));
-
-      this.router.navigateByUrl('/refresh', { skipLocationChange: true}).then(() => {
-        this.router.navigate([decodeURI(this.location.path())]);
-      });
     }
+
+    this.router.navigateByUrl('/refresh', { skipLocationChange: true}).then(() => {
+      this.router.navigate([decodeURI(this.location.path())]);
+    });
     
   }
 

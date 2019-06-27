@@ -5,6 +5,21 @@ var busboy = require('connect-busboy');
 var Busboy = require('busboy');
 var bodyParser = require('body-parser');
 var nodemailer = require('nodemailer');
+var fs = require('fs');
+var handlebars = require('handlebars');
+
+// to read html file
+var readHTMLFile = function(path, callback) {
+	fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
+		if (err) {
+			throw err;
+			callback(err);
+		}
+		else {
+			callback(null, html);
+		}
+	});
+  };
 
 var partner = require('../models/partnermodel');
 var docs = require('../models/docs');
@@ -54,7 +69,7 @@ files.route('/acceptdoc')
 		var sub = "IDBP Partner Portal";
 		var bankname = `${sess.bank}`
 		var msg = `<p> Hello partner! your request to register an interest for API's has been <b>ACCEPTED</b> by ${sess.bank}. Please click on the link below to upload documents and continue with us.</p>`;
-		var pemail = partneremail;
+		var pemail = sess.docemail;
 		sendRequestMailAccept(pemail, sub, bankname, msg);
 
 		res.redirect('/profile');
@@ -86,11 +101,11 @@ function sendRequestMailAccept(email, sub, bankname, msg) {
 		}
 	});
 
-	readHTMLFile(path.join(__dirname, '../views/idbp-partner-final-onboard.html'), function (err, html) {
+	readHTMLFile(path.join(__dirname, '../views/idbppartner-final-onboard-msg.html'), function (err, html) {
 		var template = handlebars.compile(html);
 		var replacements = {
 			bankname: `${bankname}`,
-			link: `${link}`
+			link: `${msg}`
 		}
 		var htmlToSend = template(replacements);
 		var mailOptions = {

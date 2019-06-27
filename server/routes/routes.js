@@ -667,7 +667,7 @@ routes.route('/pendingReq')
 .get((req,res)=>{
     request.find({},(err,doc)=>{
         var req = [];
-        for(i=0;i<doc.length;++i){
+        for(var i=0;i<doc.length;++i){
             req.push(doc[i]);
         }
         res.json(req);
@@ -720,6 +720,7 @@ routes.route('/pendingReq')
 
 routes.route('/pendingReqClient')
 .post(urlencodedParser,(req,res)=>{
+    console.log("client has sent a request");
     var newreq = new request({
         org : req.body.org,
         email : req.body.email,
@@ -757,19 +758,6 @@ routes.route('/setPartner')
 
 })
 
-routes.route('/sendInterest')
-.post(urlencodedParser,(req,res)=>{
-    console.log("request recived:"+req.body.org+req.body.email);
-    var newreq = new request({
-        org : req.body.org,
-        email : req.body.email,
-        via : "partner"
-    });
-    newreq.save();
-
-    res.json("interest added");
-})
-
 var store = multer.diskStorage({
     destination:function(req,res,cb){
         cb(null,'./uploads');
@@ -802,8 +790,8 @@ routes.route('/setDocs')
     var cts = date.getTime();
 
     file.find({email: email},(err,doc)=>{
-      
-      for(i=0;i<doc.length;++i){
+      console.log(doc.length);
+      for(var i=0;i<doc.length;++i){
         if(i == 0)
           var fpath = path.join(__dirname,'docs',`pan.jpg`);
         if(i == 1)

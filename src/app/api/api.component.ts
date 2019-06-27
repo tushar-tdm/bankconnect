@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn, Validators } from '@angular/forms';
-import { SignupServiceService} from '../services/signup-service.service';
+import { SignupServiceService } from '../services/signup-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 export interface API {
@@ -21,34 +21,36 @@ export class ApiComponent implements OnInit {
   apiselected = [];
   noapierror: boolean = true;
 
-  constructor(private formBuilder: FormBuilder, private signservice : SignupServiceService, private router: Router,private route: ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder, private signservice: SignupServiceService, private router: Router, private route: ActivatedRoute) {
     this.apilist = this.route.snapshot.data['apiList'];
   }
 
-  ngOnInit()
-  {
-      this.apiservicesform = this.formBuilder.group({
-        apis : this.addApisControls(),
-        environment : ['',[Validators.required, Validators]],
-      });
+  ngOnInit() {
+    this.apiservicesform = this.formBuilder.group({
+      apis: this.addApisControls(),
+      environment: ['', [Validators.required, Validators]],
+    });
   }
 
-  addApisControls(){
-    var arr = this.apilist.map(element =>{
+  //this is to get the total number of form builder wrt to the elements in the list
+  addApisControls() {
+    var arr = this.apilist.map(element => {
       return this.formBuilder.control(false);
     });
 
     return this.formBuilder.array(arr);
   }
 
-  get apilistArray(){
+  //this is to get the selected api's (or all the apis from the form builder as formcontrol)
+  get apilistArray() {
     return <FormArray>this.apiservicesform.get('apis')
   }
 
-  getapiselected(){
+  //this is called everytime a chcekbox is selected or unselected and the list is updated
+  getapiselected() {
     this.apiselected = [];
-    this.apilistArray.controls.forEach((control, i)=>{
-      if(control.value){
+    this.apilistArray.controls.forEach((control, i) => {
+      if (control.value) {
         this.apiselected.push(this.apilist[i]);
       }
     });
@@ -58,43 +60,27 @@ export class ApiComponent implements OnInit {
     var newItem = this.apiselected;
     var apivalue = [];
 
-    for(let item of newItem){
+    for (let item of newItem) {
       var lowerItem = item.toLowerCase().replace(/\s/g, "");;
       console.log(lowerItem);
       apivalue.push(lowerItem);
     }
 
-    console.log("api value: "+apivalue);
+    console.log("api value: " + apivalue);
     var obj = {
-      apis : newItem,
-      value : apivalue,
-      env : this.apiservicesform.controls.environment.value,
+      apis: newItem,
+      value: apivalue,
+      env: this.apiservicesform.controls.environment.value,
     }
 
-    // ==================== POSTING IN PARTNER WEB APP ========================
-    this.signservice.getBank()
-    .subscribe((data)=>{
-      var partnerObj = {
-        apis : newItem,
-          value : apivalue,
-          bank : data
-      }
-      console.log("bank is: "+data);
-
-      // this.signservice.postInPartner(partnerObj)
-      // .subscribe((data)=>{
-      //   console.log(data);
-      // },(err)=> console.log(err));
-    })
-
     this.signservice.postApis(obj)
-     .subscribe((data)=>{
-      this.router.navigateByUrl('/dashboard');
-    },(err)=>{ console.log(err); })
+      .subscribe((data) => {
+        this.router.navigateByUrl('/dashboard');
+      }, (err) => { console.log(err); })
 
   }
 
-  shownext(){
+  shownext() {
     (document.querySelector('.bankstandard') as HTMLElement).style.display = 'block';
   }
 }
