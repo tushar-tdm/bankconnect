@@ -361,26 +361,13 @@ routes.route('/api/selected')
                         //only 1 document will be returned.
                         //directly get the api_list
                         var selected_api = doc[0].api_list;
-                        var myObj = {
-                            apis: selected_api,
-                            valid: 1
-                        }
-                        res.json(myObj);
+                        res.json(selected_api);
                     });
                 } else {
-                    //send an empty list of apis
-                    var myObj = {
-                        apis: '',
-                        valid: 1
-                    }
                     res.json(global.apis);
                 }
             })
         } else {
-            var myObj = {
-                apis: '',
-                valid: 0
-            }
             res.json(0);
         }
 
