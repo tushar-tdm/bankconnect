@@ -366,6 +366,7 @@ routes.route('/api/selected')
                             valid: 1
                         }
                         res.json(myObj);
+                        
                     });
                 } else {
                     //send an empty list of apis
@@ -810,9 +811,15 @@ routes.route('/setDocs')
 routes.route('/showDocs/:email/:org')
     .get((req, res) => {
         var sess = req.session;
-        sess.docemail = req.params.email;
-        sess.docorg = req.params.org;
-        res.sendFile(path.join(__dirname, 'docs', 'docs.html'));
+        
+        if(sess.email){
+            sess.docemail = req.params.email;
+            sess.docorg = req.params.org;
+            res.sendFile(path.join(__dirname, 'docs', 'docs.html'));
+        }else{
+            res.redirect('/login');
+        }
+        
     })
 
 routes.route('/revoke')
