@@ -361,16 +361,7 @@ routes.route('/api/selected')
                         //only 1 document will be returned.
                         //directly get the api_list
                         var selected_api = doc[0].api_list;
-<<<<<<< HEAD
                         res.json(selected_api);
-=======
-                        var myObj = {
-                            apis: selected_api,
-                            valid: 1
-                        }
-                        res.json(myObj);
-                        
->>>>>>> 0608b38eef5bfe895194da4d6fe273f505f5ce28
                     });
                 } else {
                     res.json(global.apis);
@@ -806,7 +797,7 @@ routes.route('/setDocs')
 routes.route('/showDocs/:email/:org')
     .get((req, res) => {
         var sess = req.session;
-        
+
         if(sess.email){
             sess.docemail = req.params.email;
             sess.docorg = req.params.org;
@@ -814,7 +805,7 @@ routes.route('/showDocs/:email/:org')
         }else{
             res.redirect('/login');
         }
-        
+
     })
 
 routes.route('/revoke')
