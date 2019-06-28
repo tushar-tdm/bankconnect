@@ -55,7 +55,8 @@ files.route('/acceptdoc')
 			mid: "default",
 			appid: "default",
 			cid: "default",
-			active: true
+			active: true,
+			subapis: null
 		});
 
 		newpartner.save();
