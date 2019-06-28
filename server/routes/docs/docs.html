@@ -1,23 +1,53 @@
 <html>
-    <head>
-        <title> DOCUMENTS </title>
-        <style>
-            img{
-                width: 550px;
-                height: 400px;
-            }
-        </style>
-    </head>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title> DOCUMENTS </title>
+    <style>
+        .images{
+            margin-top:40px;
+        }
+
+        img {
+            width: 500px;
+            height: 400px;
+            /* overflow: hidden; */
+        }
+
+        button{
+            margin-top: 30px;
+        }
+    </style>
+
+</head>
+
 </html>
 
-<a href="#" download> <img src="http://idbppartner.bank.com:3000/aadhaar.jpg"> </a>
-<br>
-<a href="#" download> <img src="http://idbppartner.bank.com:3000/pan.jpg"> </a>
+<div class="container">
+    <div class="row images">
+        <div class="col-lg-5">
+            <h4> AADHAAR CARD</h4>
+            <a href="" class="first" download="aadhaar.jpg"> <img src="http://idbppartner.bank.com:3000/aadhaar.jpg"> </a>
+        </div>
+        <div class="col-lg-5 offset-lg-2">
+            <h4> PAN CARD</h4>
+            <a href="" download="pan.jpg"> <img src="http://idbppartner.bank.com:3000/pan.jpg"> </a>
+        </div>
+    </div>
+</div>
 
-<form action="/files/acceptdoc" method="POST">
-    <button type="submit"> ACCEPT</button>
-</form>
-<form action="/files/declinedoc" method="POST">
-    <button type="submit"> DECLINE</button>
-</form>
-<br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 offset-lg-3">
+            <form action="/files/acceptdoc" method="POST">
+                <button class="btn btn-success" type="submit"> ACCEPT</button>
+            </form>
+        </div>
+        <div class="col-lg-3">
+            <form action="/files/declinedoc" method="POST">
+                <button class="btn btn-danger" type="submit"> DECLINE</button>
+            </form>
+        </div>
+    </div>
+</div>
