@@ -855,17 +855,20 @@ routes.route('/addSubscribeApi')
         var bank = req.body.bank;
 
         partner.find({ email: req.body.email }, (err, doc) => {
+          console.log("email at 858: "+req.body.email);
             var oldapis = [];
-            oldapis = doc[0].subapis;
+
+            if(doc[0].subapis != null)
+                oldapis = doc[0].subapis;
+
             oldapis.push(api);
 
-            partner.findOneAndUpdate({ email: sess.email }, { $set: { subapis: oldapis } }, { new: true }, (err, doc) => {
+            partner.findOneAndUpdate({ email: req.body.email }, { $set: { subapis: oldapis } }, { new: true }, (err, doc) => {
                 // the api list is updated
                 if (err) console.log(err);
             });
         });
 
-        partner.findOneAndUpdate({ email: req.body.email }, { $set: {} })
     })
 
 // ***********************************************************************************
