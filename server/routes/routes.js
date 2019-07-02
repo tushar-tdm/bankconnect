@@ -30,6 +30,7 @@ var request = require('../models/requestmodel');
 var partner = require('../models/partnermodel');
 var file = require('../models/filemodel');
 var pendingDoc = require('../models/docs');
+var transaction = require('../models/transaction');
 
 var routes = express.Router();
 
@@ -869,7 +870,29 @@ routes.route('/addSubscribeApi')
             });
         });
 
+        //partner.findOneAndUpdate({ email: req.body.email }, { $set: {} })
     })
+
+
+routes.route('/getTransactions')
+.get((req,res)=>{
+    var sess = req.session;
+
+    if(sess.email){
+        transaction.find({},(err,doc)=>{
+            if(doc.length){
+                var transactions = [];
+                for(var i=0;i<doc.length;++i)
+                    transactions.push(doc[i]);
+                res.json(transactions);
+            }
+            else
+                res.json(0);
+        })
+    }else{
+        res.redirect('/login');
+    }
+})
 
 // ***********************************************************************************
 
