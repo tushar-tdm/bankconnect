@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 const transaction = mongoose.Schema({
     org : String,
     hits : Number,
-    success : Number,
+    sucess : Number,
     fail : Number,
     bank : String
 })

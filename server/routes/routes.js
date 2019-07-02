@@ -878,20 +878,24 @@ routes.route('/getTransactions')
 .get((req,res)=>{
     var sess = req.session;
 
-    if(sess.email){
+    console.log("came to getTransactions");
+
         transaction.find({},(err,doc)=>{
+          console.log(doc.length);
             if(doc.length){
-                var transactions = [];
+                var t = [];
                 for(var i=0;i<doc.length;++i)
-                    transactions.push(doc[i]);
-                res.json(transactions);
+                    t.push(doc[i]);
+
+                var myObj = {
+                  transactions: t
+                }
+                console.log(t);
+                res.json(myObj);
             }
             else
                 res.json(0);
         })
-    }else{
-        res.redirect('/login');
-    }
 })
 
 // ***********************************************************************************
