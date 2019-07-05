@@ -708,6 +708,19 @@ routes.route('/pendingReq')
 routes.route('/pendingReqClient')
     .post(urlencodedParser, (req, res) => {
         console.log("client has sent a request");
+        //check whether he has already been onboarded or not
+        //he should not be in req as well as partners
+
+        partner.find({org: req.body.org, email: req.body.email},(err,doc)=>{
+            if(doc.length)
+                res.json("partner already onboarded");
+        })
+
+        request.find({org: req.body.org, email: req.body.email},(err,doc)=>{
+            if(doc.length)
+                res.json("request pending");
+        })
+
         var newreq = new request({
             org: req.body.org,
             email: req.body.email,
@@ -858,7 +871,11 @@ routes.route('/addSubscribeApi')
         partner.find({ email: req.body.email }, (err, doc) => {
           console.log("email at 858: "+req.body.email);
             var oldapis = [];
-
+            for(var i=0;i<doc[0].subapis.length;++i){
+                if(api == doc[0].subapis[i]){
+                  res.json("api has already been subscribed");
+                }
+            }
             if(doc[0].subapis != null)
                 oldapis = doc[0].subapis;
 
@@ -881,7 +898,7 @@ routes.route('/getTransactions')
     console.log("came to getTransactions");
 
         transaction.find({},(err,doc)=>{
-          console.log(doc.length);
+          //console.log(doc.length);
             if(doc.length){
                 var t = [];
                 for(var i=0;i<doc.length;++i)
@@ -890,7 +907,7 @@ routes.route('/getTransactions')
                 var myObj = {
                   transactions: t
                 }
-                console.log(t);
+                //console.log(t);
                 res.json(myObj);
             }
             else
