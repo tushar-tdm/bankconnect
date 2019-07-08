@@ -182,11 +182,13 @@ routes.route('/loginconfirm')
 
 routes.route('/confirm/:ts/:id')
     .get((req, res) => {
+        var sess = req.session;
 
         adminmodel.find({ ts: req.params.ts }, (err, doc) => {
             if (req.params.ts == doc[0].ts) {
                 adminmodel.findOneAndUpdate({ ts: req.params.ts }, { $set: { confirmation: true } }, { new: true }, (err, doc) => {
                 });
+                sess.email = req.params.id;
                 res.redirect('/dashboard'); //dashboard
             }
             else {
@@ -706,30 +708,32 @@ routes.route('/pendingReq')
     })
 
 routes.route('/pendingReqClient')
-    .post(urlencodedParser, (req, res) => {
-        console.log("client has sent a request");
-        //check whether he has already been onboarded or not
-        //he should not be in req as well as partners
+  .post(urlencodedParser, (req, res) => {
+    console.log("client has sent a request");
+    //check whether he has already been onboarded or not
+    //he should not be in req as well as partners
 
-        partner.find({org: req.body.org, email: req.body.email},(err,doc)=>{
-            if(doc.length)
-                res.json("partner already onboarded");
+    partner.find({ org: req.body.org, email: req.body.email }, (err, doc) => {
+      if (doc.length) {
+        res.json("partner already onboarded");
+      } else {
+        request.find({ org: req.body.org, email: req.body.email }, (err, doc) => {
+          if (doc.length) {
+            res.json("request pending");
+          } else {
+            var newreq = new request({
+              org: req.body.org,
+              email: req.body.email,
+              via: "client"
+            });
+
+            newreq.save();
+            res.json("request received");
+          }
         })
-
-        request.find({org: req.body.org, email: req.body.email},(err,doc)=>{
-            if(doc.length)
-                res.json("request pending");
-        })
-
-        var newreq = new request({
-            org: req.body.org,
-            email: req.body.email,
-            via: "client"
-        });
-
-        newreq.save();
-        res.json("request recieved");
+      }
     })
+  })
 
 routes.route('/setPartner')
     .post(urlencodedParser, (req, res) => {
@@ -870,21 +874,46 @@ routes.route('/addSubscribeApi')
 
         partner.find({ email: req.body.email }, (err, doc) => {
           console.log("email at 858: "+req.body.email);
+          if(doc.length == 0){
+            res.json("Invalid partner");
+          }else{
             var oldapis = [];
-            for(var i=0;i<doc[0].subapis.length;++i){
-                if(api == doc[0].subapis[i]){
-                  res.json("api has already been subscribed");
+            if(doc[0].subapis.length == 0){
+              oldapis.push(api);
+
+              partner.findOneAndUpdate({ email: req.body.email }, { $set: { subapis: oldapis } }, { new: true }, (err, doc) => {
+                  // the api list is updated
+                  if (err) console.log(err);
+              });
+
+              res.json("API subscribed successfully!");
+
+            } else{
+              for(var i=0;i<doc[0].subapis.length;++i){
+                if(api == doc[0].apis[i]){
+                  break;
                 }
-            }
-            if(doc[0].subapis != null)
+              }
+              console.log(i);
+              if(i != doc[0].subapis.length){
+                //already exists
+                res.json("API already subscribed!");
+              } else{
+                var oldapis = [];
                 oldapis = doc[0].subapis;
+                oldapis.push(api);
 
-            oldapis.push(api);
+                partner.findOneAndUpdate({ email: req.body.email }, { $set: { subapis: oldapis } }, { new: true }, (err, doc) => {
+                  // the api list is updated
+                  if(err) console.log(err);
+                });
+                res.json("API subscribed successfully!");
+              }
+            }
+          }
 
-            partner.findOneAndUpdate({ email: req.body.email }, { $set: { subapis: oldapis } }, { new: true }, (err, doc) => {
-                // the api list is updated
-                if (err) console.log(err);
-            });
+
+
         });
 
         //partner.findOneAndUpdate({ email: req.body.email }, { $set: {} })
