@@ -670,6 +670,7 @@ routes.route('/pendingReq')
         var partneremail = req.body.email;
         var sess = req.session;
 
+        console.log(state);
         if (state) {
             //send mail saying that the req has been granted. and add him to partners
             request.find({ org: name }, (err, doc) => {
@@ -734,6 +735,18 @@ routes.route('/pendingReqClient')
       }
     })
   })
+
+routes.route('/sendInterest')
+.post(urlencodedParser,(req,res)=>{
+  var sess = req.session;
+  var newreq = new request({
+    org : req.body.org,
+    email : req.body.email,
+    via : "partner"
+  });
+  newreq.save();
+  res.json("request recieved from partner");
+})
 
 routes.route('/setPartner')
     .post(urlencodedParser, (req, res) => {
